@@ -1,3 +1,11 @@
 from django.db import models
 
-# Create your models here.
+class Curso(models.Model):
+    
+    Nome = models.CharField(max_length=1000)
+    Descrição = models.TextField()
+    Numero_alunos=models.IntegerField()
+    Numero_Professores=models.IntegerField()
+    
+    def __str__(self):
+        return self.Nome
