@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Login</h1>
+        <h3>O adm master será cadastrado diretamente no DB. Ele criará outras contas por meio de uma interface no painel de adm.</h3>
+    </header>
+<main>
+
+    {% if messages %}
+        <ul style="color: red;">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
+    <form method="POST">
+        {% csrf_token %}
+        <br>
+        <label for="campo_email">E-mail:</label>
+        <input type="email"  name="email" id="campo_email" placeholder="Digite seu E-mail">
+        <br>
+        <label for="campo_senha">Senha:</label>
+        <input type="password"  name="senha" id="campo_senha" placeholder="Digite sua senha">
+        <br>
+        <br>    
+        <button type="submit">Enviar</button>
+        <br>
+        <a href="{% url 'inicio' %}">Inicio</a>
+    </form>
+</main>
+</body>
+</html>
