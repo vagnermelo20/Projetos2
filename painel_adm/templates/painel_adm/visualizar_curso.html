@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if cursos %}
+            {% for curso in cursos %}
+            <div>
+                <p><strong>Nome do curso</strong> {{ curso.Nome }}</p>
+                <p><strong>Descrição</strong> {{ curso.Descrição }}</p>
+                <p><strong>Número de alunos</strong> {{ curso.Numero_alunos }}</p>
+                <p><strong>Número de professores</strong> {{ curso.Numero_professores }}</p>
+                <a href="{% url 'editar_curso'  curso.id %}">Editar</a> | 
+                <form method="POST" action="{% url 'deletar_curso' curso.id %}" 
+                      onsubmit="return confirm('Você tem certeza que deseja deletar este curso?');">
+                    {% csrf_token %}
+                    <button type="submit">Deletar</button>
+                </form>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>Você não tem nenhum curso ativo no momento</p>
+        {% endif %}
+</body>
+</html>
