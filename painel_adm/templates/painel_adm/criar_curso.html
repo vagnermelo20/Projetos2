@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Criar curso</h1>
+        <h3>Aqui é onde o adm criará cursos</h3>
+    </header>
+<main>
+
+    {% if messages %}
+        <ul style="color: red;">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
+    <form method="POST">
+        {% csrf_token %}
+        <br>
+        <label for="campo_nome">E-mail:</label>
+        <input type="text"  name="nome_curso" id="campo_nome" placeholder="Digite o nome do curso">
+        <br>
+        <label for="campo_descricao">Descrição:</label>
+        <input type="text"  name="descricao" id="campo_descricao" placeholder="Digite uma descrição para curso">
+        <br>
+        <label for="campo_n_alunos">Número de alunos:</label>
+        <input type="text"  name="n_alunos" id="campo_n_alunos" placeholder="Digite a quantidade de alunos para o curso">
+        <br>
+        <label for="campo_n_professors">Número de professores:</label>
+        <input type="text"  name="n_professores" id="campo_n_professores" placeholder="Digite a quantidade de professores para o curso">
+        <br>
+        <br>    
+        <button type="submit">Enviar</button>
+        <br>
+        <a href="{% url 'inicio' %}">Inicio</a>
+    </form>
+</main>
+</body>
+</html>
