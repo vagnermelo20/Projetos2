@@ -15,23 +15,28 @@ class AlunoRegistro(models.Model):
     Bairro = models.CharField(max_length=100, null=True, blank=True)
     
     EDUCACAO_ESCOLHA = [
-        'Fundamental Incompleto','Fundamental Completo',
-        'Médio Incompleto', 'Médio Completo',
-        'Superior Incompleto', 'Superior Completo'
+        ('Fundamental Incompleto', 'Fundamental Incompleto'),
+        ('Fundamental Completo', 'Fundamental Completo'),
+        ('Médio Incompleto', 'Médio Incompleto'),
+        ('Médio Completo', 'Médio Completo'),
+        ('Superior Incompleto', 'Superior Incompleto'),
+        ('Superior Completo', 'Superior Completo'),
     ]
     Educacao = models.CharField(max_length=20, choices=EDUCACAO_ESCOLHA, null=True, blank=True)
     
     PERIODO_ESCOLHA = [
-        'Manhã','Tarde','Noite','integral'
+        ('Manhã','Manhã')('Tarde','Tarde'),('Noite','Noite'),('Integral','Integral')
     ]
     Periodo_estudo = models.CharField(max_length=20, choices=PERIODO_ESCOLHA, null=True, blank=True)
     
     Curso_desejado = models.CharField(max_length=255, null=True, blank=True)
     
+    ESCOLHA_STATUS=[('Pendente','Pendente'),('Aprovado','Aprovado'),('Rejeitado','Rejeitado')]
+    
     status = models.CharField(
         max_length=20,
-        choices=[('pendente', 'Pendente'), ('aprovado', 'Aprovado'), ('rejeitado', 'Rejeitado')],
-        default='pendente'
+        choices=ESCOLHA_STATUS,
+        default='Pendente'
     )
     criado_a = models.DateTimeField(auto_now_add=True)
     
