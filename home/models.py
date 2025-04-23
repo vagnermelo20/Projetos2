@@ -22,7 +22,7 @@ class AlunoRegistro(models.Model):
         ('Superior Incompleto', 'Superior Incompleto'),
         ('Superior Completo', 'Superior Completo'),
     ]
-    Educacao = models.CharField(max_length=20, choices=EDUCACAO_ESCOLHA, null=True, blank=True)
+    Educacao = models.CharField(max_length=23, choices=EDUCACAO_ESCOLHA, null=True, blank=True)
     
     PERIODO_ESCOLHA = [
         ('Manhã','Manhã'),('Tarde','Tarde'),('Noite','Noite'),('Integral','Integral')
