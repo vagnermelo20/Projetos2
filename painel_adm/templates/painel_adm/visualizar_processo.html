@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if selecao %}
+            {% for processo in selecao %}
+            <div>
+                <p><strong>Nome do curso</strong> {{ processo.curso_para_processo }}</p>
+                <p><strong>Data do ínicio</strong> {{ processo.data_inicio }}</p>
+                <p><strong>Data do fim</strong> {{ processo.data_fim }}</p>
+                <a href="{% url 'editar_processo' processo.id %}">Editar</a> | 
+                <form method="POST" action="{% url 'deletar_processo' objetivo.id %}" 
+                      onsubmit="return confirm('Você tem certeza que deseja deletar este processo?');">
+                    {% csrf_token %}
+                    <button type="submit">Deletar</button>
+                </form>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>Você não tem nenhum processo seletivo no momento</p>
+        {% endif %}
+</body>
+</html>
