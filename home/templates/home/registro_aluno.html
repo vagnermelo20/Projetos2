@@ -3,70 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Registro</title>
+    <style>
+        body {
+            margin: 0;
+            background: #ede8db;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background: #338fa3;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .menu-icon span {
+            display: block;
+            width: 24px;
+            height: 4px;
+            background: #fff;
+            margin: 4px 0;
+            border-radius: 2px;
+        }
+        .registro-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            margin-left: auto;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto 0 auto;
+            padding: 0 16px;
+        }
+        .voltar-btn {
+            background: #286978;
+            color: #fff;
+            border: none;
+            border-radius: 2px;
+            padding: 18px 0 18px 16px;
+            font-size: 16px;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 24px;
+            cursor: pointer;
+            display: block;
+        }
+        .registro-box {
+            background: #286978;
+            border-radius: 2px;
+            padding: 32px 0 32px 0;
+        }
+        .registro-title {
+            color: #fff;
+            margin-left: 60px;
+            margin-bottom: 24px;
+            font-size: 18px;
+        }
+        .form-group {
+            margin-bottom: 24px;
+            margin-left: 60px;
+            margin-right: 60px;
+        }
+        label {
+            color: #fff;
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 2px;
+            background: #7ed6f0;
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+        button[type="submit"] {
+            margin-left: 60px;
+            margin-top: 8px;
+            padding: 14px 32px;
+            background: #338fa3;
+            color: #fff;
+            border: none;
+            border-radius: 2px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .messages {
+            color: #ffbaba;
+            background: #790000;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 16px 60px;
+        }
+        .inicio-link {
+            margin-left: 60px;
+            margin-top: 16px;
+            display: inline-block;
+            color: #338fa3;
+            background: #fff;
+            border-radius: 8px;
+            padding: 10px 24px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        @media (max-width: 700px) {
+            .container, .registro-box, .form-group, .registro-title, button[type="submit"], .messages, .inicio-link {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>REGISTRO</h1>
-        <h3>Aqui o aluno irá registrar-se no processo seletivo</h3>
-    </header>
-<main>
-
-    {% if messages %}
-        <ul style="color: red;">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-
-    <form method="POST">
-        {% csrf_token %}
-        <br>
-        <label for="campo_nome">Nome:</label>
-        <input type="text"  name="nome" id="campo_nome" placeholder="Digite seu Nome">
-        <br>
-        <br>
-        <label for="campo_telefone">Telefone:</label>
-        <input type="text"  name="telefone" id="campo_telefone" placeholder="Digite seu telefone">
-        <br>
-        <br>   
-        <label for="campo_idade">Idade:</label>
-        <input type="text"  name="idade" id="campo_idade" placeholder="Digite sua idade"> 
-        <br>
-        <br>
-        <label for="campo_bairro">Bairro:</label>
-        <input type="text"  name="bairro" id="campo_bairro" placeholder="Digite seu bairro">
-        <br>
-        <br>
-        <label for="campo_educacao">Nível educacional:</label>
-        <select name="educacao" id="campo_educacao">
-            <option value="Fundamental Incompleto" {% if educacao == 'Fundamental Incompleto' %}selected{% endif %}>Fundamental incompleto</option>
-            <option value="Fundamental completo" {% if educacao == 'Fundamental completo' %}selected{% endif %}>Fundamental completo</option>
-            <option value="Médio Incompleto" {% if educacao == 'Médio Incompleto' %}selected{% endif %}>Médio Incompleto</option>
-            <option value="Médio Completo" {% if educacao == 'Médio Completo' %}selected{% endif %}>Médio Completo</option>
-            <option value="Superior Incompleto" {% if educacao == 'Superior Incompleto' %}selected{% endif %}>Superior Incompleto</option>
-            <option value="Superior Completo" {% if educacao == 'Superior Completo' %}selected{% endif %}>Superior Completo</option>
-        </select>  
-        <br>
-        <br>
-        <label for="campo_periodo_estudo">Período de estudo:</label>
-        <select name="periodo_estudo" id="campo_periodo_estudo">
-            <option value="Não Estudo" {% if periodo_estudo == 'Não estudo' %}selected{% endif %}>Não estudo</option>
-            <option value="Manhã" {% if periodo_estudo == 'Manhã' %}selected{% endif %}>Manhã</option>
-            <option value="Tarde" {% if periodo_estudo == 'Tarde' %}selected{% endif %}>Tarde</option>
-            <option value="Noite" {% if periodo_estudo == 'Noite' %}selected{% endif %}>Noite</option>
-            <option value="Integral" {% if periodo_estudo == 'Integral' %}selected{% endif %}>Integral</option>
-        </select>  
-        <br>
-        <br>
-        <label for="campo_curso">Curso:</label>
-        <input type="text"  name="Curso" id="campo_curso" placeholder="Digite seu curso">
-        <br>
-        <button type="submit">Enviar</button>
-        <a href="{% url 'inicio' %}">Inicio</a>
-    </form>
-    
+    <div class="header">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <span class="registro-link">Registro</span>
+    </div>
+    <div class="container">
+        <a href="{% url 'inicio' %}" class="voltar-btn">Voltar</a>
+        <div class="registro-box">
+            <div class="registro-title">REGISTRO<br><span style="font-weight:normal;font-size:15px;">Aqui o aluno irá registrar-se no processo seletivo</span></div>
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div>{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="campo_nome">Nome:</label>
+                    <input type="text"  name="nome" id="campo_nome" placeholder="Digite seu Nome">
+                </div>
+                <div class="form-group">
+                    <label for="campo_telefone">Telefone:</label>
+                    <input type="text"  name="telefone" id="campo_telefone" placeholder="Digite seu telefone">
+                </div>
+                <div class="form-group">
+                    <label for="campo_idade">Idade:</label>
+                    <input type="text"  name="idade" id="campo_idade" placeholder="Digite sua idade">
+                </div>
+                <div class="form-group">
+                    <label for="campo_bairro">Bairro:</label>
+                    <input type="text"  name="bairro" id="campo_bairro" placeholder="Digite seu bairro">
+                </div>
+                <div class="form-group">
+                    <label for="campo_educacao">Nível educacional:</label>
+                    <select name="educacao" id="campo_educacao">
+                        <option value="Fundamental Incompleto" {% if educacao == 'Fundamental Incompleto' %}selected{% endif %}>Fundamental incompleto</option>
+                        <option value="Fundamental completo" {% if educacao == 'Fundamental completo' %}selected{% endif %}>Fundamental completo</option>
+                        <option value="Médio Incompleto" {% if educacao == 'Médio Incompleto' %}selected{% endif %}>Médio Incompleto</option>
+                        <option value="Médio Completo" {% if educacao == 'Médio Completo' %}selected{% endif %}>Médio Completo</option>
+                        <option value="Superior Incompleto" {% if educacao == 'Superior Incompleto' %}selected{% endif %}>Superior Incompleto</option>
+                        <option value="Superior Completo" {% if educacao == 'Superior Completo' %}selected{% endif %}>Superior Completo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="campo_periodo_estudo">Período de estudo:</label>
+                    <select name="periodo_estudo" id="campo_periodo_estudo">
+                        <option value="Não Estudo" {% if periodo_estudo == 'Não estudo' %}selected{% endif %}>Não estudo</option>
+                        <option value="Manhã" {% if periodo_estudo == 'Manhã' %}selected{% endif %}>Manhã</option>
+                        <option value="Tarde" {% if periodo_estudo == 'Tarde' %}selected{% endif %}>Tarde</option>
+                        <option value="Noite" {% if periodo_estudo == 'Noite' %}selected{% endif %}>Noite</option>
+                        <option value="Integral" {% if periodo_estudo == 'Integral' %}selected{% endif %}>Integral</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="campo_curso">Curso:</label>
+                    <input type="text"  name="Curso" id="campo_curso" placeholder="Digite seu curso">
+                </div>
+                <button type="submit">Enviar</button>
+                <a href="{% url 'inicio' %}" class="inicio-link">Inicio</a>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
