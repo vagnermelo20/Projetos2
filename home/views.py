@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
 from home.models import Usuario,AlunoRegistro
+from painel_adm.models import Curso
 from django.contrib.auth.hashers import make_password, check_password
 
 
@@ -92,13 +93,28 @@ class Registrar_aluno(View):
 
     def post(self,request):
     
-        nome = request.POST.get('name')
-        telefone= request.POST.get('phone_number')
-        idade = request.POST.get('age')
+        nome = request.POST.get('nome')
+        telefone= request.POST.get('telefone')
+        idade = request.POST.get('idade')
         bairro = request.POST.get('bairro')
-        educacao = request.POST.get('education')
-        periodo_estudo = request.POST.get('study_period')
-        curso_desejado = request.POST.get('desired_course')
+        educacao = request.POST.get('educacao')
+        periodo_estudo = request.POST.get('periodo_estudo')
+        curso_desejado = request.POST.get('curso_desejado')
+        if not Curso.objects.filter(Nome__iexact=curso_desejado).exists():
+            nomes = Curso.objects.values_list('Nome', flat=True)
+            messages.error(request,'Esse curso não é oferecido pelo instituto,os cursos oferecidos são: ')
+            for i in nomes:
+                messages.error(f'{i}') 
+            return render(request, 'home/registro_aluno.html', {
+            'nome': nome,
+            'telefone': telefone,
+            'idade':idade,
+            'bairro':bairro,
+            'educacao':educacao,
+            'periodo_estudo':periodo_estudo,
+            'curso_desejado':curso_desejado
+        })
+        
 
         if not nome or not telefone or not idade or not bairro or not educacao or not periodo_estudo or not curso_desejado:
             messages.error(request, 'Todos os campos são obrigatórios.')
