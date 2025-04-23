@@ -176,7 +176,6 @@ class CriarProcessoSeletivo(View):
         max_participantes= request.POST.get('max_participantes')  
         curso_para_processo= request.POST.get('curso_para_proceso')
         if not Curso.objects.filter(Nome__iexact=curso_para_processo).exists():
-            nomes = Curso.objects.values_list('cu', flat=True)
             messages.error(request,'Esse curso não existe') 
             return render(request, 'home/registro_aluno.html', {
             'data_inicio': data_inicio,
