@@ -104,7 +104,7 @@ class EditarCurso(View):
        
         usuario_id = request.session.get('usuario_id')
         if not usuario_id:
-            messages.error(request, "Você precisa estar logado para editar objetivos.")
+            messages.error(request, "Você precisa estar logado para editar cursos.")
             return redirect('logar')
 
         curso = get_object_or_404(Curso, id=curso_id)
@@ -119,7 +119,7 @@ class EditarCurso(View):
        
         usuario_id = request.session.get('usuario_id')
         if not usuario_id:
-            messages.error(request, "Você precisa estar logado para editar objetivos.")
+            messages.error(request, "Você precisa estar logado para editar cursis.")
             return redirect('logar')
 
         curso = get_object_or_404(Curso, id=curso_id)
@@ -210,3 +210,24 @@ class CriarProcessoSeletivo(View):
         )
 
         return redirect('visualizar_processo')
+    
+
+class VisualizarProcesso(View):
+    def get(self, request):
+        # Verificar se o usuário está logado
+        usuario_id = request.session.get('usuario_id')
+        if not usuario_id:
+            messages.error(request, "Você precisa estar logado para criar seu curso.")
+            return redirect('logar')
+
+       
+        processo_query = Selecao.objects.filter(usuario_id=usuario_id)
+        
+    
+        selecao = processo_query
+
+        context = {
+            'selecao': selecao,
+        }
+
+        return render(request, 'painel_adm/visualizar_processos.html', context)
