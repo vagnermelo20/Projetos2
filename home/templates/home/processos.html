@@ -10,6 +10,7 @@
     {% if processos %}
             {% for processo in processos %}
             <a href="{% url 'registro %}">{{ processo.curso_para_processo}}</a>
+            <br>
             {% endfor %}
         {% else %}
             <p>Não há processos seletivos</p>
