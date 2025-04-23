@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Login</h1>
+        <h3>Aqui é onde o adm criará processo seletivo</h3>
+    </header>
+<main>
+
+    {% if messages %}
+        <ul style="color: red;">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
+    <form method="POST">
+        {% csrf_token %}
+        <br>
+        <label for="campo_data_inicio">Data do ínicio do processo:</label>
+        <input type="date"  name="data_inico" id="campo_data_inicio">
+        <br>
+        <label for="campo_data_fim">Data do fim do processo seletivo:</label>
+        <input type="date"  name="data_fim" id="campo_data_fim">
+        <br>
+        <label for="campo_max_participantes">Número de participantes:</label>
+        <input type="text"  name="max_participantes" id="campo_max_participantes">
+        <br>
+        <label for="campo_curso_para_processo">Curso do processo seletivo:</label>
+        <input type="text"  name="curso_para_processo" id="campo_curso_para_processo" placeholder="Digite qual curso o processo seletivo vai se referir">
+        <br>    
+        <button type="submit">Enviar</button>
+        <br>
+        <a href="{% url 'inicio' %}">Inicio</a>
+    </form>
+</main>
+</body>
+</html>
