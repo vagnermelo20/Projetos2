@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>REGISTRO</h1>
+        <h3>Aqui o aluno irá registrar-se no processo seletivo</h3>
+    </header>
+<main>
+
+    {% if messages %}
+        <ul style="color: red;">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
+    <form method="POST">
+        {% csrf_token %}
+        <br>
+        <label for="campo_nome">Nome:</label>
+        <input type="text"  name="nome" id="campo_nome" placeholder="Digite seu Nome">
+        <br>
+        <br>
+        <label for="campo_telefone">Telefone:</label>
+        <input type="text"  name="telefone" id="campo_telefone" placeholder="Digite seu telefone">
+        <br>
+        <br>   
+        <label for="campo_idade">Idade:</label>
+        <input type="text"  name="idade" id="campo_idade" placeholder="Digite sua idade"> 
+        <br>
+        <br>
+        <label for="campo_bairro">Bairro:</label>
+        <input type="text"  name="bairro" id="campo_bairro" placeholder="Digite seu bairro">
+        <br>
+        <br>
+        <label for="campo_educacao">Nível educacional:</label>
+        <select name="educacao" id="campo_educacao">
+            <option value="Fundamental Incompleto" {% if educacao == 'Fundamental Incompleto' %}selected{% endif %}>Fundamental incompleto</option>
+            <option value="Fundamental completo" {% if educacao == 'Fundamental completo' %}selected{% endif %}>Fundamental completo</option>
+            <option value="Médio Incompleto" {% if educacao == 'Médio Incompleto' %}selected{% endif %}>Médio Incompleto</option>
+            <option value="Médio Completo" {% if educacao == 'Médio Completo' %}selected{% endif %}>Médio Completo</option>
+            <option value="Superior Incompleto" {% if educacao == 'Superior Incompleto' %}selected{% endif %}>Superior Incompleto</option>
+            <option value="Superior Completo" {% if educacao == 'Superior Completo' %}selected{% endif %}>Superior Completo</option>
+        </select>  
+        <br>
+        <br>
+        <label for="campo_periodo_estudo">Período de estudo:</label>
+        <select name="periodo_estudo" id="campo_periodo_estudo">
+            <option value="Não Estudo" {% if periodo_estudo == 'Não estudo' %}selected{% endif %}>Não estudo</option>
+            <option value="Manhã" {% if periodo_estudo == 'Manhã' %}selected{% endif %}>Manhã</option>
+            <option value="Tarde" {% if periodo_estudo == 'Tarde' %}selected{% endif %}>Tarde</option>
+            <option value="Noite" {% if periodo_estudo == 'Noite' %}selected{% endif %}>Noite</option>
+            <option value="Integral" {% if periodo_estudo == 'Integral' %}selected{% endif %}>Integral</option>
+        </select>  
+        <br>
+        <br>
+        <label for="campo_curso">Curso:</label>
+        <input type="text"  name="Curso" id="campo_curso" placeholder="Digite seu curso">
+        <br>
+        <button type="submit">Enviar</button>
+        <a href="{% url 'inicio' %}">Inicio</a>
+    </form>
+    
+</body>
+</html>
