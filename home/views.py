@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
 from home.models import Usuario,AlunoRegistro
-from painel_adm.models import Curso
+from painel_adm.models import Curso,Selecao
 from django.contrib.auth.hashers import make_password, check_password
 
 
@@ -99,24 +99,10 @@ class Registrar_aluno(View):
         bairro = request.POST.get('bairro')
         educacao = request.POST.get('educacao')
         periodo_estudo = request.POST.get('periodo_estudo')
-        curso_desejado = request.POST.get('curso_desejado')
-        if not Curso.objects.filter(Nome__iexact=curso_desejado).exists():
-            nomes = Curso.objects.values_list('Nome', flat=True)
-            messages.error(request,'Esse curso não é oferecido pelo instituto,os cursos oferecidos são: ')
-            for i in nomes:
-                messages.error(f'{i}') 
-            return render(request, 'home/registro_aluno.html', {
-            'nome': nome,
-            'telefone': telefone,
-            'idade':idade,
-            'bairro':bairro,
-            'educacao':educacao,
-            'periodo_estudo':periodo_estudo,
-            'curso_desejado':curso_desejado
-        })
+        
         
 
-        if not nome or not telefone or not idade or not bairro or not educacao or not periodo_estudo or not curso_desejado:
+        if not nome or not telefone or not idade or not bairro or not educacao or not periodo_estudo:
             messages.error(request, 'Todos os campos são obrigatórios.')
             return render(request, 'home/registro_aluno.html')
 
@@ -129,7 +115,6 @@ class Registrar_aluno(View):
             'bairro':bairro,
             'educacao':educacao,
             'periodo_estudo':periodo_estudo,
-            'curso_desejado':curso_desejado
         })
         elif AlunoRegistro.objects.filter(Telefone=telefone).exists():
             messages.error(request, 'Número já cadastrado. Insira outro número e tente novamente.')
@@ -140,7 +125,6 @@ class Registrar_aluno(View):
             'bairro':bairro,
             'educacao':educacao,
             'periodo_estudo':periodo_estudo,
-            'curso_desejado':curso_desejado
         })
         try:
             AlunoRegistro.objects.create(
@@ -150,10 +134,18 @@ class Registrar_aluno(View):
                 Bairro=bairro,
                 Educacao=educacao,
                 Periodo_estudo=periodo_estudo,
-                Curso_desejado=curso_desejado 
             )
             messages.success(request, 'O candidato foi registrado com sucesso!')
             return render(request,'home/home.html')
         except:
             messages.success(request, 'Erro no registro do candidato!')
             return render(request,'home/registro_aluno.html')
+        
+class ProcessoView(View):
+    def get(self, request):
+    
+        lista_processos=lista_processos.objects.values_list('curso_para_processo', flat=True)
+        contexto={'processos':lista_processos}
+        return render(request,'home/processos.html',contexto)
+    
+    
