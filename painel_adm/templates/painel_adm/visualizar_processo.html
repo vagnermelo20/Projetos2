@@ -13,7 +13,7 @@
                 <p><strong>Data do ínicio</strong> {{ processo.data_inicio }}</p>
                 <p><strong>Data do fim</strong> {{ processo.data_fim }}</p>
                 <a href="{% url 'editar_processo' processo.id %}">Editar</a> | 
-                <form method="POST" action="{% url 'deletar_processo' objetivo.id %}" 
+                <form method="POST" action="{% url 'deletar_processo' processo.id %}" 
                       onsubmit="return confirm('Você tem certeza que deseja deletar este processo?');">
                     {% csrf_token %}
                     <button type="submit">Deletar</button>
