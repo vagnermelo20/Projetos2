@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include('home.urls')),
+    path('painel_adm/',include('painel_adm.urls')),
     path('django-admin/', admin.site.urls),  # Renomeado para evitar conflito com suas rotas admin personalizadas
 ]
