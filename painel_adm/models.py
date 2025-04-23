@@ -11,8 +11,9 @@ class Curso(models.Model):
         return self.Nome
 
 class Selecao(models.Model):
-    data = models.DateField()
-    horario = models.TimeField()
+    data_inicio = models.DateField()
+    data_fim = models.DateField()
     max_participantes = models.IntegerField()
-    message_template = models.TextField()
-    criado = models.DateTimeField(auto_now_add=True)
+    curso_para_processo=models.CharField(max_length=1000)
+   
+    
