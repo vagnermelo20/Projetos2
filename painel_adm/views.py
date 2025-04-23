@@ -119,7 +119,7 @@ class EditarCurso(View):
        
         usuario_id = request.session.get('usuario_id')
         if not usuario_id:
-            messages.error(request, "Você precisa estar logado para editar cursis.")
+            messages.error(request, "Você precisa estar logado para editar cursos.")
             return redirect('logar')
 
         curso = get_object_or_404(Curso, id=curso_id)
@@ -231,3 +231,73 @@ class VisualizarProcesso(View):
         }
 
         return render(request, 'painel_adm/visualizar_processos.html', context)
+    
+class DeletarProcesso(View):
+    def post(self, request, processo_id):
+        
+        usuario_id = request.session.get('usuario_id')
+        if not usuario_id:
+            messages.error(request, "Você precisa estar logado para excluir seu curso.")
+            return redirect('logar')
+
+        
+        curso = get_object_or_404(Curso,id=processo_id)
+
+        curso.delete()
+
+        return redirect('visualizar_processo')
+    
+
+class EditarProcesso(View):
+    def get(self, request, processo_id):
+       
+        usuario_id = request.session.get('usuario_id')
+        if not usuario_id:
+            messages.error(request, "Você precisa estar logado para editar cursos.")
+            return redirect('logar')
+
+        processo = get_object_or_404(Selecao, id=processo_id)
+
+        context = {
+            'processo': processo,
+        }
+
+        return render(request, 'painel_adm/editar_processo.html', context)
+
+    def post(self, request, processo_id):
+       
+        usuario_id = request.session.get('usuario_id')
+        if not usuario_id:
+            messages.error(request, "Você precisa estar logado para editar processos.")
+            return redirect('logar')
+
+        processo = get_object_or_404(Curso, id=processo_id)
+
+        data_inicio= request.POST.get('data_inicio')
+        data_fim = request.POST.get('descricao_curso')
+        max_participantes= request.POST.get('max_participantes')  
+        curso_para_processo=request.POST.get('curso_para_processo')
+        
+
+       
+        if not data_inicio or not data_fim or not max_participantes or not curso_para_processo:
+            messages.error(request, 'É necessário preencher todas as informações.')
+            return render(request, 'painel_adm/editar_processo.html', {'processo': processo})
+
+        
+        if Curso.objects.filter(Nome=curso_para_processo, usuario_id=usuario_id).exclude(id=processo_id).exists():
+            messages.error(request, 'Você já tem um processo para este curso.')
+            return render(request, 'objetivos/editar_objetivo.html', {
+                'data_inicio': data_inicio,
+                'data_fim': data_fim,
+                'max_participantes': max_participantes,
+                'curso_para_processo':curso_para_processo  
+            })
+
+        processo.data_inicio = data_inicio
+        processo.data_fim = data_fim
+        processo.max_participantes = max_participantes
+        processo.curso_para_processo=curso_para_processo
+        processo.save()
+
+        return redirect('visualizar_processo')
