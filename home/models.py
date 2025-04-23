@@ -1,4 +1,5 @@
 from django.db import models
+from painel_adm.models import Curso
 
 class Usuario(models.Model):
     Username = models.CharField(max_length=100, unique=True)
@@ -29,7 +30,6 @@ class AlunoRegistro(models.Model):
     ]
     Periodo_estudo = models.CharField(max_length=20, choices=PERIODO_ESCOLHA, null=True, blank=True)
     
-    Curso_desejado = models.CharField(max_length=255, null=True, blank=True)
     
     ESCOLHA_STATUS=[('Pendente','Pendente'),('Aprovado','Aprovado'),('Rejeitado','Rejeitado')]
     
