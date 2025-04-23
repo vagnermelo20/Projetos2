@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from painel_adm.models import Curso
+from painel_adm.models import Curso,Selecao
 
 
 
@@ -17,8 +17,8 @@ class CriarCurso(View):
             messages.error(request, "Você precisa estar logado para criar um curso.")
             return redirect('logar')
 
-        # Renderiza o formulário de criação de objetivo
-        return render(request, 'criar_curso.html')
+       
+        return render(request, 'painel_adm/criar_curso.html')
 
     def post(self, request):
         # Verificar se o usuário está logado
@@ -33,12 +33,12 @@ class CriarCurso(View):
         numero_alunos= request.POST.get('n_alunos')  
         numero_professores=request.POST.get('n_professores')
 
-        # Validar o nome do objetivo
-        if not nome_curso:
-            messages.error(request, 'É necessário preencher o nome do objetivo.')
+       
+        if not nome_curso or not descricao_curso or not numero_alunos or not numero_professores:
+            messages.error(request, 'É necessário preencher todas as informações.')
             return render(request, 'painel_adm/criar_curso.html')
 
-        # Verificar se já existe um objetivo com o mesmo nome para este usuário
+        
         if Curso.objects.filter(Nome=nome_curso, usuario_id=usuario_id).exists():
             messages.error(request, 'Você já tem um curso com este nome.')
             return render(request, 'painel_adm/criar_curso.html', {
@@ -49,7 +49,7 @@ class CriarCurso(View):
             })
 
 
-        # Criar o objetivo associado ao usuário logado
+        
         Curso.objects.create(
             Nome=nome_curso,
             Descrição=descricao_curso,
@@ -70,7 +70,7 @@ class VisualizarCurso(View):
 
         
         
-        # Iniciar com todos os objetivos do usuário
+       
         curso_query = Curso.objects.filter(usuario_id=usuario_id)
         
     
@@ -85,13 +85,13 @@ class VisualizarCurso(View):
 
 class DeletarCurso(View):
     def post(self, request, curso_id):
-        # Verificar se o usuário está logado
+        
         usuario_id = request.session.get('usuario_id')
         if not usuario_id:
             messages.error(request, "Você precisa estar logado para excluir seu curso.")
             return redirect('logar')
 
-        # Buscar o objetivo e verificar se pertence ao usuário logado
+        
         curso = get_object_or_404(Curso,id=curso_id)
 
         curso.delete()
@@ -101,7 +101,7 @@ class DeletarCurso(View):
 
 class EditarCurso(View):
     def get(self, request, curso_id):
-        # Verificar se o usuário está logado
+       
         usuario_id = request.session.get('usuario_id')
         if not usuario_id:
             messages.error(request, "Você precisa estar logado para editar objetivos.")
@@ -116,7 +116,7 @@ class EditarCurso(View):
         return render(request, 'painel_adm/editar_curso.html', context)
 
     def post(self, request, curso_id):
-        # Verificar se o usuário está logado
+       
         usuario_id = request.session.get('usuario_id')
         if not usuario_id:
             messages.error(request, "Você precisa estar logado para editar objetivos.")
@@ -130,13 +130,12 @@ class EditarCurso(View):
         numero_professores=request.POST.get('n_professores')
         
 
-        # Validar o nome do objetivo
+       
         if not nome_curso:
             messages.error(request, 'É necessário preencher o nome do curso.')
             return render(request, 'objetivos/editar_objetivo.html', {'curso': curso})
 
-        # Verificar se já existe OUTRO objetivo com o mesmo nome para este usuário
-        # Usamos exclude(id=objetivo_id) para não considerar o próprio objetivo na verificação
+        
         if Curso.objects.filter(Nome=nome_curso, usuario_id=usuario_id).exclude(id=curso_id).exists():
             messages.error(request, 'Você já tem um curso com este nome.')
             return render(request, 'objetivos/editar_objetivo.html', {
@@ -154,3 +153,61 @@ class EditarCurso(View):
         curso.save()
 
         return redirect('visualizar_curso')
+    
+class CriarProcessoSeletivo(View):
+    def get(self, request):
+        if 'usuario_id' not in request.session:
+            messages.error(request, "Você precisa estar logado para criar um processo seletivo.")
+            return redirect('logar')
+
+        
+        return render(request, 'painel_adm/criar_processo.html')
+
+    def post(self, request):
+       
+        usuario_id = request.session.get('usuario_id')
+        if not usuario_id:
+            messages.error(request, "Você precisa estar logado para criar um processo seletivo.")
+            return redirect('logar')
+
+        
+        data_inicio= request.POST.get('data_inicio')
+        data_fim = request.POST.get('data_fim')
+        max_participantes= request.POST.get('max_participantes')  
+        curso_para_processo= request.POST.get('curso_para_proceso')
+        if not Curso.objects.filter(Nome__iexact=curso_para_processo).exists():
+            nomes = Curso.objects.values_list('cu', flat=True)
+            messages.error(request,'Esse curso não existe') 
+            return render(request, 'home/registro_aluno.html', {
+            'data_inicio': data_inicio,
+            'data_fim': data_fim,
+            'max_participantes':max_participantes,
+            'curso_para_processo':curso_para_processo
+        })
+        
+
+        
+        if not data_inicio or not data_fim or not max_participantes or not curso_para_processo:
+            messages.error(request, 'É necessário preencher todas as informações.')
+            return render(request, 'painel_adm/criar_curso.html')
+
+       
+        if Curso.objects.filter(Nome=curso_para_processo).exists():
+            messages.error(request, 'Você já tem um processo para esse curso.')
+            return render(request, 'painel_adm/criar_processo.html', {
+                'data_inicio': data_inicio,
+                'data_fim': data_fim,
+                'max_participantes':max_participantes,
+                'curso_para_processo':curso_para_processo
+            })
+
+
+        
+        Selecao.objects.create(
+            data_inicio=data_inicio,
+            data_fim=data_fim,
+            max_participantes=max_participantes,
+            curso_para_processo=curso_para_processo
+        )
+
+        return redirect('visualizar_processo')
