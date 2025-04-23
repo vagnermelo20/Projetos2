@@ -9,3 +9,10 @@ class Curso(models.Model):
     
     def __str__(self):
         return self.Nome
+
+class Selecao(models.Model):
+    data = models.DateField()
+    horario = models.TimeField()
+    max_participantes = models.IntegerField()
+    message_template = models.TextField()
+    criado = models.DateTimeField(auto_now_add=True)
