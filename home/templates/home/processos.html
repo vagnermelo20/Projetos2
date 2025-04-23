@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Falta fazer a lógica de redirecionar para uma aba de registro que registrará apenas no curso de escolha</h1>
+    {% if processos %}
+            {% for processo in processos %}
+            <a href="{% url 'registro %}">{{ processo.curso_para_processo}}</a>
+            {% endfor %}
+        {% else %}
+            <p>Não há processos seletivos</p>
+        {% endif %}
+    </main>
+    <br>
+</body>
+</html>
