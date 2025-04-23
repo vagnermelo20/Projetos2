@@ -3,11 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Painel Administrativo</title>
+    <style>
+        body {
+            margin: 0;
+            background: #ede8db;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background: #338fa3;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .menu-icon span {
+            display: block;
+            width: 24px;
+            height: 4px;
+            background: #fff;
+            margin: 4px 0;
+            border-radius: 2px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            font-size: 15px;
+        }
+        .user-info svg {
+            margin-right: 6px;
+        }
+        .voltar-btn {
+            background: #286978;
+            color: #fff;
+            border: none;
+            border-radius: 2px;
+            padding: 8px 24px;
+            margin: 24px 0 0 24px;
+            cursor: pointer;
+        }
+        .welcome-box {
+            background: #286978;
+            color: #fff;
+            border-radius: 2px;
+            margin: 16px 24px 0 24px;
+            padding: 16px 0;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Bem vindo ao painel administrativo</h1>
-    <h1>Aqui vai adicionar a barra de navegação</h1>
-    
+    <div class="header">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="user-info">
+            <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
+            </svg>
+            {{ user.first_name|default:user.username }}
+        </div>
+    </div>
+    <button class="voltar-btn">Voltar</button>
+    <div class="welcome-box">
+        Bem Vindo Administrativo {{ user.first_name|default:user.username }}
+    </div>
 </body>
 </html>
