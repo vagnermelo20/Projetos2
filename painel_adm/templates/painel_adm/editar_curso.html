@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edição de curso</title>
+</head>
+<body>
+    <header><h1>Editar Cursos</h1></header>
+<main>
+    {% if messages %}
+        <ul style="color: red;">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <br>
+        <label for="campo_nome_curso">Nome:</label>
+        <input type="text" name="nome_curso" id="campo_nome_curso" value="{{ curso.Nome }}" placeholder="Digite o nome do curso">
+        <br>
+        <label for="campo_descricao_curso">Descrição:</label>
+        <br>
+        <br>
+        <textarea name="descricao_curso" id="campo_descricao_Curso" rows="10" cols="40" maxlength="500">{{ curso.Descrição }}</textarea>
+        <br>
+        <br>
+        <label for="campo_n_alunos">Número de alunos:</label>
+        <input type="text" name="n_alunos" id="campo_n_alunos" value="{{ curso.Numero_alunos }}" placeholder="Digite o número de alunos">
+        <br>
+        <label for="campo_n_professores">Número de professores:</label>
+        <input type="text" name="n_professores" id="campo_n_professores" value="{{ curso.Numero_professores }}" placeholder="Digite o número de professores">
+        <br>
+        <button type="submit">Salvar</button>
+    </form>
+    <br>
+    <!-- Botão para voltar à página de visualização de objetivos -->
+    <a href="{% url 'visualizar_cursos' %}" style="text-decoration: none; border: 1px solid black; padding: 5px; background-color: lightgray;">Voltar</a>
+</main>
+</body>
+</html>
