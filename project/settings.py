@@ -85,14 +85,14 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Logo após security middleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    ]
+]
 
 ROOT_URLCONF = 'project.urls'
 
@@ -153,3 +153,9 @@ LOGOUT_REDIRECT_URL = '/login/'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # Backend padrão do Django
 ]
+
+# Permitir todos os hosts na Azure para simplificar
+ALLOWED_HOSTS = ['*']
+
+# Corrigir CSRF trusted origins
+CSRF_TRUSTED_ORIGINS = ['https://automathos-dehjaffebzancmb7.brazilsouth-01.azurewebsites.net']
