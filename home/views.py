@@ -33,30 +33,21 @@ class LoginView(View):
 
         return render(request, 'home/login.html')
 
-class LogoutView(View):
-    def get(self, request):
-        # Remover o ID do usuário da sessão
-        if 'usuario_id' in request.session:
-            del request.session['usuario_id']
+# class LogoutView(View):
+#     def get(self, request):
+#         # Remover o ID do usuário da sessão
+#         if 'usuario_id' in request.session:
+#             del request.session['usuario_id']
         
-        return redirect('inicio') 
+#         return redirect('inicio') 
     
 class InicioView(View):
     def get(self, request):
-        return render(request, 'home/home.html')
+        processo_query=Selecao.objects.all()
+        processo=processo_query
+        contexto={'processo':processo,}
+        return render(request, 'home/home.html',contexto)
 
-
-class LogoutView(View):
-    def get(self, request):
-        # Remover o ID do usuário da sessão
-        if 'usuario_id' in request.session:
-            del request.session['usuario_id']
-        
-        return redirect('inicio') 
-    
-class InicioView(View):
-    def get(self, request):
-        return render(request, 'home/home.html')
 
 class Registrar_aluno(View):
     def get(self,request):
@@ -114,8 +105,7 @@ class Registrar_aluno(View):
         
 class ProcessoView(View):
     def get(self, request):
-    
-        lista_processos=lista_processos.objects.values_list('curso_para_processo', flat=True)
+        lista_processos=Selecao.objects.all()
         contexto={'processos':lista_processos}
         return render(request,'home/processos.html',contexto)
     
