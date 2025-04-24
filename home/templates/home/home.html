@@ -7,104 +7,188 @@
     <style>
         body {
             margin: 0;
-            background: #ede8db;
+            background: #181b1b;
             font-family: Arial, sans-serif;
         }
+        /* Header fixo no topo */
         .header {
-            background: #338fa3;
-            height: 48px;
+            background: #17695e;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 24px;
+            padding: 0 48px;
         }
-        .menu-icon {
-            width: 32px;
-            height: 32px;
+        /* Logo do instituto */
+        .logo {
+            color: #fff;
+            font-weight: bold;
+            font-size: 22px;
+            letter-spacing: 1px;
+            line-height: 1.1;
+        }
+        /* Navegação do topo */
+        .nav {
+            display: flex;
+            gap: 36px;
+            align-items: center;
+        }
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+        .nav a:hover {
+            color: #ffe066;
+        }
+        /* Botão Donate */
+        .donate-btn {
+            background: #181b1b;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 28px;
+            font-size: 17px;
+            font-weight: bold;
+            margin-left: 18px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .donate-btn:hover {
+            background: #ffe066;
+            color: #17695e;
+        }
+        /* Banner grande com imagem */
+        .banner {
+            width: 100%;
+            height: 270px;
+            background: url('https://cdn.discordapp.com/attachments/457328266534060044/1364993616048820233/solidare.webp?ex=680bb0de&is=680a5f5e&hm=3668cd75cd8d15ca96d163512ae63fe11551f1f97defffcc9c7a8770a2748aad&') center center no-repeat;
+            background-size: cover;
             display: flex;
             align-items: center;
-            cursor: pointer;
+            justify-content: flex-end;
+            position: relative;
         }
-        .menu-icon span {
-            display: block;
-            width: 24px;
-            height: 4px;
-            background: #fff;
-            margin: 4px 0;
-            border-radius: 2px;
+        /* Texto do banner na área branca */
+        .main-banner-text {
+            position: static;
+            right: auto;
+            top: auto;
+            color: #17695e;
+            text-align: center;
+            margin-bottom: 32px;
         }
-        .login-link {
-            color: #fff;
-            text-decoration: none;
-            font-size: 15px;
-            margin-left: auto;
+        .main-banner-text h2 {
+            font-size: 32px;
+            font-weight: 400;
+            margin: 0 0 8px 0;
+            color: #17695e;
         }
-        .main-content {
-            display: flex;
-            height: calc(100vh - 48px);
-        }
-        .side-img {
-            width: 260px;
-            background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80') no-repeat center center;
-            background-size: cover;
-        }
-        .center-content {
-            flex: 1;
-            padding: 40px 32px;
-        }
-        .center-content h1 {
-            margin-top: 0;
-            color: #338fa3;
-        }
-        .center-content h2 {
-            color: #338fa3;
-            font-weight: normal;
-        }
-        .cadastro-link {
-            display: inline-block;
-            margin-top: 24px;
-            padding: 12px 32px;
-            background: #338fa3;
-            color: #fff;
-            border-radius: 8px;
-            text-decoration: none;
+        .main-banner-text .realidade {
+            font-size: 54px;
             font-weight: bold;
-            font-size: 1rem;
-            transition: background 0.2s;
+            line-height: 1;
+            letter-spacing: 1px;
+            color: #ffe066;
+            margin: 0;
         }
-        .cadastro-link:hover {
-            background: #256973;
+        .main-banner-text .realidade span {
+            color: #17695e;
         }
-        @media (max-width: 700px) {
-            .main-content {
+        @media (max-width: 600px) {
+            .main-banner-text h2 { font-size: 18px; }
+            .main-banner-text .realidade { font-size: 28px; }
+        }
+        /* Área principal clara */
+        .main-content {
+            background: #ede8db;
+            min-height: 320px;
+            padding: 60px 0 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Botão Saiba Mais */
+        .saiba-btn {
+            background: #ffe066;
+            color: #fff;
+            border: none;
+            border-radius: 28px;
+            padding: 18px 56px;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 32px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .saiba-btn:hover {
+            background: #fff;
+            color: #17695e;
+        }
+        @media (max-width: 900px) {
+            .header {
                 flex-direction: column;
+                height: auto;
+                padding: 0 12px;
             }
-            .side-img {
-                width: 100%;
+            .banner {
+                height: 180px;
+            }
+            .banner-text {
+                right: 160px;
+                top: 16px;
+            }
+            .banner-text .realidade {
+                font-size: 32px;
+            }
+        }
+        @media (max-width: 600px) {
+            .banner {
                 height: 120px;
+            }
+            .banner-text {
+                right: 8px;
+                top: 8px;
+            }
+            .banner-text h2 {
+                font-size: 16px;
+            }
+            .banner-text .realidade {
+                font-size: 18px;
+            }
+            .main-content {
+                padding-top: 24px;
+            }
+            .saiba-btn {
+                font-size: 16px;
+                padding: 12px 24px;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="menu-icon">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="logo">
+            INSTITUTO<br>SOLIDARE
         </div>
-        {% if processo %}
-            <a href="{% url 'logar' %}" class="login-link">Login</a>
-        {% endif %}
+        <nav class="nav">
+            <a href="https://solidare.com.br/">Sobre</a>
+            <a href="{% url 'registro'%}">Processo seletivo</a>
+            <a href="{% url 'login' %}" class="voltar-btn">Login</a>
+        
+        </nav>
+    </div>
+    <div class="banner">
+        
+        </div>
     </div>
     <div class="main-content">
-        <div class="side-img"></div>
-        <div class="center-content">
-            <h1>HOME</h1>
-            <h2>Aqui tera uma página com fotos do instituto</h2>
-            <a href="{% url 'processo' %}" class="cadastro-link">Cadastro</a>
-            <p style="margin-top: 32px;">Esse botão só pode aparecer quando estiver com processo ativo (fzr lógica dps)</p>
-        </div>
+      
     </div>
 </body>
 </html>
