@@ -99,6 +99,45 @@
                 margin: 16px 8px 0 8px;
             }
         }
+        .voltar-btn {
+            background: #fff;
+            color: #286978;
+            border: 2px solid #286978;
+            border-radius: 20px;
+            padding: 10px 36px;
+            margin: 38px 0 0 32px;
+            cursor: pointer;
+            font-size: 20px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            transition: background 0.2s, color 0.2s, border 0.2s;
+        }
+        .voltar-btn:hover {
+            background: #286978;
+            color: #fff;
+            border-color: #fff;
+        }
+        .criar-processo-btn {
+            background: #fff;
+            color: #286978;
+            border: 2px solid #286978;
+            border-radius: 20px;
+            padding: 12px 38px;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin: 32px 0 24px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            transition: background 0.2s, color 0.2s, border 0.2s;
+        }
+        .criar-processo-btn:hover {
+            background: #286978;
+            color: #fff;
+            border-color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -115,11 +154,10 @@
             </svg>
         </div>
     </div>
-    <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>\
-    <a href="{% url 'criar_processo' %}"> Criar processo</a>
+    <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>
+    <a href="{% url 'criar_processo' %}" class="criar-processo-btn">Criar processo seletivo</a>
     <div class="processo-box">
         {% if selecao %}
-            <a href="{% url 'criar_processo' %}">Criar processo seletivo</a>
             <br>
             {% for processo in selecao %}
             <div class="processo-item">
@@ -138,7 +176,7 @@
             {% endfor %}
         {% else %}
             <p>Você não tem nenhum processo seletivo no momento</p>
-            <a href="{% url 'criar_processo' %}">Criar processo seletivo</a>
+           
         {% endif %}
     </div>
 </body>
