@@ -7,11 +7,11 @@
     <style>
         body {
             margin: 0;
-            background: #ede8db;
+            background:rgb(209, 209, 209);
             font-family: Arial, sans-serif;
         }
         .header {
-            background: #338fa3;
+            background:rgb(33, 145, 173);
             height: 48px;
             display: flex;
             align-items: center;
@@ -46,9 +46,9 @@
             background: #286978;
             color: #fff;
             border: none;
-            border-radius: 2px;
+            border-radius: 20px;
             padding: 8px 24px;
-            margin: 24px 0 0 24px;
+            margin: 40px 0 0 24px; 
             cursor: pointer;
         }
         .welcome-box {
@@ -59,6 +59,38 @@
             padding: 16px 0;
             text-align: center;
             font-size: 16px;
+        }
+        .big-btns-container {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0;
+            min-height: 60vh; /* Centraliza verticalmente */
+        }
+        .big-btn {
+            background: #338fa3;
+            color: #fff;
+            border: none;
+            border-radius: 18px;
+            padding: 48px 64px;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: background 0.2s, transform 0.18s;
+            text-align: center;
+            display: inline-block;
+        }
+        .big-btn:hover {
+            background: #286978;
+            transform: translateY(-4px) scale(1.03);
+        }
+        .main-content {
+            background: #ede8db;
+            padding: 40px 0 0 0;
+            min-height: 80vh;
         }
     </style>
 </head>
@@ -77,13 +109,17 @@
             {{ Usuario.Nome }}
         </div>
     </div>
-    <a href="{% url 'inicio' %}" class="voltar-btn">Voltar</a>
-    <div class="welcome-box">
-        Bem Vindo Administrativo {{ Usuario.Nome }}
-    </div>
    
-    <a href="{% url 'visualizar_curso' %}">Visualizar cursos</a>
-    <a href="{% url 'visualizar_processo' %}">Visualizar_processo</a>
-    
+    <div class="welcome-box">
+        Bem Vindo ao Administrativo do Sistema de Gestão de Cursos
+    </div>
+
+    <div class="main-content">
+        <a href="{% url 'inicio' %}" class="voltar-btn">Voltar</a>
+        <div class="big-btns-container">
+            <a href="{% url 'visualizar_curso' %}" class="big-btn">Visualizar Cursos</a>
+            <a href="{% url 'visualizar_processo' %}" class="big-btn">Visualizar Processos</a>
+        </div>
+    </div>
 </body>
 </html>

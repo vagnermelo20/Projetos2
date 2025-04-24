@@ -3,19 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Processos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <style>
+        body {
+            margin: 0;
+            background: #181b1b;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background: #217c73;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+        }
+        .logo {
+            color: #fff;
+            font-weight: bold;
+            font-size: 22px;
+            letter-spacing: 1px;
+            line-height: 1.1;
+        }
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .header-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            margin-left: 18px;
+        }
+        .main-content {
+            background: #ede8db;
+            min-height: 100vh;
+            padding: 0 0 60px 0;
+        }
+        .voltar-link {
+            color: #217c73;
+            font-size: 18px;
+            margin: 0 0 0 32px;
+            display: inline-block;
+            text-decoration: underline;
+            font-weight: bold;
+            padding-top: 24px;
+        }
+        .titulo {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin: 18px 0 38px 0;
+            color: #181b1b;
+        }
+        .cursos-container {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+        .curso-card {
+            background: #17443f;
+            border-radius: 20px;
+            padding: 32px 28px 28px 28px;
+            width: 250px;
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: transform 0.18s, box-shadow 0.18s;
+            text-align: left;
+        }
+        .curso-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 24px rgba(33,124,115,0.12);
+            background: #217c73;
+        }
+        .curso-icon {
+            font-size: 70px;
+            margin-bottom: 18px;
+            color: #fff;
+        }
+        .curso-card h3 {
+            font-size: 1.35rem;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+            color: #fff;
+        }
+        .curso-card p {
+            font-size: 1.08rem;
+            color: #e6e6e6;
+            margin: 0;
+            font-weight: 400;
+        }
+        @media (max-width: 1100px) {
+            .cursos-container {
+                gap: 18px;
+            }
+            .curso-card {
+                width: 210px;
+                min-height: 300px;
+                padding: 24px 12px 20px 12px;
+            }
+        }
+        @media (max-width: 800px) {
+            .cursos-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .curso-card {
+                width: 90vw;
+                min-width: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-   <h1>SELECIONE CURSO QUE VOCÊ QUER</h1>
-    {% if processos %}
-            {% for processo in processos %}
-            <a href="{% url 'registro' %}">{{ processo.curso_para_processo}}</a>
-            <br>
-            {% endfor %}
-        {% else %}
-            <p>Não há processos seletivos</p>
-        {% endif %}
-    </main>
-    <br>
+    <div class="header">
+        <div class="logo">
+            INSTITUTO<br>SOLIDARE
+        </div>
+        <div class="header-links">
+            
+        </div>
+    </div>
+    <div class="main-content">
+        <a href="{% url 'inicio' %}" class="voltar-link">Voltar</a>
+        <div class="titulo">Escolha o curso que deseja</div>
+        <div class="cursos-container">
+            {% if processos %}
+                {% for processo in processos %}
+                    <a href="{% url 'registro' %}" style="text-decoration:none;">
+                        <div class="curso-card">
+                            <div class="curso-icon">
+                                <!-- Ícone dinâmico se existir, senão um padrão -->
+                                <i class="fas fa-pen-nib"></i>
+                            </div>
+                            <h3>{{ processo.curso_para_processo }}</h3>
+                            <p>{{ processo.descricao|default:"Descrição do curso." }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p>Não há processos seletivos</p>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>
