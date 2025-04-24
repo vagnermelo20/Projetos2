@@ -25,10 +25,7 @@ class LoginView(View):
             usuario = Usuario.objects.get(E_mail=email)
             # Usar check_password para verificar a senha hasheada
             if check_password(senha, usuario.Senha):
-                request.session['usuario_id'] = usuario.id
-                request.session.save()  # Forçar a gravação da sessão
-                # Redirecionar para a view de visualização de objetivos
-                return redirect('painel_adm')
+                return redirect('inicio_painel')
             else:
                 messages.error(request, 'Senha incorreta.')
         except Usuario.DoesNotExist:
@@ -48,32 +45,6 @@ class InicioView(View):
     def get(self, request):
         return render(request, 'home/home.html')
 
-class LoginView(View):
-    def get(self, request):
-        return render(request, 'home/login.html')
-
-    def post(self, request):
-        email = request.POST.get('email')
-        senha = request.POST.get('senha')
-
-        if not email or not senha:
-            messages.error(request, 'Todos os campos são obrigatórios.')
-            return render(request, 'home/login.html')
-
-        try:
-            usuario = Usuario.objects.get(E_mail=email)
-            # Usar check_password para verificar a senha hasheada
-            if check_password(senha, usuario.Senha):
-                request.session['usuario_id'] = usuario.id
-                request.session.save()  # Forçar a gravação da sessão
-                # Redirecionar para a view de visualização de objetivos
-                return redirect('painel_adm')
-            else:
-                messages.error(request, 'Senha incorreta.')
-        except Usuario.DoesNotExist:
-            messages.error(request, 'Usuário não encontrado.')
-
-        return render(request, 'home/login.html')
 
 class LogoutView(View):
     def get(self, request):
