@@ -3,25 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Visualizar Processos</title>
+    <style>
+        body {
+            margin: 0;
+            background: #ede8db;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background: #338fa3;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .menu-icon span {
+            display: block;
+            width: 24px;
+            height: 4px;
+            background: #fff;
+            margin: 4px 0;
+            border-radius: 2px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            font-size: 15px;
+        }
+        .user-info svg {
+            margin-right: 6px;
+        }
+        .voltar-bar {
+            background: #286978;
+            color: #fff;
+            border-radius: 2px;
+            margin: 32px 24px 0 24px;
+            padding: 14px 0 14px 16px;
+            font-size: 16px;
+            width: calc(100% - 48px);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .processo-box {
+            background: #286978;
+            border-radius: 16px;
+            margin: 24px 24px 0 24px;
+            padding: 24px 32px;
+            color: #fff;
+            min-width: 250px;
+        }
+        .processo-item {
+            background: #5eb0c6;
+            border-radius: 16px;
+            padding: 16px 24px;
+            margin-bottom: 18px;
+        }
+        .processo-item p {
+            margin: 6px 0;
+            color: #fff;
+        }
+        .processo-actions {
+            margin-top: 10px;
+        }
+        .processo-actions a, .processo-actions button {
+            background: #338fa3;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            margin-right: 8px;
+            text-decoration: none;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .processo-actions a:hover, .processo-actions button:hover {
+            background: #286978;
+        }
+        form {
+            display: inline;
+        }
+        @media (max-width: 900px) {
+            .processo-box {
+                padding: 16px 8px;
+                margin: 16px 8px 0 8px;
+            }
+        }
+    </style>
 </head>
 <body>
-    {% if selecao %}
+    <div class="header">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="user-info">
+            <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
+            </svg>
+            {{ user.first_name|default:user.username }}
+        </div>
+    </div>
+    <div class="voltar-bar">Voltar</div>
+    <div class="processo-box">
+        {% if selecao %}
             {% for processo in selecao %}
-            <div>
-                <p><strong>Nome do curso</strong> {{ processo.curso_para_processo }}</p>
-                <p><strong>Data do ínicio</strong> {{ processo.data_inicio }}</p>
-                <p><strong>Data do fim</strong> {{ processo.data_fim }}</p>
-                <a href="{% url 'editar_processo' processo.id %}">Editar</a> | 
-                <form method="POST" action="{% url 'deletar_processo' processo.id %}" 
-                      onsubmit="return confirm('Você tem certeza que deseja deletar este processo?');">
-                    {% csrf_token %}
-                    <button type="submit">Deletar</button>
-                </form>
+            <div class="processo-item">
+                <p><strong>Nome do curso:</strong> {{ processo.curso_para_processo }}</p>
+                <p><strong>Data do início:</strong> {{ processo.data_inicio }}</p>
+                <p><strong>Data do fim:</strong> {{ processo.data_fim }}</p>
+                <div class="processo-actions">
+                    <a href="{% url 'editar_processo' processo.id %}">Editar</a>
+                    <form method="POST" action="{% url 'deletar_processo' processo.id %}" 
+                          onsubmit="return confirm('Você tem certeza que deseja deletar este processo?');">
+                        {% csrf_token %}
+                        <button type="submit">Deletar</button>
+                    </form>
+                </div>
             </div>
             {% endfor %}
         {% else %}
             <p>Você não tem nenhum processo seletivo no momento</p>
         {% endif %}
+    </div>
 </body>
 </html>

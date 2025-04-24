@@ -3,26 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Visualizar Cursos</title>
+    <style>
+        body {
+            margin: 0;
+            background: #ede8db;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background: #338fa3;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .menu-icon span {
+            display: block;
+            width: 24px;
+            height: 4px;
+            background: #fff;
+            margin: 4px 0;
+            border-radius: 2px;
+        }
+        .voltar-bar {
+            background: #286978;
+            color: #fff;
+            border-radius: 2px;
+            margin: 32px 24px 0 24px;
+            padding: 14px 0 14px 16px;
+            font-size: 16px;
+            width: calc(100% - 48px);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .main-content {
+            display: flex;
+            gap: 16px;
+            margin: 24px 24px 0 24px;
+        }
+        .sidebar {
+            background: #286978;
+            border-radius: 16px;
+            padding: 16px 0 16px 0;
+            width: 200px;
+            min-width: 180px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar-title {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+        .cursos-list {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .curso-item {
+            background: #5eb0c6;
+            color: #fff;
+            border-radius: 16px;
+            padding: 8px 16px;
+            border: none;
+            margin-bottom: 0;
+            text-align: left;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+        .curso-item:hover {
+            background: #338fa3;
+        }
+        .curso-box {
+            background: #286978;
+            border-radius: 16px;
+            padding: 24px 32px;
+            color: #fff;
+            flex: 1;
+            margin-left: 0;
+            margin-right: 0;
+            min-width: 250px;
+        }
+        .curso-actions {
+            margin-top: 16px;
+        }
+        .curso-actions a, .curso-actions button {
+            background: #5eb0c6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            margin-right: 8px;
+            text-decoration: none;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .curso-actions a:hover, .curso-actions button:hover {
+            background: #338fa3;
+        }
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            .sidebar, .curso-box {
+                width: 100%;
+                min-width: unset;
+            }
+        }
+    </style>
 </head>
 <body>
-    {% if cursos %}
-            {% for curso in cursos %}
-            <div>
-                <p><strong>Nome do curso</strong> {{ curso.Nome }}</p>
-                <p><strong>Descrição</strong> {{ curso.Descrição }}</p>
-                <p><strong>Número de alunos</strong> {{ curso.Numero_alunos }}</p>
-                <p><strong>Número de professores</strong> {{ curso.Numero_professores }}</p>
-                <a href="{% url 'editar_curso'  curso.id %}">Editar</a> | 
-                <form method="POST" action="{% url 'deletar_curso' curso.id %}" 
-                      onsubmit="return confirm('Você tem certeza que deseja deletar este curso?');">
-                    {% csrf_token %}
-                    <button type="submit">Deletar</button>
-                </form>
+    <div class="header">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <span style="color:#fff;font-size:15px;">Login</span>
+    </div>
+    <div class="voltar-bar">Voltar</div>
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="sidebar-title">Cursos</div>
+            <div class="cursos-list">
+                {% for curso in cursos %}
+                    <div class="curso-item">{{ curso.Nome }}</div>
+                {% empty %}
+                    <div style="color:#fff;">Nenhum curso cadastrado</div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        {% else %}
-            <p>Você não tem nenhum curso ativo no momento</p>
-        {% endif %}
+        </div>
+        <div class="curso-box">
+            {% if cursos %}
+                {% for curso in cursos %}
+                    <p><strong>Nome do curso:</strong> {{ curso.Nome }}</p>
+                    <p><strong>Descrição:</strong> {{ curso.Descrição }}</p>
+                    <p><strong>Número de alunos:</strong> {{ curso.Numero_alunos }}</p>
+                    <p><strong>Número de professores:</strong> {{ curso.Numero_professores }}</p>
+                    <div class="curso-actions">
+                        <a href="{% url 'editar_curso' curso.id %}">Editar</a>
+                        <form method="POST" action="{% url 'deletar_curso' curso.id %}" style="display:inline;" onsubmit="return confirm('Você tem certeza que deseja deletar este curso?');">
+                            {% csrf_token %}
+                            <button type="submit">Deletar</button>
+                        </form>
+                    </div>
+                    <hr style="border:0;border-top:1px solid #5eb0c6;margin:24px 0;">
+                {% endfor %}
+            {% else %}
+                <p>Você não tem nenhum curso ativo no momento</p>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>

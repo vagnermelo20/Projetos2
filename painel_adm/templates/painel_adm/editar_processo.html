@@ -3,36 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edição de curso</title>
+    <title>Edição de Processo</title>
+    <style>
+        /* Estiliza o corpo da página: removes margens, define cor de fundo e fonte */
+        body {
+            margin: 0;
+            background: #ede8db;
+            font-family: Arial, sans-serif;
+        }
+        /* Barra superior azul (header) com espaçamento e alinhamento dos itens */
+        .header {
+            background: #338fa3;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        /* Ícone do menu hamburguer */
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .menu-icon span {
+            display: block;
+            width: 24px;
+            height: 4px;
+            background: #fff;
+            margin: 4px 0;
+            border-radius: 2px;
+        }
+        /* Área do usuário no header (nome e ícone) */
+        .user-info {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            font-size: 15px;
+        }
+        .user-info svg {
+            margin-right: 6px;
+        }
+        /* Container centralizado para o formulário */
+        .container {
+            max-width: 700px;
+            margin: 40px auto 0 auto;
+            padding: 0 16px;
+        }
+        /* Caixa azul escura arredondada para o formulário de edição */
+        .edit-box {
+            background: #286978;
+            border-radius: 16px;
+            padding: 32px 0 32px 0;
+        }
+        /* Título do formulário */
+        .edit-title {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 18px;
+        }
+        /* Espaçamento dos campos do formulário */
+        .form-group {
+            margin-bottom: 18px;
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+        /* Estilo dos rótulos dos campos */
+        label {
+            color: #fff;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        /* Campos de texto e data do formulário */
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 16px;
+            background: #5eb0c6;
+            color: #fff;
+            font-size: 15px;
+            margin-bottom: 0;
+        }
+        /* Botão de submit do formulário */
+        button[type="submit"] {
+            margin-left: 40px;
+            margin-top: 8px;
+            padding: 12px 32px;
+            background: #338fa3;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        /* Link de voltar estilizado como botão */
+        .voltar-link {
+            margin-left: 40px;
+            margin-top: 16px;
+            display: inline-block;
+            color: #338fa3;
+            background: #fff;
+            border-radius: 8px;
+            padding: 10px 24px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+        }
+        /* Mensagens de erro ou sucesso */
+        .messages {
+            color: #ffbaba;
+            background: #790000;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 16px 40px;
+        }
+        /* Responsividade para telas pequenas */
+        @media (max-width: 700px) {
+            .container, .edit-box, .form-group, .edit-title, button[type="submit"], .messages, .voltar-link {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header><h1>Editar Processo</h1></header>
-<main>
-    {% if messages %}
-        <ul style="color: red;">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    <form method="POST">
-        {% csrf_token %}
-        <br>
-        <label for="campo_data_inicio">Data de ínicio:</label>
-        <input type="date" name="data_inicio" id="campo_data_inicio" value="{{ processo.data_inicio }}" placeholder="Digite a data de ínicio do processo">
-        <br>
-        <label for="campo_data_fim">Data do fim:</label>
-        <input type="date" name="data_fim" id="campo_data_fim" value="{{ processo.data_fim }}" placeholder="Digite a data final do projeto">
-        <br>
-        <label for="campo_max_participantes">Número de participantes:</label>
-        <input type="text" name="max_participantes" id="campo_max_participantes" value="{{ processo.max_participantes }}" placeholder="Digite o número de participantes">
-        <br>
-        <button type="submit">Salvar</button>
-    </form>
-    <br>
-    <!-- Botão para voltar à página de visualização de objetivos -->
-    <a href="{% url 'visualizar_processo' %}" style="text-decoration: none; border: 1px solid black; padding: 5px; background-color: lightgray;">Voltar</a>
-</main>
+    <div class="header">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="user-info">
+            <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
+            </svg>
+            {{ user.first_name|default:user.username }}
+        </div>
+    </div>
+    <div class="container">
+        <div class="edit-box">
+            <div class="edit-title">Editar Processo</div>
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div>{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="campo_data_inicio">Data de início:</label>
+                    <input type="date" name="data_inicio" id="campo_data_inicio" value="{{ processo.data_inicio }}">
+                </div>
+                <div class="form-group">
+                    <label for="campo_data_fim">Data do fim:</label>
+                    <input type="date" name="data_fim" id="campo_data_fim" value="{{ processo.data_fim }}">
+                </div>
+                <div class="form-group">
+                    <label for="campo_max_participantes">Número de participantes:</label>
+                    <input type="text" name="max_participantes" id="campo_max_participantes" value="{{ processo.max_participantes }}">
+                </div>
+                <button type="submit">Salvar</button>
+                <a href="{% url 'visualizar_processo' %}" class="voltar-link">Voltar</a>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
