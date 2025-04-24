@@ -79,5 +79,12 @@ jobs:
           app-name: 'Automathos'
           slot-name: 'Production'
 
+      - name: Zip artifact for deployment
+        run: |
+          cd Projetos2/
+          zip release.zip ./* -r
+          cd ..
+          mv Projetos2/release.zip .
+
       
           
