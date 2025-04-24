@@ -152,7 +152,7 @@
         </div>
     </div>
     <div class="container">
-        <button class="voltar-btn" onclick="window.location.href='{% url 'visualizar_cursos' %}'">Voltar</button>
+        <a href="{% url 'visualizar curso' %}" class="voltar-btn">Voltar</a>
         <div class="edit-box">
             <div class="edit-title">Editar Cursos</div>
             {% if messages %}

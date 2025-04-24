@@ -74,12 +74,13 @@
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
             </svg>
-            {{ user.first_name|default:user.username }}
+            {{ Usuario.Nome }}
         </div>
     </div>
     <button class="voltar-btn">Voltar</button>
     <div class="welcome-box">
-        Bem Vindo Administrativo {{ user.first_name|default:user.username }}
+        Bem Vindo Administrativo {{ Usuario.Nome }}
     </div>
+    <a href="{% url 'criar_curso' %}">Criar curso</a>
 </body>
 </html>
