@@ -191,9 +191,9 @@ class VisualizarProcesso(View):
 class DeletarProcesso(View):
     def post(self, request, processo_id):
         
-        curso = get_object_or_404(Curso,id=processo_id)
+        processo = get_object_or_404(Selecao, id=processo_id)
 
-        curso.delete()
+        processo.delete()
 
         return redirect('visualizar_processo')
     
@@ -216,7 +216,7 @@ class EditarProcesso(View):
         processo = get_object_or_404(Selecao, id=processo_id)
 
         data_inicio= request.POST.get('data_inicio')
-        data_fim = request.POST.get('descricao_curso')
+        data_fim = request.POST.get('data_fim')
         max_participantes= request.POST.get('max_participantes')  
     
         
