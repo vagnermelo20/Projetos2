@@ -5,6 +5,6 @@ from home.views import InicioView,LoginView,Registrar_aluno,ProcessoView
 urlpatterns = [
     path('',InicioView.as_view(), name='inicio'),
     path('login/',LoginView.as_view(), name='logar'),
-    path('registro/',Registrar_aluno.as_views(),name='registro'),
+    path('registro/',Registrar_aluno.as_view(),name='registro'),
     path('processos/',ProcessoView.as_view(),name='processo')
 ]
