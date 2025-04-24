@@ -6,10 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Falta fazer a lógica de redirecionar para uma aba de registro que registrará apenas no curso de escolha</h1>
+   <h1>SELECIONE CURSO QUE VOCÊ QUER</h1>
     {% if processos %}
             {% for processo in processos %}
-            <a href="{% url 'registro %}">{{ processo.curso_para_processo}}</a>
+            <a href="{% url 'registro' %}">{{ processo.curso_para_processo}}</a>
             <br>
             {% endfor %}
         {% else %}
