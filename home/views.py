@@ -98,7 +98,7 @@ class Registrar_aluno(View):
                 Periodo_estudo=periodo_estudo,
             )
             messages.success(request, 'O candidato foi registrado com sucesso!')
-            return render(request,'home/home.html')
+            return redirect('inicio')
         except:
             messages.success(request, 'Erro no registro do candidato!')
             return render(request,'home/registro_aluno.html')
