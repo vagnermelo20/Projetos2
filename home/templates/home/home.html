@@ -93,14 +93,16 @@
             <span></span>
             <span></span>
         </div>
-        <a href="{% url 'logar' %}" class="login-link">Login</a>
+        {% if processo %}
+            <a href="{% url 'logar' %}" class="login-link">Login</a>
+        {% endif %}
     </div>
     <div class="main-content">
         <div class="side-img"></div>
         <div class="center-content">
             <h1>HOME</h1>
             <h2>Aqui tera uma página com fotos do instituto</h2>
-            <a href="{% url 'registro' %}" class="cadastro-link">Cadastro</a>
+            <a href="{% url 'processo' %}" class="cadastro-link">Cadastro</a>
             <p style="margin-top: 32px;">Esse botão só pode aparecer quando estiver com processo ativo (fzr lógica dps)</p>
         </div>
     </div>
