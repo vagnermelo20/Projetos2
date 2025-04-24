@@ -4,41 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edição de curso</title>
+    <style>
+        body {
+            margin: 0;
+            background: #ede8db;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background: #338fa3;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .menu-icon span {
+            display: block;
+            width: 24px;
+            height: 4px;
+            background: #fff;
+            margin: 4px 0;
+            border-radius: 2px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            font-size: 15px;
+        }
+        .user-info svg {
+            margin-right: 6px;
+        }
+        .voltar-btn {
+            background: #286978;
+            color: #fff;
+            border: none;
+            border-radius: 2px;
+            padding: 14px 0 14px 16px;
+            font-size: 16px;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 24px;
+            cursor: pointer;
+            display: block;
+        }
+        .edit-box {
+            background: #286978;
+            border-radius: 16px;
+            padding: 32px 0 32px 0;
+            margin: 0 16px;
+        }
+        .edit-title {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 18px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+        label {
+            color: #fff;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 16px;
+            background: #5eb0c6;
+            color: #fff;
+            font-size: 15px;
+            margin-bottom: 0;
+            resize: none;
+        }
+        textarea {
+            min-height: 80px;
+        }
+        button[type="submit"] {
+            margin-left: 40px;
+            margin-top: 8px;
+            padding: 12px 32px;
+            background: #338fa3;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .voltar-link {
+            margin-left: 40px;
+            margin-top: 16px;
+            display: inline-block;
+            color: #338fa3;
+            background: #fff;
+            border-radius: 8px;
+            padding: 10px 24px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto 0 auto;
+            padding: 0 0 24px 0;
+        }
+        .messages {
+            color: #ffbaba;
+            background: #790000;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 16px 40px;
+        }
+        @media (max-width: 700px) {
+            .container, .edit-box, .form-group, .edit-title, button[type="submit"], .messages, .voltar-link {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header><h1>Editar Cursos</h1></header>
-<main>
-    {% if messages %}
-        <ul style="color: red;">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    <form method="POST">
-        {% csrf_token %}
-        <br>
-        <label for="campo_nome_curso">Nome:</label>
-        <input type="text" name="nome_curso" id="campo_nome_curso" value="{{ curso.Nome }}" placeholder="Digite o nome do curso">
-        <br>
-        <label for="campo_descricao_curso">Descrição:</label>
-        <br>
-        <br>
-        <textarea name="descricao_curso" id="campo_descricao_Curso" rows="10" cols="40" maxlength="500">{{ curso.Descrição }}</textarea>
-        <br>
-        <br>
-        <label for="campo_n_alunos">Número de alunos:</label>
-        <input type="text" name="n_alunos" id="campo_n_alunos" value="{{ curso.Numero_alunos }}" placeholder="Digite o número de alunos">
-        <br>
-        <label for="campo_n_professores">Número de professores:</label>
-        <input type="text" name="n_professores" id="campo_n_professores" value="{{ curso.Numero_professores }}" placeholder="Digite o número de professores">
-        <br>
-        <button type="submit">Salvar</button>
-    </form>
-    <br>
-    <!-- Botão para voltar à página de visualização de objetivos -->
-    <a href="{% url 'visualizar_cursos' %}" style="text-decoration: none; border: 1px solid black; padding: 5px; background-color: lightgray;">Voltar</a>
-</main>
+    <div class="header">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="user-info">
+            <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
+            </svg>
+            {{ user.first_name|default:user.username }}
+        </div>
+    </div>
+    <div class="container">
+        <button class="voltar-btn" onclick="window.location.href='{% url 'visualizar_cursos' %}'">Voltar</button>
+        <div class="edit-box">
+            <div class="edit-title">Editar Cursos</div>
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div>{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="campo_nome_curso">Nome:</label>
+                    <input type="text" name="nome_curso" id="campo_nome_curso" value="{{ curso.Nome }}" placeholder="Digite o nome do curso">
+                </div>
+                <div class="form-group">
+                    <label for="campo_descricao_curso">Descrição:</label>
+                    <textarea name="descricao_curso" id="campo_descricao_Curso" rows="6" maxlength="500">{{ curso.Descrição }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="campo_n_alunos">Número de alunos:</label>
+                    <input type="text" name="n_alunos" id="campo_n_alunos" value="{{ curso.Numero_alunos }}" placeholder="Digite o número de alunos">
+                </div>
+                <div class="form-group">
+                    <label for="campo_n_professores">Número de professores:</label>
+                    <input type="text" name="n_professores" id="campo_n_professores" value="{{ curso.Numero_professores }}" placeholder="Digite o número de professores">
+                </div>
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
