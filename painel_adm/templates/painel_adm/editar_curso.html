@@ -152,7 +152,7 @@
         </div>
     </div>
     <div class="container">
-        <a href="{% url 'visualizar curso' %}" class="voltar-btn">Voltar</a>
+        <a href="{% url 'visualizar_curso' %}" class="voltar-btn">Voltar</a>
         <div class="edit-box">
             <div class="edit-title">Editar Cursos</div>
             {% if messages %}
@@ -178,7 +178,7 @@
                 </div>
                 <div class="form-group">
                     <label for="campo_n_professores">Número de professores:</label>
-                    <input type="text" name="n_professores" id="campo_n_professores" value="{{ curso.Numero_professores }}" placeholder="Digite o número de professores">
+                    <input type="text" name="n_professores" id="campo_n_professores" value="{{ curso.Numero_Professores }}" placeholder="Digite o número de professores">
                 </div>
                 <button type="submit">Salvar</button>
             </form>

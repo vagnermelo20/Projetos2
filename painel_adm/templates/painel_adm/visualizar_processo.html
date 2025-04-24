@@ -115,7 +115,8 @@
             </svg>
         </div>
     </div>
-    <div class="voltar-bar">Voltar</div>
+    <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>\
+    <a href="{% url 'criar_processo' %}"> Criar processo</a>
     <div class="processo-box">
         {% if selecao %}
             <a href="{% url 'criar_processo' %}">Criar processo seletivo</a>

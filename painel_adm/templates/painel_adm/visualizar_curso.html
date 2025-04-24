@@ -135,7 +135,8 @@
         </div>
         <span style="color:#fff;font-size:15px;">Login</span>
     </div>
-    <div class="voltar-bar">Voltar</div>
+    <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>
+    <a href="{% url 'criar_curso' %}"> Criar curso</a>
     <div class="main-content">
         <div class="sidebar">
             <div class="sidebar-title">Cursos</div>
@@ -153,7 +154,7 @@
                     <p><strong>Nome do curso:</strong> {{ curso.Nome }}</p>
                     <p><strong>Descrição:</strong> {{ curso.Descrição }}</p>
                     <p><strong>Número de alunos:</strong> {{ curso.Numero_alunos }}</p>
-                    <p><strong>Número de professores:</strong> {{ curso.Numero_professores }}</p>
+                    <p><strong>Número de professores:</strong> {{ curso.Numero_Professores }}</p>
                     <div class="curso-actions">
                         <a href="{% url 'editar_curso' curso.id %}">Editar</a>
                         <form method="POST" action="{% url 'deletar_curso' curso.id %}" style="display:inline;" onsubmit="return confirm('Você tem certeza que deseja deletar este curso?');">
