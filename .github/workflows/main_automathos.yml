@@ -81,10 +81,7 @@ jobs:
 
       - name: Zip artifact for deployment
         run: |
-          cd Projetos2/
-          zip release.zip ./* -r
-          cd ..
-          mv Projetos2/release.zip .
+          zip -r release.zip ./*
 
       
           
