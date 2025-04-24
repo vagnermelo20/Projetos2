@@ -113,12 +113,13 @@
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
             </svg>
-            {{ user.first_name|default:user.username }}
         </div>
     </div>
     <div class="voltar-bar">Voltar</div>
     <div class="processo-box">
         {% if selecao %}
+            <a href="{% url 'criar_processo' %}">Criar processo seletivo</a>
+            <br>
             {% for processo in selecao %}
             <div class="processo-item">
                 <p><strong>Nome do curso:</strong> {{ processo.curso_para_processo }}</p>
@@ -136,6 +137,7 @@
             {% endfor %}
         {% else %}
             <p>Você não tem nenhum processo seletivo no momento</p>
+            <a href="{% url 'criar_processo' %}">Criar processo seletivo</a>
         {% endif %}
     </div>
 </body>

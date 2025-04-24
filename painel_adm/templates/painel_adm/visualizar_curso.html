@@ -165,6 +165,7 @@
                 {% endfor %}
             {% else %}
                 <p>Você não tem nenhum curso ativo no momento</p>
+                <a href="{% url 'criar_curso' %}">Criar curso</a>
             {% endif %}
         </div>
     </div>
