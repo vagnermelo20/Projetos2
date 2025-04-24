@@ -12,12 +12,6 @@ class InicioView(View):
 
 class CriarCurso(View):
     def get(self, request):
-        # Verificar se o usuário está logado
-        if 'usuario_id' not in request.session:
-            messages.error(request, "Você precisa estar logado para criar um curso.")
-            return redirect('logar')
-
-       
         return render(request, 'painel_adm/criar_curso.html')
 
     def post(self, request):
@@ -62,13 +56,9 @@ class CriarCurso(View):
 
 class VisualizarCurso(View):
     def get(self, request):
-        # Verificar se o usuário está logado
-        usuario_id = request.session.get('usuario_id')
-        if not usuario_id:
-            messages.error(request, "Você precisa estar logado para criar seu curso.")
-            return redirect('logar')
 
-        
+
+        usuario_id = request.session.get('usuario_id')
         
        
         curso_query = Curso.objects.filter(usuario_id=usuario_id)
@@ -85,13 +75,7 @@ class VisualizarCurso(View):
 
 class DeletarCurso(View):
     def post(self, request, curso_id):
-        
-        usuario_id = request.session.get('usuario_id')
-        if not usuario_id:
-            messages.error(request, "Você precisa estar logado para excluir seu curso.")
-            return redirect('logar')
-
-        
+    
         curso = get_object_or_404(Curso,id=curso_id)
 
         curso.delete()
@@ -102,11 +86,7 @@ class DeletarCurso(View):
 class EditarCurso(View):
     def get(self, request, curso_id):
        
-        usuario_id = request.session.get('usuario_id')
-        if not usuario_id:
-            messages.error(request, "Você precisa estar logado para editar cursos.")
-            return redirect('logar')
-
+    
         curso = get_object_or_404(Curso, id=curso_id)
 
         context = {
@@ -118,10 +98,6 @@ class EditarCurso(View):
     def post(self, request, curso_id):
        
         usuario_id = request.session.get('usuario_id')
-        if not usuario_id:
-            messages.error(request, "Você precisa estar logado para editar cursos.")
-            return redirect('logar')
-
         curso = get_object_or_404(Curso, id=curso_id)
 
         nome_curso = request.POST.get('nome_curso')
@@ -156,11 +132,6 @@ class EditarCurso(View):
     
 class CriarProcessoSeletivo(View):
     def get(self, request):
-        if 'usuario_id' not in request.session:
-            messages.error(request, "Você precisa estar logado para criar um processo seletivo.")
-            return redirect('logar')
-
-        
         return render(request, 'painel_adm/criar_processo.html')
 
     def post(self, request):
@@ -216,10 +187,6 @@ class VisualizarProcesso(View):
     def get(self, request):
         # Verificar se o usuário está logado
         usuario_id = request.session.get('usuario_id')
-        if not usuario_id:
-            messages.error(request, "Você precisa estar logado para criar seu curso.")
-            return redirect('logar')
-
        
         processo_query = Selecao.objects.filter(usuario_id=usuario_id)
         
@@ -235,12 +202,6 @@ class VisualizarProcesso(View):
 class DeletarProcesso(View):
     def post(self, request, processo_id):
         
-        usuario_id = request.session.get('usuario_id')
-        if not usuario_id:
-            messages.error(request, "Você precisa estar logado para excluir seu curso.")
-            return redirect('logar')
-
-        
         curso = get_object_or_404(Curso,id=processo_id)
 
         curso.delete()
@@ -251,11 +212,7 @@ class DeletarProcesso(View):
 class EditarProcesso(View):
     def get(self, request, processo_id):
        
-        usuario_id = request.session.get('usuario_id')
-        if not usuario_id:
-            messages.error(request, "Você precisa estar logado para editar cursos.")
-            return redirect('logar')
-
+        
         processo = get_object_or_404(Selecao, id=processo_id)
 
         context = {
@@ -267,9 +224,6 @@ class EditarProcesso(View):
     def post(self, request, processo_id):
        
         usuario_id = request.session.get('usuario_id')
-        if not usuario_id:
-            messages.error(request, "Você precisa estar logado para editar processos.")
-            return redirect('logar')
 
         processo = get_object_or_404(Curso, id=processo_id)
 
