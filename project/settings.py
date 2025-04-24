@@ -132,15 +132,6 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 # Configuração do backend de autenticação personalizado
 AUTHENTICATION_BACKENDS = [
-    'app.auth_backends.EmailBackend',  # Para permitir login com email
     'django.contrib.auth.backends.ModelBackend',  # Backend padrão do Django
 ]
 
-# Configurações WhatsApp API
-WHATSAPP_API = {
-    'ACCESS_TOKEN': 'seu_token_de_acesso',  # Substitua pelo token real
-    'PHONE_NUMBER_ID': 'seu_phone_number_id',  # Substitua pelo ID real
-    'VERSION': 'v17.0',  # versão atual da API
-    'BASE_URL': 'https://graph.facebook.com/',
-    'VERIFY_TOKEN': 'token_de_verificacao_webhook'  # Token para verificação do webhook
-}
