@@ -39,6 +39,9 @@ O ínicio do site é a home. A partir dela é possível seguir por 2 caminhos, p
 ![image](https://github.com/user-attachments/assets/cd9a1df8-df6d-4f5f-9793-8aff6a93bc4a)
 
 
+## Bug Tracker
+
+![image](https://github.com/user-attachments/assets/7393b192-dd64-4235-b897-b3ad77bcfd3e)
 
 
 ## Experiência da programação em dupla:
