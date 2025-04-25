@@ -25,13 +25,9 @@ O ínicio do site é a home. A partir dela é possível seguir por 2 caminhos, p
 
 4--Como usuário administrador do projeto, quero criar cursos.
 
-5--Como usuário administrador do projeto, quero editar cursos.
+5--Como usuário administrador do projeto, quero gerenciar cursos
 
-6--Como usuário administrador do projeto, quero excluir cursos.
-
-7--Como usuário administrador do projeto, quero visualizar cursos.
-
-8--Como usuário administrador do projeto, quero visualizar processos.
+6--Como usuário administrador do projeto, quero visualizar processos.
 
 ## Diagrama de atividades
 
@@ -42,6 +38,12 @@ O ínicio do site é a home. A partir dela é possível seguir por 2 caminhos, p
 ## Bug Tracker
 
 ![image](https://github.com/user-attachments/assets/7393b192-dd64-4235-b897-b3ad77bcfd3e)
+![image](https://github.com/user-attachments/assets/4773af86-4353-4a18-b1c7-3307e7bdf537) 
+![image](https://github.com/user-attachments/assets/556ad30f-0a55-491b-be71-0546c3ad16f4)
+
+
+
+
 
 
 ## Experiência da programação em dupla:
