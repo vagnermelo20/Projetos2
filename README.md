@@ -9,7 +9,7 @@ Link do google sites: [Google Sites](https://sites.google.com/u/0/d/1fZqgvoNvb9V
 
 Link do screencast do prototipo não funcional: [Screencast do Prototipo](https://youtu.be/YXwf2zxgmS8)
 
-Link do screencast do site no youtube: [Screencast do site](https://youtu.be/5VUof4-5msc)
+Link do screencast do site no youtube: [Screencast do site](https://youtu.be/iJ4cguAdjWU)
 
 Link do figma: [Figma](https://www.figma.com/design/MP3gRr3GpH7T6fFbs0kJ1R/Untitled?node-id=5-19&t=I6CUjo8XljAomvSu-1)
 
