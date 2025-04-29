@@ -19,7 +19,7 @@ O ínicio do site é a home. A partir dela é possível seguir por 2 caminhos, p
 ## Histórias prototipadas no SR1.
 1-- Como usuário postulante a entrar no projeto, quero conseguir me cadastrar no processo seletivo inserindo meus dados em uma tela de cadastro, para realizar minha inscrição de modo eficiente e intuitivo.
 
-2--Como usuário administrador do projeto, quero conseguir abrir um processo de seleção.
+2--Como usuário administrador do projeto, quero conseguir abrir um processo de seleção. 
 
 3--Como usuário administrador do projeto, quero editar um processo de seleção.
 
