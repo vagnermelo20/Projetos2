@@ -28,7 +28,7 @@ O ínicio do site é a home. A partir dela é possível seguir por 2 caminhos, p
 5--Como usuário administrador do projeto, quero gerenciar cursos
 
 6--Como usuário administrador do projeto, quero visualizar processos.
-
+ 
 ## Diagrama de atividades
 
 
