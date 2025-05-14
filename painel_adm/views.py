@@ -69,17 +69,6 @@ class VisualizarCurso(View):
 
         return render(request, 'painel_adm/visualizar_curso.html', context)
 
-
-class DeletarCurso(View):
-    def post(self, request, curso_id):
-    
-        curso = get_object_or_404(Curso,id=curso_id)
-
-        curso.delete()
-
-        return redirect('visualizar_curso')
-
-
 class EditarCurso(View):
     def get(self, request, curso_id):
        
@@ -126,6 +115,17 @@ class EditarCurso(View):
         curso.save()
 
         return redirect('visualizar_curso')
+
+
+class DeletarCurso(View):
+    def post(self, request, curso_id):
+    
+        curso = get_object_or_404(Curso,id=curso_id)
+
+        curso.delete()
+
+        return redirect('visualizar_curso')
+    
     
 class CriarProcessoSeletivo(View):
     def get(self, request):
