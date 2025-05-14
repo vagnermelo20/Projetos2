@@ -126,7 +126,6 @@ class DeletarCurso(View):
 
         return redirect('visualizar_curso')
     
-    
 class CriarProcessoSeletivo(View):
     def get(self, request):
         return render(request, 'painel_adm/criar_processo.html')
@@ -244,3 +243,8 @@ class EditarProcesso(View):
         processo.save()
 
         return redirect('visualizar_processo')
+
+
+class VisualizarAplicantes(View):
+    def get(self, request):
+        return render(request, 'painel_adm/visualizar_aplicantes.html')
