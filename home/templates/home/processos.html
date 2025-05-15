@@ -139,7 +139,7 @@
         <div class="cursos-container">
             {% if processos %}
                 {% for processo in processos %}
-                    <a href="{% url 'registro' %}" style="text-decoration:none;">
+                    <a href="{% url 'registro' %}?name={{ processo.curso_para_processo }} "style="text-decoration:none;">
                         <div class="curso-card">
                             <div class="curso-icon">
                                 <!-- Ícone dinâmico se existir, senão um padrão -->

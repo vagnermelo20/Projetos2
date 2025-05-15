@@ -127,6 +127,7 @@
     </style>
 </head>
 <body>
+
     <div class="header">
         <div class="menu-icon">
             <span></span>
@@ -185,9 +186,17 @@
                         <option value="Integral" {% if periodo_estudo == 'Integral' %}selected{% endif %}>Integral</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <input type="hidden" name="nome_processo" id="name_processo">
+                </div>
                 <button type="submit">Enviar</button>
                 <a href="{% url 'inicio' %}" class="inicio-link">Inicio</a>
             </form>
+            <script>
+                const parametro_da_url= new URLSearchParams(window.location.search)
+                const nome_processo= parametro_da_url.get('name')
+                document.getElementById("name_processo").value=nome_processo
+            </script>
         </div>
     </div>
 </body>
