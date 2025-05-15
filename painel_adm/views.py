@@ -245,11 +245,11 @@ class EditarProcesso(View):
     
 class VisualizarAlunos(View):
     def get(self,request,curso):
-        alunos = Inscricao.objects.filter(Inscricao, nome_curso=curso)
+        alunos = Inscricao.objects.filter(nome_curso=curso)
         context = {
             'alunos': alunos,
         }
-        return render(request,'painel_adm/visualizar_alunos.html',context)
+        return render(request,'painel_adm/visualizar_alunos_processo.html',context)
     
 
 
