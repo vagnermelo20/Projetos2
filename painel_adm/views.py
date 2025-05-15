@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from painel_adm.models import Curso,Selecao
+from painel_adm.models import Curso,Selecao,Inscricao
 
 
 
@@ -210,9 +210,6 @@ class EditarProcesso(View):
         return render(request, 'painel_adm/editar_processo.html', context)
 
     def post(self, request, processo_id):
-       
-        
-
         processo = get_object_or_404(Selecao, id=processo_id)
 
         data_inicio= request.POST.get('data_inicio')
@@ -234,3 +231,15 @@ class EditarProcesso(View):
         processo.save()
 
         return redirect('visualizar_processo')
+    
+class VisualizarAlunos(View):
+    def get(self,request,curso):
+        alunos = Inscricao.objects.filter(Inscricao, nome_curso=curso)
+        context = {
+            'alunos': alunos,
+        }
+        return render(request,'painel_adm/visualizar_alunos.html',context)
+    
+
+
+    
