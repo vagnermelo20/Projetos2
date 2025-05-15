@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        {% if alunos %}
+        {% for alunos in alunos %}
+            <p>{{ alunos.nome_inscrito }}</p>
+        {% endfor %}
+        {% else %}
+            <p>Não há inscritos nesse curso</p>
+        {% endif %}
+
+    </main>
+    
+</body>
+</html>
