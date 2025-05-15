@@ -89,6 +89,10 @@ class Registrar_aluno(View):
             'educacao':educacao,
             'periodo_estudo':periodo_estudo,
         })
+        Inscricao.objects.create(
+            nome_inscrito=nome,
+            nome_curso=nome_do_processo,
+        )
         try:
             AlunoRegistro.objects.create(
                 Nome=nome,
@@ -97,10 +101,6 @@ class Registrar_aluno(View):
                 Bairro=bairro,
                 Educacao=educacao,
                 Periodo_estudo=periodo_estudo,
-            )
-            Inscricao.objects.create(
-                nome_inscrito=nome,
-                nome_curso=nome_do_processo,
             )
             messages.success(request, 'O candidato foi registrado com sucesso!')
             return redirect('inicio')
