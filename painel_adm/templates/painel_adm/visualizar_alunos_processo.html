@@ -10,6 +10,8 @@
         {% if alunos %}
         {% for alunos in alunos %}
             <p>{{ alunos.nome_inscrito }}</p>
+            <a href="">Aceitar</a>
+            <a href="">Rejeitar</a>
         {% endfor %}
         {% else %}
             <p>Não há inscritos nesse curso</p>
