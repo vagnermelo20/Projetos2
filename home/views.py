@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
 from home.models import Usuario,AlunoRegistro
-from painel_adm.models import Curso,Selecao
+from painel_adm.models import Inscricao,Selecao
 from django.contrib.auth.hashers import make_password, check_password
 
 
@@ -61,6 +61,7 @@ class Registrar_aluno(View):
         bairro = request.POST.get('bairro')
         educacao = request.POST.get('educacao')
         periodo_estudo = request.POST.get('periodo_estudo')
+        nome_do_processo=request.POST.get('nome_processo')
         
         
 
@@ -96,6 +97,10 @@ class Registrar_aluno(View):
                 Bairro=bairro,
                 Educacao=educacao,
                 Periodo_estudo=periodo_estudo,
+            )
+            Inscricao.objects.create(
+                nome_inscrito=nome,
+                nome_curso=nome_do_processo,
             )
             messages.success(request, 'O candidato foi registrado com sucesso!')
             return redirect('inicio')
