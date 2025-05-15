@@ -106,6 +106,12 @@
             cursor: pointer;
             transition: background 0.2s;
             width: 100%;
+            
+            box-sizing: border-box; /* Garante que padding não aumente a largura */
+            overflow: hidden; /* Esconde texto excedente */
+            text-overflow: ellipsis; /* Adiciona reticências (...) */
+            white-space: nowrap; /* Evita quebra de linha */
+            max-width: 100%; /* Garante máximo de 100% */
         }
         .curso-item:hover {
             background: #338fa3;

@@ -1,3 +1,12 @@
+# O código a ser usado localmente está no final. A partir da linha 180. Comenta o texto antes e descomenta a partir de 180
+
+
+
+
+
+
+
+
 """
 Django settings for project project.
 
@@ -31,13 +40,24 @@ DEBUG = os.getenv('DEBUG', 'False').lower() in ['true', '1', 't']
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
 #CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(' ')
 
-# Banco de Dados
+# Banco de Dados tradicional para mexer no codigo
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# Banco de Dados pra deixar quando estiver em produção. 
+#LEMBRAR DE NÃO SUBIR O DB.SQLITE3 DO PROJETO NO GITHUB
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': '/home/database/db.sqlite3',
+#     }
+# }
 
 # Application definition
 
@@ -141,3 +161,136 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = [
     'https://automathos-dehjaffebzancmb7.brazilsouth-01.azurewebsites.net',
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # Projeto para rodar localmente
+
+
+
+# from pathlib import Path
+
+# # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+# # Quick-start development settings - unsuitable for production
+# # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+
+# # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = 'django-insecure-2*)53d_8asm*(2n!0x$5@a2k=*is$s&ifreji_&&ne&*s$qbny'
+
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
+
+# ALLOWED_HOSTS = []
+
+
+# # Application definition
+
+# INSTALLED_APPS = [
+#     'home',
+#     'painel_adm',
+#     'django.contrib.admin',
+#     'django.contrib.auth',
+#     'django.contrib.contenttypes',
+#     'django.contrib.sessions',
+#     'django.contrib.messages',
+#     'django.contrib.staticfiles',
+#     "whitenoise.runserver_nostatic",
+    
+# ]
+
+# MIDDLEWARE = [
+#     'django.middleware.security.SecurityMiddleware',
+#     'django.contrib.sessions.middleware.SessionMiddleware',
+#     'django.middleware.common.CommonMiddleware',
+#     'django.middleware.csrf.CsrfViewMiddleware',
+#     'django.contrib.auth.middleware.AuthenticationMiddleware',
+#     'django.contrib.messages.middleware.MessageMiddleware',
+#     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+# ]
+
+# ROOT_URLCONF = 'project.urls'
+
+# TEMPLATES = [
+#     {
+#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#         'DIRS': [],
+#         'APP_DIRS': True,
+#         'OPTIONS': {
+#             'context_processors': [
+#                 'django.template.context_processors.request',
+#                 'django.contrib.auth.context_processors.auth',
+#                 'django.contrib.messages.context_processors.messages',
+#             ],
+#         },
+#     },
+# ]
+
+# WSGI_APPLICATION = 'project.wsgi.application'
+
+
+# # Database
+# # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
+# # Password validation
+# # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+
+# AUTH_PASSWORD_VALIDATORS = [
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#     },
+# ]
+
+
+# # Internationalization
+# # https://docs.djangoproject.com/en/5.2/topics/i18n/
+
+# LANGUAGE_CODE = 'en-us'
+
+# TIME_ZONE = 'UTC'
+
+# USE_I18N = True
+
+# USE_TZ = True
+
+
+# # Static files (CSS, JavaScript, Images)
+# # https://docs.djangoproject.com/en/5.2/howto/static-files/
+
+# STATIC_URL = 'static/'
+
+# # Default primary key field type
+# # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

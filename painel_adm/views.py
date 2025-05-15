@@ -126,7 +126,8 @@ class EditarCurso(View):
         curso.save()
 
         return redirect('visualizar_curso')
-    
+
+
 class CriarProcessoSeletivo(View):
     def get(self, request):
         return render(request, 'painel_adm/criar_processo.html')
@@ -135,8 +136,18 @@ class CriarProcessoSeletivo(View):
        
         data_inicio= request.POST.get('data_inicio')
         data_fim = request.POST.get('data_fim')
-        max_participantes= request.POST.get('max_participantes')  
+        max_participantes= request.POST.get('max_participantes')
         curso_para_processo= request.POST.get('curso_para_processo')
+
+        if data_inicio >= data_fim:
+            messages.error(request, 'A data de início não pode ser posterior ou igual à data final.')
+            return render(request, 'painel_adm/criar_processo.html', {
+                'data_inicio': data_inicio,
+                'data_fim': data_fim,
+                'max_participantes': max_participantes,
+                'curso_para_processo': curso_para_processo
+            })
+        
         if not Curso.objects.filter(Nome=curso_para_processo).exists():
             messages.error(request,'Esse curso não existe') 
             return render(request, 'painel_adm/criar_processo.html', {
