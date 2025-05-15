@@ -15,5 +15,8 @@ class Selecao(models.Model):
     data_fim = models.DateField()
     max_participantes = models.IntegerField()
     curso_para_processo=models.CharField(max_length=1000)
-   
+
+class Inscricao(models.Model):
+    nome_inscrito=models.CharField(max_length=1000)
+    nome_curso=models.CharField(max_length=300)
     
