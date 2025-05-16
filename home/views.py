@@ -62,7 +62,7 @@ class Registrar_aluno(View):
             messages.error(request, 'Todos os campos são obrigatórios.')
             return render(request, 'home/registro_aluno.html')
 
-        if Inscricao.objects.filter(Nome=nome).exists():
+        if Inscricao.objects.filter(nome_inscrito=nome).exists():
             messages.error(request, 'Candidato já registado.')
             return render(request, 'home/registro_aluno.html', {
             'nome': nome,
