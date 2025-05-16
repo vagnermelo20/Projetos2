@@ -57,7 +57,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': '/home/database/db.sqlite3',
     }
-}
+} 
 
 # Application definition
 
