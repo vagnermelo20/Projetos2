@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
-from home.models import Usuario,AlunoRegistro
+from home.models import Usuario
 from painel_adm.models import Inscricao,Selecao
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -33,13 +33,6 @@ class LoginView(View):
 
         return render(request, 'home/login.html')
 
-# class LogoutView(View):
-#     def get(self, request):
-#         # Remover o ID do usuário da sessão
-#         if 'usuario_id' in request.session:
-#             del request.session['usuario_id']
-        
-#         return redirect('inicio') 
     
 class InicioView(View):
     def get(self, request):
@@ -69,7 +62,7 @@ class Registrar_aluno(View):
             messages.error(request, 'Todos os campos são obrigatórios.')
             return render(request, 'home/registro_aluno.html')
 
-        if AlunoRegistro.objects.filter(Nome=nome).exists():
+        if Inscricao.objects.filter(Nome=nome).exists():
             messages.error(request, 'Candidato já registado.')
             return render(request, 'home/registro_aluno.html', {
             'nome': nome,
@@ -79,7 +72,7 @@ class Registrar_aluno(View):
             'educacao':educacao,
             'periodo_estudo':periodo_estudo,
         })
-        elif AlunoRegistro.objects.filter(Telefone=telefone).exists():
+        elif Inscricao.objects.filter(Telefone=telefone).exists():
             messages.error(request, 'Número já cadastrado. Insira outro número e tente novamente.')
             return render(request, 'home/registro_aluno.html', {
             'nome': nome,
@@ -89,25 +82,22 @@ class Registrar_aluno(View):
             'educacao':educacao,
             'periodo_estudo':periodo_estudo,
         })
-        Inscricao.objects.create(
-            nome_inscrito=nome,
-            nome_curso=nome_do_processo,
-        )
         try:
-            AlunoRegistro.objects.create(
-                Nome=nome,
+            Inscricao.objects.create(
+                nome_inscrito=nome,
                 Telefone=telefone,
                 Idade=idade,
                 Bairro=bairro,
                 Educacao=educacao,
                 Periodo_estudo=periodo_estudo,
+                nome_curso=nome_do_processo,   
             )
             messages.success(request, 'O candidato foi registrado com sucesso!')
             return redirect('inicio')
         except:
             messages.success(request, 'Erro no registro do candidato!')
             return render(request,'home/registro_aluno.html')
-        
+               
 class ProcessoView(View):
     def get(self, request):
         lista_processos=Selecao.objects.all()
