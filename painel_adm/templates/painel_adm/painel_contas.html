@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="">Criar contas</a>
+
+    {% for conta in contas %}
+        {% if conta.id  ==  user.id  %} 
+            <span></span>
+        {% else %}
+            <p>Nome usuário: {{ conta.Username }}</p>
+            <p>Email: {{ conta.E_mail }}</p>
+            <p>Tipo de conta: {{ conta.Tipos_conta }}</p>
+            <a href="">Deletar</a>
+            <a href="">Alterar</a>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>
