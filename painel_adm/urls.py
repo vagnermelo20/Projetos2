@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from painel_adm.views import InicioView,CriarCurso,EditarCurso,DeletarCurso,VisualizarCurso,VisualizarProcesso,EditarProcesso,DeletarProcesso,CriarProcessoSeletivo,VisualizarAlunos
+from painel_adm.views import InicioView,CriarCurso,EditarCurso,DeletarCurso,VisualizarCurso,VisualizarProcesso,EditarProcesso,DeletarProcesso,CriarProcessoSeletivo,VisualizarAlunos,PainelContas
 
 urlpatterns = [
     path('',InicioView.as_view(),name="inicio_painel"), 
@@ -12,5 +12,6 @@ urlpatterns = [
     path('editar_processo/<int:processo_id>/',EditarProcesso.as_view(),name="editar_processo"),
     path('deletar_processo/<int:processo_id>/',DeletarProcesso.as_view(),name="deletar_processo"),
     path('visualizar_processo/',VisualizarProcesso.as_view(),name="visualizar_processo"),
-    path('visualizar_alunos/<str:curso>/',VisualizarAlunos.as_view(),name='visualizar_alunos')
+    path('visualizar_alunos/<str:curso>/',VisualizarAlunos.as_view(),name='visualizar_alunos'),
+    path('painel_contas/',PainelContas.as_view(),name='painel_contas'),
 ]
