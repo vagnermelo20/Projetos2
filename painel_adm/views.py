@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from painel_adm.models import Curso,Selecao,Inscricao
 
+from home.models import Usuario
+
 
 
 
@@ -253,5 +255,10 @@ class VisualizarAlunos(View):
         return render(request,'painel_adm/visualizar_alunos_processo.html',context)
     
 
-
-    
+class PainelContas(View):
+    def get(self,request):
+        contas=Usuario.objects.all()
+        contexto={
+            "contas":contas
+        }
+        return render(request,'painel_adm/painel_contas.html',contexto)
