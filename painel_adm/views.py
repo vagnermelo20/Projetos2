@@ -262,3 +262,34 @@ class PainelContas(View):
             "contas":contas
         }
         return render(request,'painel_adm/painel_contas.html',contexto)
+    
+class EditarContas(View):
+    def get(self,request,conta_id):
+        conta_edit=Usuario.objects.filter(id=conta_id)
+        contexto={'conta':conta_edit}
+        return render(request,'painel_adm/editar_contas.html',contexto)
+
+    def post(self,request,conta_id):
+        conta_edit=get_object_or_404(Usuario,id=conta_id)
+        
+        username=request.POST.get('username')
+        email=request.POST.get('email')
+        senha=request.POST.get('senha')
+        
+
+        if not username or not email or not senha:
+            messages.error(request, 'É necessário preencher todas as informações.')
+            return render(request, 'painel_adm/editar_contas.html', {'conta': conta_edit})
+        
+        conta_edit.Username=username
+        conta_edit.E_mail=email
+        conta_edit.Senha=senha
+        conta_edit.save()
+        return redirect('painel_contas')
+
+class DeletarContas(View):
+    def get(self,request,conta_id):
+        conta_deletar=get_object_or_404(Usuario,id=conta_id)
+        conta_deletar.delete()
+        return redirect('painel_contas')
+        
