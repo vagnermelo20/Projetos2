@@ -15,8 +15,11 @@
             <p>Nome usuário: {{ conta.Username }}</p>
             <p>Email: {{ conta.E_mail }}</p>
             <p>Tipo de conta: {{ conta.Tipos_conta }}</p>
-            <a href="">Deletar</a>
-            <a href="">Alterar</a>
+             <form method="POST" action="{% url 'deletar_contas' conta.id %}"  onsubmit="return confirm('Você tem certeza que deseja deletar essa conta? Esse processo não poderá ser revertido');">
+                    {% csrf_token %}
+                    <button type="submit">Deletar</button>
+                </form>
+            <a href="{% url 'editar_contas' conta.id %}">Alterar</a>
         {% endif %}
     {% endfor %}
 </body>

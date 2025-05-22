@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div>{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <a href="{% url 'painel_contas' %}">Voltar</a>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="campo_username">Digite nome do usuário</label>
+        <input type="text"  id="campo_username" name="username" value="{{ conta.Username }}">
+
+        <label for="campo_email">Digite o email</label>
+        <input type="text"  id="campo_email" name="email" value="{{ conta.E_mail }}">
+
+        <label for="campo_senha">Digite a senha</label>
+        <input type="text" id="campo_senha" name="senha" value="{{ conta.Senha }}">   
+
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
