@@ -37,7 +37,7 @@ NOT_PROD = not TARGET_ENV.lower().startswith('prod')
 SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key')
 DEBUG = os.getenv('DEBUG', 'False').lower() in ['true', '1', 't']
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 #CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(' ')
 
 # Banco de Dados tradicional para mexer no codigo
@@ -52,10 +52,13 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
 # Banco de Dados pra deixar quando estiver em produção. 
 #LEMBRAR DE NÃO SUBIR O DB.SQLITE3 DO PROJETO NO GITHUB
 
+# settings.py
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/home/database/db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 } 
 
