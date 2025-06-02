@@ -151,23 +151,24 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="campo_nome">Nome:</label>
-                    <input type="text"  name="nome" id="campo_nome" placeholder="Digite seu Nome">
+                    <input type="text" name="nome" id="campo_nome" placeholder="Digite seu Nome" required>
                 </div>
                 <div class="form-group">
                     <label for="campo_telefone">Telefone:</label>
-                    <input type="text"  name="telefone" id="campo_telefone" placeholder="Digite seu telefone">
+                    <input type="text" name="telefone" id="campo_telefone" placeholder="Digite seu telefone" required pattern="\d{8,15}">
                 </div>
                 <div class="form-group">
                     <label for="campo_idade">Idade:</label>
-                    <input type="text"  name="idade" id="campo_idade" placeholder="Digite sua idade">
+                    <input type="number" name="idade" id="campo_idade" placeholder="Digite sua idade" min="1" max="120" required>
                 </div>
                 <div class="form-group">
                     <label for="campo_bairro">Bairro:</label>
-                    <input type="text"  name="bairro" id="campo_bairro" placeholder="Digite seu bairro">
+                    <input type="text" name="bairro" id="campo_bairro" placeholder="Digite seu bairro" required>
                 </div>
                 <div class="form-group">
                     <label for="campo_educacao">Nível educacional:</label>
-                    <select name="educacao" id="campo_educacao">
+                    <select name="educacao" id="campo_educacao" required>
+                        <option value="">Selecione...</option>
                         <option value="Fundamental Incompleto" {% if educacao == 'Fundamental Incompleto' %}selected{% endif %}>Fundamental incompleto</option>
                         <option value="Fundamental completo" {% if educacao == 'Fundamental completo' %}selected{% endif %}>Fundamental completo</option>
                         <option value="Médio Incompleto" {% if educacao == 'Médio Incompleto' %}selected{% endif %}>Médio Incompleto</option>
@@ -178,7 +179,8 @@
                 </div>
                 <div class="form-group">
                     <label for="campo_periodo_estudo">Período de estudo:</label>
-                    <select name="periodo_estudo" id="campo_periodo_estudo">
+                    <select name="periodo_estudo" id="campo_periodo_estudo" required>
+                        <option value="">Selecione...</option>
                         <option value="Não Estudo" {% if periodo_estudo == 'Não estudo' %}selected{% endif %}>Não estudo</option>
                         <option value="Manhã" {% if periodo_estudo == 'Manhã' %}selected{% endif %}>Manhã</option>
                         <option value="Tarde" {% if periodo_estudo == 'Tarde' %}selected{% endif %}>Tarde</option>
@@ -187,15 +189,15 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="hidden" name="nome_processo" id="name_processo">
+                    <input type="hidden" name="nome_processo" id="name_processo" required>
                 </div>
                 <button type="submit">Enviar</button>
                 <a href="{% url 'inicio' %}" class="inicio-link">Inicio</a>
             </form>
             <script>
-                const parametro_da_url= new URLSearchParams(window.location.search)
-                const nome_processo= parametro_da_url.get('name')
-                document.getElementById("name_processo").value=nome_processo
+                const parametro_da_url = new URLSearchParams(window.location.search)
+                const nome_processo = parametro_da_url.get('name')
+                document.getElementById("name_processo").value = nome_processo || ''
             </script>
         </div>
     </div>
