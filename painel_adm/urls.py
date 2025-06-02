@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from painel_adm.views import InicioView,CriarCurso,EditarCurso,DeletarCurso,VisualizarCurso,VisualizarProcesso,EditarProcesso,DeletarProcesso,CriarProcessoSeletivo,VisualizarAlunos,PainelContas,EditarContas,DeletarContas
+from painel_adm.views import InicioView,CriarCurso,EditarCurso,DeletarCurso,VisualizarCurso,VisualizarProcesso,EditarProcesso,DeletarProcesso,CriarProcessoSeletivo,VisualizarAlunos,PainelContas,EditarContas,DeletarContas,InicioProfessor,CriarContas,GerenciamentoAcad,VisualizarAlunosProf
 
 urlpatterns = [
     path('',InicioView.as_view(),name="inicio_painel"), 
@@ -16,4 +16,8 @@ urlpatterns = [
     path('painel_contas/',PainelContas.as_view(),name='painel_contas'),
     path('editar_contas/<int:conta_id>/',EditarContas.as_view(),name="editar_contas"),
     path('deletar_contas/<int:conta_id>/',DeletarContas.as_view(),name="deletar_contas"),
+    path('inicio_professor/',InicioProfessor.as_view(),name="inicio_professor"),
+    path('criar_contas',CriarContas.as_view(),name='criar_contas'),
+    path('gerenciamento_acad/<str:curso>/',GerenciamentoAcad.as_view(),name='gerenciamento_acad'),
+    path('visualizar_alunos_prof/<str:curso>/',VisualizarAlunosProf.as_view(), name='visualizar_alunos_prof'),
 ]
