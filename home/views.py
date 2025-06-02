@@ -25,7 +25,11 @@ class LoginView(View):
             usuario = Usuario.objects.get(E_mail=email)
             # Usar check_password para verificar a senha hasheada
             if check_password(senha, usuario.Senha):
-                return redirect('inicio_painel')
+                if usuario.Tipos_conta=='Professor':
+                    curso=usuario.Curso
+                    curso_gerenciar=Inscricao.objects.filter(nome_curso=curso)
+                    return render(request,'painel_adm/inicio_professor.html',{'alunos':curso_gerenciar,'curso':curso})
+                return render(request,'painel_adm/inicio.html')
             else:
                 messages.error(request, 'Senha incorreta.')
         except Usuario.DoesNotExist:
