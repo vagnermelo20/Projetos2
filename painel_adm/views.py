@@ -4,7 +4,7 @@ from django.views import View
 from painel_adm.models import Curso,Selecao,Inscricao
 
 from home.models import Usuario
-
+from datetime import date, timedelta
 
 
 
@@ -142,6 +142,35 @@ class CriarProcessoSeletivo(View):
         max_participantes= request.POST.get('max_participantes')
         curso_para_processo= request.POST.get('curso_para_processo')
 
+        if date.fromisoformat(data_inicio) < date.today():
+            messages.error(request, 'O processo seletivo não pode iniciar antes do dia de hoje.')
+            return render(request, 'painel_adm/criar_processo.html', {
+                'data_inicio': data_inicio,
+                'data_fim': data_fim,
+                'max_participantes': max_participantes,
+                'curso_para_processo': curso_para_processo
+            })
+
+        um_ano_apos = date.today() + timedelta(days=366)
+        if date.fromisoformat(data_inicio) > um_ano_apos:
+            messages.error(request, 'A data de início deve estar no máximo até um ano a partir de hoje.')
+            return render(request, 'painel_adm/criar_processo.html', {
+                'data_inicio': data_inicio,
+                'data_fim': data_fim,
+                'max_participantes': max_participantes,
+                'curso_para_processo': curso_para_processo
+            })
+        
+        if (date.fromisoformat(data_fim) - date.fromisoformat(data_inicio)).days > 365:
+            messages.error(request, 'O processo seletivo não pode durar mais de 1 ano.')
+            return render(request, 'painel_adm/criar_processo.html', {
+                'data_inicio': data_inicio,
+                'data_fim': data_fim,
+                'max_participantes': max_participantes,
+                'curso_para_processo': curso_para_processo
+            })
+
+
         if data_inicio >= data_fim:
             messages.error(request, 'A data de início não pode ser posterior ou igual à data final.')
             return render(request, 'painel_adm/criar_processo.html', {
@@ -186,6 +215,7 @@ class CriarProcessoSeletivo(View):
         )
 
         return redirect('visualizar_processo')
+    
     
 
 class VisualizarProcesso(View):
