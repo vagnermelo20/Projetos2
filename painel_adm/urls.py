@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from painel_adm.views import InicioView,CriarCurso,EditarCurso,DeletarCurso,VisualizarCurso,VisualizarProcesso,EditarProcesso,DeletarProcesso,CriarProcessoSeletivo,VisualizarAlunos,PainelContas,EditarContas,DeletarContas,InicioProfessor,CriarContas,GerenciamentoAcad,VisualizarAlunosProf
+from painel_adm.views import InicioView,CriarCurso,EditarCurso,DeletarCurso,VisualizarCurso,VisualizarProcesso,EditarProcesso,DeletarProcesso,CriarProcessoSeletivo,VisualizarAlunos,PainelContas,EditarContas,DeletarContas,InicioProfessor,CriarContas,GerenciamentoAcad,VisualizarAlunosProf,AvaliacaoMetricas
 
 urlpatterns = [
     path('',InicioView.as_view(),name="inicio_painel"), 
