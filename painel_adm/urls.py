@@ -20,4 +20,5 @@ urlpatterns = [
     path('criar_contas',CriarContas.as_view(),name='criar_contas'),
     path('gerenciamento_acad/<str:curso>/',GerenciamentoAcad.as_view(),name='gerenciamento_acad'),
     path('visualizar_alunos_prof/<str:curso>/',VisualizarAlunosProf.as_view(), name='visualizar_alunos_prof'),
+    path('avaliacao_metricas/<str:nome_aluno>/',AvaliacaoMetricas.as_view(),name='avaliacao_metricas')
 ]
