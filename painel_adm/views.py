@@ -372,4 +372,13 @@ class VisualizarAlunosProf(View):
         query_nomes=Inscricao.objects.filter(nome_curso=curso)
         contexto={'nomes':query_nomes,'curso':curso}
         return render(request,"painel_adm/visualizar_alunos_prof.html",contexto)
+
+class AvaliacaoMetricas(View):
+
+    def get(self,request,nome_aluno):
+        return render (request,'painel_adm/avaliacao_metricas.html')
+    
+    def post(self,request,nome_aluno):
+        #criar model e terminar view
+        return render(request,"painel_adm/gerenciamento_acad.html")
         
