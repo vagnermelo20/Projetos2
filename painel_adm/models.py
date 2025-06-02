@@ -6,7 +6,6 @@ class Curso(models.Model):
     Descrição = models.TextField()
     Numero_alunos=models.IntegerField()
     Numero_Professores=models.IntegerField()
-    
     def __str__(self):
         return self.Nome
 
@@ -45,9 +44,11 @@ class Inscricao(models.Model):
         choices=ESCOLHA_STATUS,
         default='Pendente'
     )
+
     criado_a = models.DateTimeField(auto_now_add=True)
     nome_curso=models.CharField(max_length=300)
-    
+    quantidade_faltas=models.IntegerField(default=0)
+
     def approve(self):
         self.status = 'aprovado'
         self.save()
