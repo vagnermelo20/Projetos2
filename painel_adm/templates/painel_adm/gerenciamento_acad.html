@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'inicio_professor' %}">Voltar</a>
+    <form method="POST">
+
+        {% csrf_token %}
+        {% for nome in nomes %}
+            <p>Nome do aluno: {{ nome.nome_inscrito }}</p>
+
+            <input type="radio" name="presenca_{{ forloop.counter }}" value="presente" id="presente_{{ forloop.counter }}">
+            <label for="presente_{{ forloop.counter }}">Presente</label>
+
+            <input type="radio" name="presenca_{{ forloop.counter }}" value="faltou" id="faltou_{{ forloop.counter }}">
+            <label for="faltou_{{ forloop.counter }}">Faltou</label>
+
+            <input type="hidden" name="aluno_id_{{ forloop.counter }}" value="{{ nome.id }}">
+            <br><br>
+        {% endfor %}
+
+        <input type="hidden" name="total_alunos" value="{{ nomes|length }}">
+        <button type="submit">Enviar</button>
+    </form>
+
+</body>
+</html>
+     
+</body>
+</html>

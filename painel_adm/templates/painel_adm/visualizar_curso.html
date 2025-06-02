@@ -226,7 +226,6 @@
                     <p><strong>Número de professores:</strong> {{ curso.Numero_Professores }}</p>
                     <div class="curso-actions">
                     <a href="{% url 'criar_curso' %}" class="" title="Criar curso" style="margin-left:auto;">Criar curso</a>
-                    
                     <div class="curso-actions">
                         <a href="{% url 'editar_curso' curso.id %}">Editar</a>
                         <form method="POST" action="{% url 'deletar_curso' curso.id %}" style="display:inline;" onsubmit="return confirm('Você tem certeza que deseja deletar este curso?');">

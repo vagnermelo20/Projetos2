@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'painel_contas' %}" class="voltar-btn">Voltar</a>
+        <div class="form-box">
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div>{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="campo_nome">Nome da conta:</label>
+                    <input type="text"  name="nome_conta" id="campo_nome" placeholder="Digite o nome da conta">
+                </div>
+                <div class="form-group">
+                    <label for="campo_email">Email da conta:</label>
+                    <input type="text"  name="email" id="campo_email" placeholder="Digite o email da conta">
+                </div>
+                <div class="form-group">
+                    <label for="campo_senha">Senha:</label>
+                    <input type="text"  name="senha" id="campo_senha" placeholder="Digite a senha da conta">
+                </div>
+                <div class="form-group">
+                    <select name="tipo_conta" id="campo_tipo_conta">
+                        <option value="Administrador">Administrador</option>
+                        <option value="Professor">Professor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="campo_curso_conta">Curso da conta(Se for adm deixar em branco):</label>
+                    <input type="text"  name="curso_conta" id="campo_curso_conta" placeholder="Digite o curso do professor">
+                </div>
+                <button type="submit">Enviar</button>
+                <a href="{% url 'inicio' %}" class="inicio-link">Inicio</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
