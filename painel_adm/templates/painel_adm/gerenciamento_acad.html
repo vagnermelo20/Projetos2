@@ -20,6 +20,7 @@
             <label for="faltou_{{ forloop.counter }}">Faltou</label>
 
             <input type="hidden" name="aluno_id_{{ forloop.counter }}" value="{{ nome.id }}">
+            <a href="{% url 'avaliacao_metricas' nome.nome_inscrito %}">Avaliação</a>
             <br><br>
         {% endfor %}
 
