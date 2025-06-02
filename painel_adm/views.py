@@ -257,11 +257,9 @@ class VisualizarAlunos(View):
 
 class PainelContas(View):
     def get(self,request):
-        contas=Usuario.objects.all()
-        contexto={
-            "contas":contas
-        }
-        return render(request,'painel_adm/painel_contas.html',contexto)
+        conta=Usuario.objects.all()
+        
+        return render(request,'painel_adm/painel_contas.html',{'contas':conta})
     
 class EditarContas(View):
     def get(self,request,conta_id):
@@ -288,8 +286,90 @@ class EditarContas(View):
         return redirect('painel_contas')
 
 class DeletarContas(View):
-    def get(self,request,conta_id):
+    def post(self,request,conta_id):
         conta_deletar=get_object_or_404(Usuario,id=conta_id)
         conta_deletar.delete()
         return redirect('painel_contas')
+
+class InicioProfessor(View):
+    def get(self,request):
+        return render(request,"painel_adm/inicio_professor.html")
+        
+class CriarContas(View):
+    
+    def get(self,request):
+        return render(request,"painel_adm/criar_contas.html")
+    
+    def post(self,request):
+
+        nome_conta=request.POST.get('nome_conta')
+        email=request.POST.get('email')
+        senha=request.POST.get('senha')
+        tipo_conta=request.POST.get('tipo_conta')
+        curso_conta=request.POST.get('curso_conta')
+
+
+        if not nome_conta or not email or not senha or not tipo_conta:
+            messages.error(request, 'É necessário preencher todas as informações.')
+            return render(request, 'painel_adm/criar_contas.html')
+        
+        if tipo_conta=="Professor":
+            if not curso_conta:
+                messages.error(request,"É nescessário inserir o curso da conta para uma conta de professor")
+                return render(request,'painel_adm/criar_contas.html')
+            elif not Curso.objects.filter(Nome=curso_conta).exists():
+                messages.error(request,"Esse curso não existe")
+                return render(request,"painel_adm/criar_contas.html")
+            else:
+                Usuario.objects.create(
+                    Username=nome_conta,
+                    E_mail=email,
+                    Senha=senha,
+                    Tipos_conta=tipo_conta,
+                    Curso=curso_conta,
+                )
+                messages.success(request,"Conta criada com sucesso")
+                return redirect('painel_contas')
+            
+        
+        
+        if tipo_conta=="Administrador":
+            Usuario.objects.create(
+                Username=nome_conta,
+                E_mail=email,
+                Senha=senha,
+                Tipos_conta=tipo_conta,
+            )
+            messages.success(request,"Conta criada com sucesso")
+            return render(request,"painel_adm/criar_contas.html")
+
+class GerenciamentoAcad(View):
+
+    def get(self,request,curso):
+        query_nomes=Inscricao.objects.filter(nome_curso=curso)
+        contexto={'nomes':query_nomes,'curso':curso}
+        return render(request,"painel_adm/gerenciamento_acad.html",contexto)
+    
+    def post(self,request,curso):
+        total = int(request.POST.get("total_alunos", 0))
+        for i in range(1, total + 1):
+            aluno_id = request.POST.get(f"aluno_id_{i}")
+            presenca = request.POST.get(f"presenca_{i}")
+            if not presenca:
+                messages.error(request,"É nescessários inserir a frequência de todos os estudantes.")
+                return render(request,"painel_adm/gerenciamento_acad.html")
+
+            if presenca=='faltou':
+                aluno=get_object_or_404(Inscricao,id=aluno_id)
+                aluno.quantidade_faltas+=1
+                aluno.save()
+
+        return render(request,"painel_adm/inicio_professor.html",{'curso':curso})
+
+class VisualizarAlunosProf(View):
+
+    def get(self,request,curso):
+        query_nomes=Inscricao.objects.filter(nome_curso=curso)
+        contexto={'nomes':query_nomes,'curso':curso}
+        return render(request,"painel_adm/visualizar_alunos_prof.html",contexto)
         
