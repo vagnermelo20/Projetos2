@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="comunicacao">Comunicação</label>
+        <select name="comunicacao" id="comunicacao">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <label for="conhecimento">Conhecimento técnico</label>
+        <select name="conhecimento" id="conhecimento">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <label for="participacao">Participação</label>
+        <select name="participacao" id="participacao">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <button type="submit">Enviar Avaliação</button>
+    </form>
+</body>
+</html>
