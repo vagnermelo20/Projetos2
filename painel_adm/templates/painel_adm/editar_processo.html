@@ -120,14 +120,7 @@
             background: #338fa3;
             color: #fff;
         }
-        /* Mensagens de erro ou sucesso */
-        .messages {
-            color: #ffbaba;
-            background: #790000;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 16px 40px;
-        }
+
         /* Responsividade para telas pequenas */
         @media (max-width: 700px) {
             .container, .edit-box, .form-group, .edit-title, button[type="submit"], .messages, .voltar-link {
@@ -159,7 +152,13 @@
             {% if messages %}
                 <div class="messages">
                     {% for message in messages %}
-                        <div>{{ message }}</div>
+                        {% if message.tags == "success" %}
+                            <div style="color: green;">{{ message }}</div>
+                        {% elif message.tags == "error" %}
+                            <div style="color: red;">{{ message }}</div>
+                        {% else %}
+                            <div>{{ message }}</div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             {% endif %}

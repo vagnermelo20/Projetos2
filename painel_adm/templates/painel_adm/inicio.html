@@ -101,6 +101,7 @@
             <span></span>
             <span></span>
         </div>
+
         <div class="user-info">
             <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="8" r="4"/>
@@ -110,6 +111,20 @@
         </div>
     </div>
    
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        {% if message.tags == "success" %}
+                            <div style="color: green;">{{ message }}</div>
+                        {% elif message.tags == "error" %}
+                            <div style="color: red;">{{ message }}</div>
+                        {% else %}
+                            <div>{{ message }}</div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
     <div class="welcome-box">
         Bem Vindo ao Administrativo do Sistema de Gestão de Cursos
     </div>

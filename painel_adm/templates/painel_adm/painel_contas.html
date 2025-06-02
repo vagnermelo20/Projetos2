@@ -6,6 +6,20 @@
     <title>Document</title>
 </head>
 <body>
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                {% if message.tags == "success" %}
+                    <div style="color: green;">{{ message }}</div>
+                {% elif message.tags == "error" %}
+                    <div style="color: red;">{{ message }}</div>
+                {% else %}
+                    <div>{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <a href="{% url 'criar_contas' %}">Criar contas</a>
     <a href="{% url 'inicio_painel' %}">Voltar</a>
     {% for conta in contas %}

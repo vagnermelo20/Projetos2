@@ -131,15 +131,7 @@
             margin-bottom: 4px;
             display: block;
         }
-        .mensagem-template {
-            background:rgb(0, 99, 197);
-            border-radius: 8px;
-            padding: 10px 16px;
-            margin-top: 8px;
-            font-size: 15px;
-            color: #333;
-            border: 1px solidrgb(114, 25, 25);
-        }
+
         .titulo-painel {
             font-size: 28px;
             font-weight: bold;
@@ -260,15 +252,7 @@
             border: none;
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
-        .mensagem-template {
-            background: #f4f6f8;
-            padding: 12px 18px;
-            border-radius : 12px;
-            margin-top: 8px;
-            font-size : 15px;
-            color: #333;
-            border : none;
-        }
+
     </style>
 </head>
 <body>
@@ -278,6 +262,7 @@
             <span></span>
             <span></span>
         </div>
+
         <div class="user-info">
             <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="8" r="4"/>
@@ -286,6 +271,20 @@
             {{ Usuario.Nome }}
         </div>
     </div>
+
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    {% if message.tags == "success" %}
+                        <div style="color: green;">{{ message }}</div>
+                    {% elif message.tags == "error" %}
+                        <div style="color: red;">{{ message }}</div>
+                    {% else %}
+                        <div>{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
      <div class="welcome-box">
         Bem Vindo ao Administrativo do Sistema de Gestão de Alunos
     </div>

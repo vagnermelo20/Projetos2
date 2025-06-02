@@ -94,13 +94,6 @@
             font-weight: bold;
             cursor: pointer;
         }
-        .messages {
-            color: #ffbaba;
-            background: #790000;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 16px 60px;
-        }
         .inicio-link {
             margin-left: 60px;
             margin-top: 16px;
@@ -136,7 +129,13 @@
             {% if messages %}
                 <div class="messages">
                     {% for message in messages %}
-                        <div>{{ message }}</div>
+                        {% if message.tags == "success" %}
+                            <div style="color: green;">{{ message }}</div>
+                        {% elif message.tags == "error" %}
+                            <div style="color: red;">{{ message }}</div>
+                        {% else %}
+                            <div>{{ message }}</div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             {% endif %}

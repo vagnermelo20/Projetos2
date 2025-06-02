@@ -121,13 +121,6 @@
             margin: 40px auto 0 auto;
             padding: 0 0 24px 0;
         }
-        .messages {
-            color: #ffbaba;
-            background: #790000;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 16px 40px;
-        }
         @media (max-width: 700px) {
             .container, .edit-box, .form-group, .edit-title, button[type="submit"], .messages, .voltar-link {
                 margin-left: 0 !important;
@@ -155,13 +148,19 @@
         <a href="{% url 'visualizar_curso' %}" class="voltar-btn">Voltar</a>
         <div class="edit-box">
             <div class="edit-title">Editar Cursos</div>
-            {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
-                        <div>{{ message }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            {% if message.tags == "success" %}
+                                <div style="color: green;">{{ message }}</div>
+                            {% elif message.tags == "error" %}
+                                <div style="color: red;">{{ message }}</div>
+                            {% else %}
+                                <div>{{ message }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
             <form method="POST">
                 {% csrf_token %}
                 <div class="form-group">
