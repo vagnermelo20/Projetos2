@@ -216,13 +216,19 @@
         <a href="{% url 'inicio' %}" class="voltar-link">Voltar</a>
         <div class="login-box">
             <div class="login-title">Login</div>
-            {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    {% if message.tags == "success" %}
+                        <div style="color: green;">{{ message }}</div>
+                    {% elif message.tags == "error" %}
+                        <div style="color: red;">{{ message }}</div>
+                    {% else %}
                         <div>{{ message }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
             <form method="POST">
                 {% csrf_token %}
                 <div class="form-group">
