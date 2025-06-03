@@ -18,13 +18,5 @@ class Usuario(models.Model):
     def __str__(self):
         return self.Username
 
-class Aluno(models.Model):
-    nome = models.CharField(max_length=100)
-    telefone = models.CharField(max_length=20)
-    idade = models.PositiveIntegerField()
-
-    def __str__(self):
-        return self.nome
-
 
 
