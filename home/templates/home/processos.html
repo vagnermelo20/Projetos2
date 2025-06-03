@@ -133,6 +133,19 @@
             
         </div>
     </div>
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    {% if message.tags == "success" %}
+                        <div style="color: green;">{{ message }}</div>
+                    {% elif message.tags == "error" %}
+                        <div style="color: red;">{{ message }}</div>
+                    {% else %}
+                        <div>{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
     <div class="main-content">
         <a href="{% url 'inicio' %}" class="voltar-link">Voltar</a>
         <div class="titulo">Escolha o curso que deseja</div>
