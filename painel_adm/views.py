@@ -410,5 +410,22 @@ class AvaliacaoMetricas(View):
     
     def post(self,request,nome_aluno):
         #criar model e terminar view
+
+        comunicacao=request.POST.get('comunicacao')
+        conhecimento=request.POST.get('conhecimento')
+        participacao=request.POST.get('participacao')
+
+        if not comunicacao or not conhecimento or not participacao:
+            messages.error("É nescessário inserir todas as informações")
+            return render("painel_adm/avaliacao_metricas.html")
+        
+        aluno=get_object_or_404(Inscricao,nome_inscrito=nome_aluno)
+        #fazer lógica de qual AV a avaliação mandada para o template se refere.
+        #elaborar regua de proficiência com base nos resultados.
+        aluno.av1=int(comunicacao)+int(conhecimento)+int(participacao)
+        aluno.save()
+
+
         return render(request,"painel_adm/gerenciamento_acad.html")
+    
         
