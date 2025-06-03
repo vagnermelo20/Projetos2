@@ -4,8 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+         body {
+            margin: 0;
+            background:rgb(209, 209, 209);
+            font-family: Arial, sans-serif;
+        }
+          .header {
+            background:rgb(75, 156, 177);
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        .main-content {
+            background:rgb(235, 228, 210);
+            padding: 40px 0 0 0;
+            min-height: 80vh;
+        }
+        .voltar-btn {
+            background:rgb(9, 128, 155);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 8px 29px;
+            margin: 40px 0 px; 
+            cursor: pointer;
+        }
+           .user-info svg {
+            margin-right: 6px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            font-size: 15px;
+        }
+        .welcome-box {
+            background:rgb(52, 157, 180);
+            color: #fff;
+            border-radius: 2px;
+            margin: 6px px px;
+            padding: 16px 0;
+            text-align: center;
+            font-size: 16px;
+        }
+            .big-btns-container {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0;
+            min-height: 60vh; /* Centraliza verticalmente */
+        }
+              .cursos-list {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .curso-item {
+            background: #5eb0c6;
+            color: #fff;
+            border-radius: 17px;
+            padding: 8px 19px;
+            border: none;
+            margin-bottom: 0;
+            text-align: left;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            
+            box-sizing: border-box; /* Garante que padding não aumente a largura */
+            overflow: hidden; /* Esconde texto excedente */
+            text-overflow: ellipsis; /* Adiciona reticências (...) */
+            white-space: nowrap; /* Evita quebra de linha */
+            max-width: 100%; /* Garante máximo de 100% */
+        }
+        .curso-item:hover {
+            background: #338fa3;
+        }
+        .curso-box {
+            background:rgb(19, 151, 180);
+            border-radius: 6px;
+            padding: 24px 30px;
+            color: #fff;
+            flex: 1;
+            margin-left: 0;
+            margin-right: 0;
+            min-width: 259px;
+        }
+        .curso-actions {
+            margin-top: 16px;
+        }
+        .curso-actions a, .curso-actions button {
+            background: #5eb0c6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            margin-right: 8px;
+            text-decoration: none;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .curso-actions a:hover, .curso-actions button:hover {
+            background: #338fa3;
+        }
+    </style>
 </head>
 <body>
+    <div class="header">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+        
+        </div>
+        <div class="user-info">
+            <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
+            </svg>
+            {{ Usuario.Nome }}
+        </div>
+    </div>
     {% if messages %}
         <div class="messages">
             {% for message in messages %}
@@ -19,10 +144,17 @@
             {% endfor %}
         </div>
     {% endif %}
-
+    <div class="welcome-box">
+        Bem Vindo ao visualizar alunos do Professor
+    </div>
+   <div class="main-content">
+    <a href="{% url 'inicio' %}" class="voltar-btn">Voltar</a>
+    <div class="curso-box">
     {% for nome in nomes %}
-        <p>Nome: {{ nome.nome_inscrito }}</p>
-        <p>Quantidade de faltas: {{ nome.quantidade_faltas }}</p>
+        <p class= "curso-item">Nome: {{ nome.nome_inscrito }}</p>
+        <p class = "curso-item">Quantidade de faltas: {{ nome.quantidade_faltas }}</p>
     {% endfor %}
+    </div>
+</div>
 </body>
 </html> 

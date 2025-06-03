@@ -3,9 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Painel do PROFESSOR</title>
+</head>
+  <style>
+        .body {
+            margin: 0;
+            background: #ede8db;
+            font-family: Arial, sans-serif;
+        }
+
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .menu-icon span {
+            display: block;
+            width: 24px;
+            height: 4px;
+            background: #fff;
+            margin: 4px 0;
+            border-radius: 2px;
+        }
+         .header {
+            background:rgb(75, 156, 177);
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+         .big-btns-container {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0;
+            min-height: 60vh; /* Centraliza verticalmente */
+        }
+        .welcome-box {
+            background:rgb(52, 157, 180);
+            color: #fff;
+            border-radius: 2px;
+            margin: 16px 24px 0 24px;
+            padding: 16px 0;
+            text-align: center;
+            font-size: 16px;
+        }
+        .big-btn {
+            background:rgb(37, 166, 192);
+            color: #fff;
+            border: none;
+            border-radius: 18px;
+            padding: 48px 64px;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: background 0.2s, transform 0.18s;
+            text-align: center;
+            display: inline-block;
+        }
+        .big-btn:hover {
+            background: #286978;
+            transform: translateY(-4px) scale(1.03);
+        }
+        .voltar-btn {
+            background: #286978;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 24px;
+            margin: 40px 0 0 24px; 
+            cursor: pointer;
+        }
+          .main-content {
+            background:rgb(235, 228, 210);
+            padding: 40px 0 0 0;
+            min-height: 80vh;
+        }
+          .user-info {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            font-size: 15px;
+        }
+        .user-info svg {
+            margin-right: 6px;
+        }
+    </style>
 </head>
 <body>
+    <div class="header">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="user-info">
+            <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
+            </svg>
+            {{ Usuario.Nome }}
+        </div>
+    </div>
     {% if messages %}
         <div class="messages">
             {% for message in messages %}
@@ -19,11 +125,16 @@
             {% endfor %}
         </div>
     {% endif %}
-
-    <h1>PAGINA DO PROFESSOR</h1>
-    <p>Nome do curso: {{ curso }}</p>
-    <a href="{% url 'visualizar_alunos_prof' curso %}">Visualizar alunos</a>
-    <a href="{% url 'gerenciamento_acad' curso %}">Gerenciamento acadêmico</a>
-
+     <div class="welcome-box">
+        Bem Vindo Professor do Sistema de Gestão 
+    </div>
+   <div class="main-content">
+    <a href="{% url 'inicio' %}" class="voltar-btn">Voltar</a>
+    <p class = "voltar-btn">Nome do curso: {{ curso }}</p>
+    <div class="big-btns-container">
+    <a  href="{% url 'visualizar_alunos_prof' curso %}"class="big-btn">Visualizar alunos</a>
+    <a href="{% url 'gerenciamento_acad' curso %}"class ="big-btn">Gerenciamento acadêmico</a>
+   </div>
+</div>
 </body>
 </html>

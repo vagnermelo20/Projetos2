@@ -4,8 +4,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+       body {
+            margin: 0;
+            background: #ede8db;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background: #338fa3;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: relative;
+        }
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .menu-icon span {
+            display: block;
+            width: 24px;
+            height: 4px;
+            background: #fff;
+            margin: 4px 0;
+            border-radius: 2px;
+        }
+         .voltar-btn {
+    background:rgb(26, 166, 197);
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    padding: 8px 32px;
+    margin: 36px 0 0 32px;
+    cursor: pointer;
+    font-size: 22px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, border 0.2s;
+}
+.voltar-btn:hover {
+    background:rgb(0, 0, 0);
+    border-color:rgb(236, 236, 236);
+}
+     .criar_curso {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            color:rgb(214, 0, 0);
+            border-radius: 50%;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            border: 2px solid #286978;
+            margin-left: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: background 0.2s, color 0.2s, border 0.2s;
+        }
+        .criar_curso:hover {
+            background: #286978;
+            color: #fff;
+            border-color: #fff;
+        }
+         .curso-box {
+            background: #286978;
+            border-radius: 16px;
+            padding: 24px 32px;
+            color: #fff;
+            flex: 1;
+            margin-left: 0;
+            margin-right: 0;
+            min-width: 250px;
+        }
+         .curso-item {
+            background: #5eb0c6;
+            color: #fff;
+            border-radius: 16px;
+            padding: 8px 16px;
+            border: none;
+            margin-bottom: 0;
+            text-align: left;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            
+            box-sizing: border-box; /* Garante que padding não aumente a largura */
+            overflow: hidden; /* Esconde texto excedente */
+            text-overflow: ellipsis; /* Adiciona reticências (...) */
+            white-space: nowrap; /* Evita quebra de linha */
+            max-width: 100%; /* Garante máximo de 100% */
+        }
+        .curso-item:hover {
+            background: #338fa3;
+        }
+        .criar-curso-btn {
+        background: #338fa3;
+        color:rgb(33, 57, 63);
+        border: 2px solidrgb(22, 147, 175);
+        border-radius: 20px;
+        padding: 12px 38px;
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        margin: 32px 0 24px 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        transition: background 0.2s, color 0.2s, border 0.2s;
+    
+    }
+    .criar-curso-btn:hover {
+        background:rgb(68, 68, 68);
+        color: #fff;
+        border-color: #fff;
+    }
+    .sidebar {
+            background: #286978;
+            border-radius: 16px;
+            padding: 16px 0 16px 0;
+            width: 200px;
+            min-width: 180px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .deletar-btn{
+            background:rgb(134, 5, 5);
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 20px;
+            padding: 8px 32px;
+            margin: 36px 0 0 32px;
+            cursor: pointer;
+            font-size: 22px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s, border 0.2s;
+        }
+    </style>
 </head>
 <body>
+        <div class="header">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
     {% if messages %}
         <div class="messages">
             {% for message in messages %}
@@ -19,19 +172,30 @@
             {% endfor %}
         </div>
     {% endif %}
-
-    <a href="{% url 'criar_contas' %}">Criar contas</a>
-    <a href="{% url 'inicio_painel' %}">Voltar</a>
+   
+        <div class="user-info">
+            <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
+            </svg>
+            {{ Usuario.Nome }}
+        </div>
+    </div>
+    <div class="curso-box">
+    <a href="{% url 'criar_contas' %}"class="criar-curso-btn">Criar contas</a>
+    <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>
     {% for conta in contas %}
-            <p>Nome usuário: {{ conta.Username }}</p>
-            <p>Email: {{ conta.E_mail }}</p>
-            <p>Tipo de conta: {{ conta.Tipos_conta }}</p>
+
+            <p class="curso-item">Nome usuário: {{ conta.Username }}</p>
+            <p class="curso-item">Email: {{ conta.E_mail }}</p>
+            <p class="curso-item">Tipo de conta: {{ conta.Tipos_conta }}</p>
 
             <form method="POST" action="{% url 'deletar_contas' conta.id %}"  onsubmit="return confirm('Você tem certeza que deseja deletar essa conta? Esse processo não poderá ser revertido')">
                 {% csrf_token %}
-                <button type="submit">Deletar</button>
+                <button type="submit" class = "deletar-btn">Deletar</button>
             </form>
-            <a href="{% url 'editar_contas' conta.id %}">Alterar</a>
+            <a href="{% url 'editar_contas' conta.id %}" class = "sidebar">Alterar</a>
+        </div>
     {% endfor %}
 </body>
 </html>
