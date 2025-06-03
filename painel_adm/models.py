@@ -48,6 +48,10 @@ class Inscricao(models.Model):
     criado_a = models.DateTimeField(auto_now_add=True)
     nome_curso=models.CharField(max_length=300)
     quantidade_faltas=models.IntegerField(default=0)
+    av1=models.IntegerField(default=0)
+    av2=models.IntegerField(default=0)
+    av3=models.IntegerField(default=0)
+    av4=models.IntegerField(default=0)
 
     def approve(self):
         self.status = 'aprovado'
