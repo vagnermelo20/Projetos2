@@ -322,8 +322,8 @@ class DeletarContas(View):
         return redirect('painel_contas')
 
 class InicioProfessor(View):
-    def get(self,request):
-        return render(request,"painel_adm/inicio_professor.html")
+    def get(self,request,curso):
+        return render(request,"painel_adm/inicio_professor.html",{'curso':curso})
         
 class CriarContas(View):
     
@@ -426,6 +426,6 @@ class AvaliacaoMetricas(View):
         aluno.save()
 
 
-        return render(request,"painel_adm/gerenciamento_acad.html")
+        return render(request,"painel_adm/gerenciamento_acad.html",{'curso':aluno.nome_curso})
     
         

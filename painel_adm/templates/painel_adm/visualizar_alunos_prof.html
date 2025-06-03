@@ -148,7 +148,7 @@
         Bem Vindo ao visualizar alunos do Professor
     </div>
    <div class="main-content">
-    <a href="{% url 'inicio' %}" class="voltar-btn">Voltar</a>
+    <a href="{% url 'inicio_professor' curso %}" class="voltar-btn">Voltar</a>
     <div class="curso-box">
     {% for nome in nomes %}
         <p class= "curso-item">Nome: {{ nome.nome_inscrito }}</p>

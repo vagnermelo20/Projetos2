@@ -108,24 +108,5 @@ class ProcessoView(View):
         contexto={'processos':lista_processos}
         return render(request,'home/processos.html',contexto)
 
-def registro_aluno(request):
-    if request.method == 'POST':
-        nome = request.POST.get('nome')
-        telefone = request.POST.get('telefone')
-        idade = request.POST.get('idade')
-        bairro = request.POST.get('bairro')
-        educacao = request.POST.get('educacao')
-        periodo_estudo = request.POST.get('periodo_estudo')
-        nome_processo = request.POST.get('nome_processo')
-
-        if not all([nome, telefone, idade, bairro, educacao, periodo_estudo, nome_processo]):
-            messages.error(request, "Todos os campos são obrigatórios.")
-            return render(request, 'home/registro_aluno.html')
-
-
-        messages.success(request, "Registro realizado com sucesso!")
-        return redirect('inicio')
-
-    return render(request, 'home/registro_aluno.html')
 
 
