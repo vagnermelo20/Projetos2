@@ -127,6 +127,42 @@
                 margin-right: 0 !important;
             }
         }
+         .presente{
+             margin-left: 0px;
+            margin-top: 16px;
+            display: inline;
+            color:rgb(249, 252, 253);
+            background:rgb(38, 191, 218);
+            border-radius: 8px 9px;
+            padding: 10px ;
+            
+         }
+         .presente1{
+             margin-left: 40px;
+            margin-top: 16px;
+            display: inline-block;
+            color:rgb(249, 252, 253);
+           
+            border-radius: 8px 9px;
+            padding: 10px 4px 6px;
+            text-decoration: none;
+            font-weight: bold;
+            flex-direction: row;
+            display: inline-block;
+            text-align: center;
+         }
+         .container1 {
+        display: flex;
+        justify-content: space-between; /* Espaçamento entre os elementos */
+        align-items: center; /* Alinhamento vertical */
+         }
+         .radio-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-left: 40px;
+    margin-bottom: 16px;
+}
     </style>
 </head>
 <body>
@@ -162,32 +198,30 @@
         </div>
     {% endif %}
      <div class="welcome-box">
-        Bem Vindo Professor ao gerenciamento academico  
+       <p class ="presente1"> Bem Vindo Professor ao gerenciamento academico  </p>
     </div>
 
-    <form method="POST">
+   <form method="POST">
+    {% csrf_token %}
+    {% for nome in nomes %}
+        <div class="form-group">
+            <p class="presente1">Nome do aluno: {{ nome.nome_inscrito }}</p>
+            <div class="radio-group">
+                <input type="radio" name="presenca_{{ forloop.counter }}" value="presente" id="presente_{{ forloop.counter }}">
+                <label for="presente_{{ forloop.counter }}" class="presente">Presente</label>
 
-        {% csrf_token %}
-        {% for nome in nomes %}
-             <div class="form-group">
-        <p>Nome do aluno: {{ nome.nome_inscrito }}</p>
+                <input type="radio" name="presenca_{{ forloop.counter }}" value="faltou" id="faltou_{{ forloop.counter }}">
+                <label for="faltou_{{ forloop.counter }}" class="presente">Faltou</label>
+            </div>
 
-            <input type="radio" name="presenca_{{ forloop.counter }}" value="presente" id="presente_{{ forloop.counter }}">
-            <label for="presente_{{ forloop.counter }}">Presente</label>
-             </div>
-              <div class="form-group">
-            <input type="radio" name="presenca_{{ forloop.counter }}" value="faltou" id="faltou_{{ forloop.counter }}">
-            <label for="faltou_{{ forloop.counter }}">Faltou</label>
-              </div>
-             <div class="form-group">
             <input type="hidden" name="aluno_id_{{ forloop.counter }}" value="{{ nome.id }}">
-            <a href="{% url 'avaliacao_metricas' nome.nome_inscrito %}" class = "voltar-link">Avaliação</a>
+            <a href="{% url 'avaliacao_metricas' nome.nome_inscrito %}" class="voltar-link">Avaliação</a>
             <br><br>
-        {% endfor %}
-             </div>
-        <input type="hidden" name="total_alunos" value="{{ nomes|length }}">
-        <button type="submit">Enviar</button>
-    </form>
+        </div>
+    {% endfor %}
+    <input type="hidden" name="total_alunos" value="{{ nomes|length }}">
+    <button type="submit">Enviar</button>
+</form>
 </div>
 </div>
 </body>
