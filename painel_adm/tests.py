@@ -517,7 +517,132 @@ from django.contrib.auth.hashers import make_password
 
 
 
-class Test5_Criar_Cursos(LiveServerTestCase):
+# class Test5_Criar_Contas(LiveServerTestCase):
+
+#     def setUp(self):
+#         # Cria um usuário no seu modelo customizado
+#         self.usuario = Usuario.objects.create(
+#             Username='testeuser',
+#             E_mail='teste@email.com',
+#             Senha='123',  # ou só: 'minhasenha123' e deixar o save() cuidar
+#             Tipos_conta='Admin'
+#         )
+
+#         self.driver = webdriver.Chrome()
+
+
+#     def tearDown(self):
+#         self.driver.quit()
+
+#     def test5_Criar_Conta(self):
+#         driver = self.driver
+#         driver.get(self.live_server_url)
+
+#         driver.find_element(By.LINK_TEXT, "Login").click()
+
+#         WebDriverWait(driver, 10).until(
+#             EC.presence_of_element_located((By.ID, "campo_email"))
+#         )
+
+#         driver.find_element(By.ID, "campo_email").send_keys("teste@email.com")
+#         driver.find_element(By.ID, "campo_senha").send_keys("123")
+
+#         driver.find_element(By.TAG_NAME, "button").click()
+
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Visualizar Cursos"))
+#         ).click()
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Criar curso"))
+#         ).click()
+
+#         driver.find_element(By.ID, "campo_nome").send_keys("Curso de Python")
+#         driver.find_element(By.ID, "campo_descricao").send_keys("Curso introdutório de programação em Python")
+#         driver.find_element(By.ID, "campo_n_alunos").send_keys("30")
+#         driver.find_element(By.TAG_NAME, "button").click()
+#         time.sleep(2)
+
+#         driver.find_element(By.LINK_TEXT, "Voltar").click()
+
+
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Gerir contas"))
+#         ).click()
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Criar contas"))
+#         ).click()
+
+
+
+#         driver.find_element(By.ID, "campo_nome").send_keys("prof_invalido")
+#         driver.find_element(By.ID, "campo_email").send_keys("prof@exemplo.com")
+#         driver.find_element(By.ID, "campo_senha").send_keys("senha123")
+#         driver.find_element(By.ID, "campo_tipo_conta").send_keys("Professor")
+#         driver.find_element(By.ID, "campo_curso_conta").send_keys("Curso Inexistente")
+#         driver.find_element(By.TAG_NAME, "button").click()
+
+#         WebDriverWait(driver, 10).until(
+#             EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "Esse curso não existe")
+#         )
+#         time.sleep(2)
+
+
+#         driver.find_element(By.ID, "campo_email").send_keys("admin_sem_nome@exemplo.com")
+#         driver.find_element(By.ID, "campo_senha").send_keys("admin123")
+#         driver.find_element(By.ID, "campo_tipo_conta").send_keys("Administrador")
+#         time.sleep(2)
+#         driver.find_element(By.TAG_NAME, "button").click()
+
+#         WebDriverWait(driver, 10).until(
+#             EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "É necessário preencher todas as informações.")
+#         )
+#         time.sleep(2)
+
+#         # 3: Conta admin correta
+
+#         driver.find_element(By.ID, "campo_nome").send_keys("admin_valido")
+#         driver.find_element(By.ID, "campo_email").send_keys("admin@exemplo.com")
+#         driver.find_element(By.ID, "campo_senha").send_keys("admin123")
+#         driver.find_element(By.ID, "campo_tipo_conta").send_keys("Administrador")
+#         driver.find_element(By.TAG_NAME, "button").click()
+
+#         time.sleep(2)
+
+#         # 4: Conta professor correta
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Criar contas"))
+#         ).click()
+
+
+
+#         driver.find_element(By.ID, "campo_nome").send_keys("prof_valido")
+#         driver.find_element(By.ID, "campo_email").send_keys("prof@valido.com")
+#         driver.find_element(By.ID, "campo_senha").send_keys("senha123")
+#         driver.find_element(By.ID, "campo_tipo_conta").send_keys("Professor")
+#         driver.find_element(By.ID, "campo_curso_conta").send_keys("Curso de Python")  # o curso deve existir no banco!
+#         driver.find_element(By.TAG_NAME, "button").click()
+
+#         time.sleep(2)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Test6_Gerenciar_Contas(LiveServerTestCase):
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -534,7 +659,7 @@ class Test5_Criar_Cursos(LiveServerTestCase):
     def tearDown(self):
         self.driver.quit()
 
-    def test5_Criar_Conta(self):
+    def test6_Gerenciar_Conta(self):
         driver = self.driver
         driver.get(self.live_server_url)
 
@@ -576,54 +701,52 @@ class Test5_Criar_Cursos(LiveServerTestCase):
         EC.element_to_be_clickable((By.LINK_TEXT, "Criar contas"))
         ).click()
 
-
-
-        driver.find_element(By.ID, "campo_nome").send_keys("prof_invalido")
-        driver.find_element(By.ID, "campo_email").send_keys("prof@exemplo.com")
-        driver.find_element(By.ID, "campo_senha").send_keys("senha123")
-        driver.find_element(By.ID, "campo_tipo_conta").send_keys("Professor")
-        driver.find_element(By.ID, "campo_curso_conta").send_keys("Curso Inexistente")
-        driver.find_element(By.TAG_NAME, "button").click()
-
-        WebDriverWait(driver, 10).until(
-            EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "Esse curso não existe")
-        )
-        time.sleep(2)
-
-
-        driver.find_element(By.ID, "campo_email").send_keys("admin_sem_nome@exemplo.com")
-        driver.find_element(By.ID, "campo_senha").send_keys("admin123")
-        driver.find_element(By.ID, "campo_tipo_conta").send_keys("Administrador")
-        time.sleep(2)
-        driver.find_element(By.TAG_NAME, "button").click()
-
-        WebDriverWait(driver, 10).until(
-            EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "É necessário preencher todas as informações.")
-        )
-        time.sleep(2)
-
-        # 3: Conta admin correta
-
         driver.find_element(By.ID, "campo_nome").send_keys("admin_valido")
         driver.find_element(By.ID, "campo_email").send_keys("admin@exemplo.com")
         driver.find_element(By.ID, "campo_senha").send_keys("admin123")
         driver.find_element(By.ID, "campo_tipo_conta").send_keys("Administrador")
         driver.find_element(By.TAG_NAME, "button").click()
-
+        # 1: Visualizar conta
         time.sleep(2)
+        
+        # 2: Editar conta sem nome
 
-        # 4: Conta professor correta
+        
         WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.LINK_TEXT, "Criar contas"))
+        EC.element_to_be_clickable((By.LINK_TEXT, "Alterar"))
         ).click()
 
-
-
-        driver.find_element(By.ID, "campo_nome").send_keys("prof_valido")
-        driver.find_element(By.ID, "campo_email").send_keys("prof@valido.com")
-        driver.find_element(By.ID, "campo_senha").send_keys("senha123")
-        driver.find_element(By.ID, "campo_tipo_conta").send_keys("Professor")
-        driver.find_element(By.ID, "campo_curso_conta").send_keys("Curso de Python")  # o curso deve existir no banco!
+        driver.find_element(By.ID, "campo_username").clear()
+        driver.find_element(By.ID, "campo_email").send_keys("admin@exemplo.com")
+        driver.find_element(By.ID, "campo_senha").send_keys("admin123")
         driver.find_element(By.TAG_NAME, "button").click()
-
         time.sleep(2)
+
+        # 3: Editar conta corretamente
+        driver.find_element(By.ID, "campo_username").send_keys("admin_alterado")
+        driver.find_element(By.ID, "campo_email").send_keys("admin@alterado.com")
+        driver.find_element(By.ID, "campo_senha").send_keys("adminalterado")
+        driver.find_element(By.TAG_NAME, "button").click()
+        time.sleep(2)
+
+        # 4: deletar conta
+
+        botao_deletar = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, "//form/button[contains(text(), 'Deletar')]"))
+        )
+        botao_deletar.click()
+        time.sleep(1)
+
+        alerta = driver.switch_to.alert
+        alerta.accept()
+        time.sleep(2)
+
+        #         botao_deletar = WebDriverWait(driver, 10).until(
+#             EC.element_to_be_clickable((By.XPATH, "//form/button[contains(text(), 'Deletar')]"))
+#         )
+#         botao_deletar.click()
+#         time.sleep(1)
+
+#         alerta = driver.switch_to.alert
+#         alerta.accept()
+#         time.sleep(2)
