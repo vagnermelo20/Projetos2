@@ -399,12 +399,16 @@ class GerenciamentoAcad(View):
 
         data_1 = data_hoje + relativedelta(months=1)
         data_2 = data_hoje +relativedelta(months=2)
-        data_3= data_hoje+relativedelta(months=3)
+        data_3= data_hoje+ relativedelta(months=3)
         data_avaliacoes={data_1,data_2,data_3}
+        
+        ja_enviou_avaliacoes=Inscricao.objects.filter(data_envio_avaliacao=date.today(),nome_curso=curso)#implementar para turma
+        ja_enviou_hj=Inscricao.objects.filter(data_envio=date.today(),nome_curso=curso)#implementar para turma
 
-        contexto={'nomes':query_nomes,'curso':curso, 'data':formatted_date,'data_hoje':data_hoje,'data_avaliacoes':data_avaliacoes}
+        contexto={'nomes':query_nomes,'curso':curso, 'data':formatted_date,'data_hoje':data_hoje,'data_avaliacoes':data_avaliacoes,'ja_enviou_hj':ja_enviou_hj,'ja_enviou_avaliacoes':ja_enviou_avaliacoes}
         return render(request,"painel_adm/gerenciamento_acad.html",contexto)
     
+
     def post(self,request,curso):
         total = int(request.POST.get("total_alunos", 0))
         for i in range(1, total + 1):
@@ -418,6 +422,8 @@ class GerenciamentoAcad(View):
                 aluno=get_object_or_404(Inscricao,id=aluno_id)
                 aluno.quantidade_faltas+=1
                 aluno.save()
+            aluno.data_envio=date.today()
+            aluno.save()
 
         return render(request,"painel_adm/inicio_professor.html",{'curso':curso})
 
