@@ -260,38 +260,68 @@ class DeletarProcesso(View):
 
 class EditarProcesso(View):
     def get(self, request, processo_id):
-       
-        
         processo = get_object_or_404(Selecao, id=processo_id)
-
-        context = {
-            'processo': processo,
-        }
-        return render(request, 'painel_adm/editar_processo.html', context)
+        return render(request, 'painel_adm/editar_processo.html', {'processo': processo})
 
     def post(self, request, processo_id):
         processo = get_object_or_404(Selecao, id=processo_id)
 
-        data_inicio= request.POST.get('data_inicio')
+        data_inicio = request.POST.get('data_inicio')
         data_fim = request.POST.get('data_fim')
-        max_participantes= request.POST.get('max_participantes')  
-        data_inicio_aulas=request.POST.get('data_inicio_aulas')
-        
+        max_participantes = request.POST.get('max_participantes')
+        data_inicio_aulas = request.POST.get('data_inicio_aulas')
 
-       
-        if not data_inicio or not data_fim or not max_participantes or data_inicio_aulas:
+        context = {
+            'processo': processo,
+            'data_inicio': data_inicio,
+            'data_fim': data_fim,
+            'max_participantes': max_participantes,
+            'data_inicio_aulas': data_inicio_aulas,
+        }
+
+        # Verificação de campos obrigatórios
+        if not data_inicio or not data_fim or not max_participantes or not data_inicio_aulas:
             messages.error(request, 'É necessário preencher todas as informações.')
-            return render(request, 'painel_adm/editar_processo.html', {'processo': processo})
+            return render(request, 'painel_adm/editar_processo.html', context)
 
-        
+        try:
+            data_inicio_conv = date.fromisoformat(data_inicio)
+            data_fim_conv = date.fromisoformat(data_fim)
+            data_inicio_aulas_conv = date.fromisoformat(data_inicio_aulas)
+        except ValueError:
+            messages.error(request, 'Formato de data inválido.')
+            return render(request, 'painel_adm/editar_processo.html', context)
 
+        # Regras de negócio com datas
+        if data_inicio_conv < date.today():
+            messages.error(request, 'O processo seletivo não pode iniciar antes do dia de hoje.')
+            return render(request, 'painel_adm/editar_processo.html', context)
+
+        if data_inicio_aulas_conv < date.today() or data_inicio_aulas_conv < data_fim_conv:
+            messages.error(request, 'As aulas não podem começar hoje e devem iniciar após a data do fim informada.')
+            return render(request, 'painel_adm/editar_processo.html', context)
+
+        if data_inicio_conv > date.today() + timedelta(days=366):
+            messages.error(request, 'A data de início deve estar no máximo até um ano a partir de hoje.')
+            return render(request, 'painel_adm/editar_processo.html', context)
+
+        if (data_fim_conv - data_inicio_conv).days > 365:
+            messages.error(request, 'O processo seletivo não pode durar mais de 1 ano.')
+            return render(request, 'painel_adm/editar_processo.html', context)
+
+        if data_inicio_conv >= data_fim_conv:
+            messages.error(request, 'A data de início não pode ser posterior ou igual à data final.')
+            return render(request, 'painel_adm/editar_processo.html', context)
+
+        # Atualiza os dados permitidos
         processo.data_inicio = data_inicio
         processo.data_fim = data_fim
         processo.max_participantes = max_participantes
-        processo.Data_inicio_aulas= data_inicio_aulas
+        processo.Data_inicio_aulas = data_inicio_aulas
         processo.save()
 
         return redirect('visualizar_processo')
+    
     
 class VisualizarAlunos(View):
     def get(self,request,curso):
