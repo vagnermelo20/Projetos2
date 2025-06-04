@@ -418,8 +418,8 @@ class GerenciamentoAcad(View):
                 messages.error(request,"É nescessários inserir a frequência de todos os estudantes.")
                 return render(request,"painel_adm/gerenciamento_acad.html")
 
+            aluno=get_object_or_404(Inscricao,id=aluno_id)
             if presenca=='faltou':
-                aluno=get_object_or_404(Inscricao,id=aluno_id)
                 aluno.quantidade_faltas+=1
                 aluno.save()
             aluno.data_envio=date.today()
@@ -454,9 +454,24 @@ class AvaliacaoMetricas(View):
         #fazer lógica de qual AV a avaliação mandada para o template se refere.
         #elaborar regua de proficiência com base nos resultados.
         aluno.av1=int(comunicacao)+int(conhecimento)+int(participacao)
+        aluno.data_envio_avaliacao=date.today()
+        nome_do_curso=aluno.nome_curso
         aluno.save()
+        
+        
+        #para redirecionar
+        query_nomes=Inscricao.objects.filter(nome_curso=nome_do_curso)
+        data_hoje=date.today()
+        formatted_date = data_hoje.strftime("%d-%m-%Y")
 
+        data_1 = data_hoje + relativedelta(months=1)
+        data_2 = data_hoje +relativedelta(months=2)
+        data_3= data_hoje+ relativedelta(months=3)
+        data_avaliacoes={data_1,data_2,data_3}
+        
+        ja_enviou_avaliacoes=Inscricao.objects.filter(data_envio_avaliacao=date.today(),nome_curso=nome_do_curso)#implementar para turma
+        ja_enviou_hj=Inscricao.objects.filter(data_envio=date.today(),nome_curso=nome_do_curso)#implementar para turma
 
-        return render(request,"painel_adm/gerenciamento_acad.html",{'curso':aluno.nome_curso})
-    
+        contexto={'nomes':query_nomes,'curso':nome_do_curso, 'data':formatted_date,'data_hoje':data_hoje,'data_avaliacoes':data_avaliacoes,'ja_enviou_hj':ja_enviou_hj,'ja_enviou_avaliacoes':ja_enviou_avaliacoes}
+        return render(request,"painel_adm/gerenciamento_acad.html",contexto)
         
