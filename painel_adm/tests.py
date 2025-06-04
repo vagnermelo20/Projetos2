@@ -339,7 +339,185 @@ from django.contrib.auth.hashers import make_password
 
 
 
-class Test4_Gerenciar_Processo_Seletivo(LiveServerTestCase):
+# class Test4_Gerenciar_Processo_Seletivo(LiveServerTestCase):
+
+#     def setUp(self):
+#         # Cria um usuário no seu modelo customizado
+#         self.usuario = Usuario.objects.create(
+#             Username='testeuser',
+#             E_mail='teste@email.com',
+#             Senha='123',  # ou só: 'minhasenha123' e deixar o save() cuidar
+#             Tipos_conta='Admin'
+#         )
+
+#         self.driver = webdriver.Chrome()
+
+
+#     def tearDown(self):
+#         self.driver.quit()
+
+#     def test4_Gerenciar_Processo_Seletivo(self):
+#         driver = self.driver
+#         driver.get(self.live_server_url)
+
+#         driver.find_element(By.LINK_TEXT, "Login").click()
+
+#         WebDriverWait(driver, 10).until(
+#             EC.presence_of_element_located((By.ID, "campo_email"))
+#         )
+
+#         driver.find_element(By.ID, "campo_email").send_keys("teste@email.com")
+#         driver.find_element(By.ID, "campo_senha").send_keys("123")
+
+#         driver.find_element(By.TAG_NAME, "button").click()
+
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Visualizar Cursos"))
+#         ).click()
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Criar curso"))
+#         ).click()
+
+#         driver.find_element(By.ID, "campo_nome").send_keys("Curso de Python")
+#         driver.find_element(By.ID, "campo_descricao").send_keys("Curso introdutório de programação em Python")
+#         driver.find_element(By.ID, "campo_n_alunos").send_keys("30")
+#         driver.find_element(By.TAG_NAME, "button").click()
+#         time.sleep(2)
+
+#         driver.find_element(By.LINK_TEXT, "Voltar").click()
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Visualizar Processos"))
+#         ).click()
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Criar processo seletivo"))
+#         ).click()
+
+#         driver.find_element(By.ID, "campo_data_inicio").send_keys("09-06-2025")
+#         time.sleep(2)
+#         driver.find_element(By.ID, "campo_data_fim").send_keys("12-06-2025")
+#         time.sleep(1)
+#         driver.find_element(By.ID, "campo_max_participantes").send_keys("100")
+#         driver.find_element(By.ID, "campo_curso_para_processo").send_keys("Curso de Python")
+#         driver.find_element(By.ID, "campo_data_inicio_curso").send_keys("16-06-2025")
+#         time.sleep(2)
+#         driver.find_element(By.TAG_NAME, "button").click()
+#         time.sleep(2)
+
+#         # 1: Visualizar processo seletivo
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Editar"))
+#         ).click()
+
+#         # 2: Editar processo seletivo com data que inicia antes de hoje
+#         campo_inicio = driver.find_element(By.ID, "campo_data_inicio")
+#         campo_inicio.clear()
+#         campo_inicio.send_keys("03-06-2025")
+
+#         campo_fim = driver.find_element(By.ID, "campo_data_fim")
+#         campo_fim.clear()
+#         campo_fim.send_keys("13-06-2025")
+
+#         campo_participantes = driver.find_element(By.ID, "campo_max_participantes")
+#         campo_participantes.clear()
+#         campo_participantes.send_keys("100")
+
+#         campo_aulas = driver.find_element(By.ID, "campo_data_inicio_aulas")
+#         campo_aulas.clear()
+#         campo_aulas.send_keys("16-06-2025")
+
+#         driver.find_element(By.TAG_NAME, "button").click()
+#         WebDriverWait(driver, 10).until(
+#             EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "O processo seletivo não pode iniciar antes do dia de hoje.")
+#         )
+
+#         time.sleep(2)
+
+#         # 3: Editar processo seletivo com data de fim anterior à de início
+#         campo_inicio = driver.find_element(By.ID, "campo_data_inicio")
+#         campo_inicio.clear()
+#         campo_inicio.send_keys("09-06-2025")
+
+#         campo_fim = driver.find_element(By.ID, "campo_data_fim")
+#         campo_fim.clear()
+#         campo_fim.send_keys("08-06-2025")
+
+#         campo_participantes = driver.find_element(By.ID, "campo_max_participantes")
+#         campo_participantes.clear()
+#         campo_participantes.send_keys("100")
+
+#         campo_aulas = driver.find_element(By.ID, "campo_data_inicio_aulas")
+#         campo_aulas.clear()
+#         campo_aulas.send_keys("16-06-2025")
+
+#         driver.find_element(By.TAG_NAME, "button").click()
+#         WebDriverWait(driver, 10).until(
+#             EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "A data de início não pode ser posterior ou igual à data final.")
+#         )
+
+#         time.sleep(2)
+
+#         # 4: Editar processo seletivo corretamente
+#         campo_inicio = driver.find_element(By.ID, "campo_data_inicio")
+#         campo_inicio.clear()
+#         campo_inicio.send_keys("09-06-2025")
+
+#         campo_fim = driver.find_element(By.ID, "campo_data_fim")
+#         campo_fim.clear()
+#         campo_fim.send_keys("13-06-2025")
+
+#         campo_participantes = driver.find_element(By.ID, "campo_max_participantes")
+#         campo_participantes.clear()
+#         campo_participantes.send_keys("100")
+
+#         campo_aulas = driver.find_element(By.ID, "campo_data_inicio_aulas")
+#         campo_aulas.clear()
+#         campo_aulas.send_keys("16-06-2025")
+
+#         driver.find_element(By.TAG_NAME, "button").click()
+#         time.sleep(2)
+
+#         # 5: Deletar processo seletivo
+#         botao_deletar = WebDriverWait(driver, 10).until(
+#             EC.element_to_be_clickable((By.XPATH, "//form/button[contains(text(), 'Deletar')]"))
+#         )
+#         botao_deletar.click()
+#         time.sleep(1)
+
+#         alerta = driver.switch_to.alert
+#         alerta.accept()
+#         time.sleep(2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Test5_Criar_Cursos(LiveServerTestCase):
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -356,7 +534,7 @@ class Test4_Gerenciar_Processo_Seletivo(LiveServerTestCase):
     def tearDown(self):
         self.driver.quit()
 
-    def test4_Gerenciar_Processo_Seletivo(self):
+    def test5_Criar_Conta(self):
         driver = self.driver
         driver.get(self.live_server_url)
 
@@ -388,106 +566,64 @@ class Test4_Gerenciar_Processo_Seletivo(LiveServerTestCase):
 
         driver.find_element(By.LINK_TEXT, "Voltar").click()
 
+
+
         WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.LINK_TEXT, "Visualizar Processos"))
+        EC.element_to_be_clickable((By.LINK_TEXT, "Gerir contas"))
         ).click()
 
         WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.LINK_TEXT, "Criar processo seletivo"))
+        EC.element_to_be_clickable((By.LINK_TEXT, "Criar contas"))
         ).click()
 
-        driver.find_element(By.ID, "campo_data_inicio").send_keys("09-06-2025")
-        time.sleep(2)
-        driver.find_element(By.ID, "campo_data_fim").send_keys("12-06-2025")
-        time.sleep(1)
-        driver.find_element(By.ID, "campo_max_participantes").send_keys("100")
-        driver.find_element(By.ID, "campo_curso_para_processo").send_keys("Curso de Python")
-        driver.find_element(By.ID, "campo_data_inicio_curso").send_keys("16-06-2025")
-        time.sleep(2)
-        driver.find_element(By.TAG_NAME, "button").click()
-        time.sleep(2)
 
-        # 1: Visualizar processo seletivo
+
+        driver.find_element(By.ID, "campo_nome").send_keys("prof_invalido")
+        driver.find_element(By.ID, "campo_email").send_keys("prof@exemplo.com")
+        driver.find_element(By.ID, "campo_senha").send_keys("senha123")
+        driver.find_element(By.ID, "campo_tipo_conta").send_keys("Professor")
+        driver.find_element(By.ID, "campo_curso_conta").send_keys("Curso Inexistente")
+        driver.find_element(By.TAG_NAME, "button").click()
 
         WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.LINK_TEXT, "Editar"))
+            EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "Esse curso não existe")
+        )
+        time.sleep(2)
+
+
+        driver.find_element(By.ID, "campo_email").send_keys("admin_sem_nome@exemplo.com")
+        driver.find_element(By.ID, "campo_senha").send_keys("admin123")
+        driver.find_element(By.ID, "campo_tipo_conta").send_keys("Administrador")
+        time.sleep(2)
+        driver.find_element(By.TAG_NAME, "button").click()
+
+        WebDriverWait(driver, 10).until(
+            EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "É necessário preencher todas as informações.")
+        )
+        time.sleep(2)
+
+        # 3: Conta admin correta
+
+        driver.find_element(By.ID, "campo_nome").send_keys("admin_valido")
+        driver.find_element(By.ID, "campo_email").send_keys("admin@exemplo.com")
+        driver.find_element(By.ID, "campo_senha").send_keys("admin123")
+        driver.find_element(By.ID, "campo_tipo_conta").send_keys("Administrador")
+        driver.find_element(By.TAG_NAME, "button").click()
+
+        time.sleep(2)
+
+        # 4: Conta professor correta
+        WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.LINK_TEXT, "Criar contas"))
         ).click()
 
-        # 2: Editar processo seletivo com data que inicia antes de hoje
-        campo_inicio = driver.find_element(By.ID, "campo_data_inicio")
-        campo_inicio.clear()
-        campo_inicio.send_keys("03-06-2025")
 
-        campo_fim = driver.find_element(By.ID, "campo_data_fim")
-        campo_fim.clear()
-        campo_fim.send_keys("13-06-2025")
 
-        campo_participantes = driver.find_element(By.ID, "campo_max_participantes")
-        campo_participantes.clear()
-        campo_participantes.send_keys("100")
-
-        campo_aulas = driver.find_element(By.ID, "campo_data_inicio_aulas")
-        campo_aulas.clear()
-        campo_aulas.send_keys("16-06-2025")
-
+        driver.find_element(By.ID, "campo_nome").send_keys("prof_valido")
+        driver.find_element(By.ID, "campo_email").send_keys("prof@valido.com")
+        driver.find_element(By.ID, "campo_senha").send_keys("senha123")
+        driver.find_element(By.ID, "campo_tipo_conta").send_keys("Professor")
+        driver.find_element(By.ID, "campo_curso_conta").send_keys("Curso de Python")  # o curso deve existir no banco!
         driver.find_element(By.TAG_NAME, "button").click()
-        WebDriverWait(driver, 10).until(
-            EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "O processo seletivo não pode iniciar antes do dia de hoje.")
-        )
 
-        time.sleep(2)
-
-        # 3: Editar processo seletivo com data de fim anterior à de início
-        campo_inicio = driver.find_element(By.ID, "campo_data_inicio")
-        campo_inicio.clear()
-        campo_inicio.send_keys("09-06-2025")
-
-        campo_fim = driver.find_element(By.ID, "campo_data_fim")
-        campo_fim.clear()
-        campo_fim.send_keys("08-06-2025")
-
-        campo_participantes = driver.find_element(By.ID, "campo_max_participantes")
-        campo_participantes.clear()
-        campo_participantes.send_keys("100")
-
-        campo_aulas = driver.find_element(By.ID, "campo_data_inicio_aulas")
-        campo_aulas.clear()
-        campo_aulas.send_keys("16-06-2025")
-
-        driver.find_element(By.TAG_NAME, "button").click()
-        WebDriverWait(driver, 10).until(
-            EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "A data de início não pode ser posterior ou igual à data final.")
-        )
-
-        time.sleep(2)
-
-        # 4: Editar processo seletivo corretamente
-        campo_inicio = driver.find_element(By.ID, "campo_data_inicio")
-        campo_inicio.clear()
-        campo_inicio.send_keys("09-06-2025")
-
-        campo_fim = driver.find_element(By.ID, "campo_data_fim")
-        campo_fim.clear()
-        campo_fim.send_keys("13-06-2025")
-
-        campo_participantes = driver.find_element(By.ID, "campo_max_participantes")
-        campo_participantes.clear()
-        campo_participantes.send_keys("100")
-
-        campo_aulas = driver.find_element(By.ID, "campo_data_inicio_aulas")
-        campo_aulas.clear()
-        campo_aulas.send_keys("16-06-2025")
-
-        driver.find_element(By.TAG_NAME, "button").click()
-        time.sleep(2)
-
-        # 5: Deletar processo seletivo
-        botao_deletar = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//form/button[contains(text(), 'Deletar')]"))
-        )
-        botao_deletar.click()
-        time.sleep(1)
-
-        alerta = driver.switch_to.alert
-        alerta.accept()
         time.sleep(2)

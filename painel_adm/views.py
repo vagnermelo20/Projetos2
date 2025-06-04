@@ -343,30 +343,42 @@ class PainelContas(View):
         
         return render(request,'painel_adm/painel_contas.html',{'contas':conta})
     
-class EditarContas(View):
-    def get(self,request,conta_id):
-        conta_edit=Usuario.objects.filter(id=conta_id)
-        contexto={'conta':conta_edit}
-        return render(request,'painel_adm/editar_contas.html',contexto)
+class EditarContas(View): 
+    def get(self, request, conta_id):
+        conta_edit = get_object_or_404(Usuario, id=conta_id)
+        contexto = {'conta': conta_edit, 'senha_visivel': '',}
+        return render(request, 'painel_adm/editar_contas.html', contexto)
 
-    def post(self,request,conta_id):
-        conta_edit=get_object_or_404(Usuario,id=conta_id)
+    def post(self, request, conta_id):
+        conta_edit = get_object_or_404(Usuario, id=conta_id)
         
-        username=request.POST.get('username')
-        email=request.POST.get('email')
-        senha=request.POST.get('senha')
-        
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
 
         if not username or not email or not senha:
             messages.error(request, 'É necessário preencher todas as informações.')
             return render(request, 'painel_adm/editar_contas.html', {'conta': conta_edit})
-        
-        conta_edit.Username=username
-        conta_edit.E_mail=email
-        conta_edit.Senha=senha
+
+        # Verificar se já existe outro usuário com esse username
+        if Usuario.objects.filter(Username=username).exclude(id=conta_id).exists():
+            messages.error(request, 'Já existe uma conta com esse nome de usuário.')
+            return render(request, 'painel_adm/editar_contas.html', {'conta': conta_edit})
+
+        # Verificar se já existe outro usuário com esse e-mail
+        if Usuario.objects.filter(E_mail=email).exclude(id=conta_id).exists():
+            messages.error(request, 'Já existe uma conta com esse e-mail.')
+            return render(request, 'painel_adm/editar_contas.html', {'conta': conta_edit})
+
+        conta_edit.Username = username
+        conta_edit.E_mail = email
+        conta_edit.Senha = senha  # será hasheada automaticamente no método save()
         conta_edit.save()
+
+        messages.success(request, "Conta editada com sucesso.")
         return redirect('painel_contas')
 
+    
 class DeletarContas(View):
     def post(self,request,conta_id):
         conta_deletar=get_object_or_404(Usuario,id=conta_id)
@@ -379,29 +391,37 @@ class InicioProfessor(View):
         
 class CriarContas(View):
     
-    def get(self,request):
-        return render(request,"painel_adm/criar_contas.html")
+    def get(self, request):
+        return render(request, "painel_adm/criar_contas.html")
     
-    def post(self,request):
-
-        nome_conta=request.POST.get('nome_conta')
-        email=request.POST.get('email')
-        senha=request.POST.get('senha')
-        tipo_conta=request.POST.get('tipo_conta')
-        curso_conta=request.POST.get('curso_conta')
-
+    def post(self, request):
+        nome_conta = request.POST.get('nome_conta')
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+        tipo_conta = request.POST.get('tipo_conta')
+        curso_conta = request.POST.get('curso_conta')
 
         if not nome_conta or not email or not senha or not tipo_conta:
             messages.error(request, 'É necessário preencher todas as informações.')
             return render(request, 'painel_adm/criar_contas.html')
-        
-        if tipo_conta=="Professor":
+
+        # Verifica se já existe nome de usuário
+        if Usuario.objects.filter(Username=nome_conta).exists():
+            messages.error(request, 'Já existe uma conta com esse nome de usuário.')
+            return render(request, 'painel_adm/criar_contas.html')
+
+        # Verifica se já existe e-mail
+        if Usuario.objects.filter(E_mail=email).exists():
+            messages.error(request, 'Já existe uma conta com esse e-mail.')
+            return render(request, 'painel_adm/criar_contas.html')
+
+        if tipo_conta == "Professor":
             if not curso_conta:
-                messages.error(request,"É nescessário inserir o curso da conta para uma conta de professor")
-                return render(request,'painel_adm/criar_contas.html')
+                messages.error(request, "É necessário inserir o curso da conta para uma conta de professor.")
+                return render(request, 'painel_adm/criar_contas.html')
             elif not Curso.objects.filter(Nome=curso_conta).exists():
-                messages.error(request,"Esse curso não existe")
-                return render(request,"painel_adm/criar_contas.html")
+                messages.error(request, "Esse curso não existe.")
+                return render(request, "painel_adm/criar_contas.html")
             else:
                 Usuario.objects.create(
                     Username=nome_conta,
@@ -410,20 +430,18 @@ class CriarContas(View):
                     Tipos_conta=tipo_conta,
                     Curso=curso_conta,
                 )
-                messages.success(request,"Conta criada com sucesso")
+                messages.success(request, "Conta criada com sucesso.")
                 return redirect('painel_contas')
-            
-        
-        
-        if tipo_conta=="Administrador":
+
+        if tipo_conta == "Administrador":
             Usuario.objects.create(
                 Username=nome_conta,
                 E_mail=email,
                 Senha=senha,
                 Tipos_conta=tipo_conta,
             )
-            messages.success(request,"Conta criada com sucesso")
-            return render(request,"painel_adm/criar_contas.html")
+            messages.success(request, "Conta criada com sucesso.")
+            return redirect('painel_contas')
 
 class GerenciamentoAcad(View):
 

@@ -6,25 +6,179 @@
     <title>Document</title>
     <style>
        body {
-            margin: 0;
-            background: #ede8db;
             font-family: Arial, sans-serif;
+            background: #f6f8f7;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2 {
+            color: #3a4b4e;
+            margin-top: 24px;
+            margin-bottom: 16px;
+            font-weight: bold;
+        }
+        .painel-container {
+            max-width: 1100px;
+            margin: 32px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            padding: 32px 32px 48px 32px;
+        }
+        .tabela-adm {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 32px;
+            background: #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+        .tabela-adm th {
+            background: #4a6866;
+            color: #fff;
+            font-weight: bold;
+            padding: 12px 8px;
+            text-align: left;
+            font-size: 15px;
+            border-top-left-radius: 1px;
+            border-top-right-radius: 1px;
+        }
+        .tabela-adm th:last-child {
+            border-top-right-radius: 12px;
+        }
+        .tabela-adm th:first-child {
+            border-top-left-radius: 12px;
+        }
+        .tabela-adm td {
+            padding: 10px 8px;
+            font-size: 15px;
+            color: #222;
+            background: #f6f8f7;
+            border-bottom: 3px solid #dbe4e3;
+        }
+        .tabela-adm tr:last-child td {
+            border-bottom: none;
+        }
+        .btn-azul {
+            background: #5eb0c6;
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: 6px 18px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-right: 4px;
+            transition: background 0.2s;
+            box-shadow: 0 1px 4px rgba(33,150,243,0.10);
+        }
+        .btn-azul:hover {
+            background: #3a8ca1;
+        }
+        .btn-vermelho {
+            background: #e57373;
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: 6px 18px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 1px 4px rgba(229,57,53,0.10);
+        }
+        .btn-vermelho:hover {
+            background: #c62828;
+        }
+        .btn-verde {
+            background: #43a047;
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: 8px 28px;
+            font-size: 17px;
+            cursor: pointer;
+            margin-bottom: 8px;
+            margin-top: 8px;
+            transition: background 0.2s;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(67,160,71,0.10);
+            font-weight: bold;
+        }
+        .btn-verde:hover {
+            background: #2e7031;
+        }
+        .section-box {
+            background:rgb(124, 181, 238);
+            border-radius: 8px;
+            padding: 18px 24px;
+            margin-bottom: 28px;
+            border: 1px solidrgb(194, 31, 31);
+        }
+        input[type="text"], textarea, select {
+            border: 1px solidrgb(122, 122, 122);
+            border-radius: 16px;
+            padding: 8px 12px;
+            font-size: 15px;
+            margin-bottom: 12px;
+            width: 100%;
+            box-sizing: border-box;
+            background: #fff;
+        }
+        label {
+            font-weight: bold;
+            color:rgb(25, 30, 31);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .titulo-painel {
+            font-size: 28px;
+            font-weight: bold;
+            color: #3a4b4e;
+            margin-bottom: 24px;
+            margin-top: 0;
+        }
+        .sair-link {
+            float: right;
+            color:rgb(255, 255, 255);
+            font-size: 16px;
+            margin-top: 12px;
+            border-radius: 20px;
+            padding: 8px 24px; 
+            cursor: pointer;
+            background: rgb(52, 157, 180);
+        }
+        .welcome-box {
+            background: rgb(52, 157, 180);
+            color: #fff;
+            border-radius: 2px;
+            margin: 16px 24px px;
+            padding: 16px 0;
+            text-align: center;
+            font-size: 16px;
+        }
+         .user-info {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            font-size: 15px;
+        }
+        .user-info svg {
+            margin-right: 6px;
         }
         .header {
-            background: #338fa3;
+            background: rgb(75, 156, 177);
             height: 48px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 24px;
-            position: relative;
         }
-        .menu-icon {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
+        .main-content {
+            background: rgb(233, 226, 210);
+            padding: 40px 0 0 0;
+            min-height: 80vh;
         }
         .menu-icon span {
             display: block;
@@ -34,131 +188,91 @@
             margin: 4px 0;
             border-radius: 2px;
         }
-         .voltar-btn {
-    background:rgb(26, 166, 197);
-    color: #fff;
-    border: 2px solid #fff;
-    border-radius: 20px;
-    padding: 8px 32px;
-    margin: 36px 0 0 32px;
-    cursor: pointer;
-    font-size: 22px;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.2s, border 0.2s;
-}
-.voltar-btn:hover {
-    background:rgb(0, 0, 0);
-    border-color:rgb(236, 236, 236);
-}
-     .criar_curso {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: #fff;
-            color:rgb(214, 0, 0);
-            border-radius: 50%;
-            font-size: 22px;
-            font-weight: bold;
-            text-decoration: none;
-            border: 2px solid #286978;
-            margin-left: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: background 0.2s, color 0.2s, border 0.2s;
-        }
-        .criar_curso:hover {
-            background: #286978;
+        .voltar-btn {
+            background: rgb(52, 157, 180);
             color: #fff;
-            border-color: #fff;
-        }
-         .curso-box {
-            background: #286978;
-            border-radius: 16px;
-            padding: 24px 32px;
-            color: #fff;
-            flex: 1;
-            margin-left: 0;
-            margin-right: 0;
-            min-width: 250px;
-        }
-         .curso-item {
-            background: #5eb0c6;
-            color: #fff;
-            border-radius: 16px;
-            padding: 8px 16px;
             border: none;
-            margin-bottom: 0;
-            text-align: left;
-            font-size: 15px;
-            cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
-            
-            box-sizing: border-box; /* Garante que padding não aumente a largura */
-            overflow: hidden; /* Esconde texto excedente */
-            text-overflow: ellipsis; /* Adiciona reticências (...) */
-            white-space: nowrap; /* Evita quebra de linha */
-            max-width: 100%; /* Garante máximo de 100% */
-        }
-        .curso-item:hover {
-            background: #338fa3;
-        }
-        .criar-curso-btn {
-        background: #338fa3;
-        color:rgb(33, 57, 63);
-        border: 2px solidrgb(22, 147, 175);
-        border-radius: 20px;
-        padding: 12px 38px;
-        font-size: 20px;
-        font-weight: bold;
-        text-decoration: none;
-        display: inline-block;
-        margin: 32px 0 24px 0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-        transition: background 0.2s, color 0.2s, border 0.2s;
-    
-    }
-    .criar-curso-btn:hover {
-        background:rgb(68, 68, 68);
-        color: #fff;
-        border-color: #fff;
-    }
-    .sidebar {
-            background: #286978;
-            border-radius: 16px;
-            padding: 16px 0 16px 0;
-            width: 200px;
-            min-width: 180px;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .deletar-btn{
-            background:rgb(134, 5, 5);
-            color: #fff;
-            border: 2px solid #fff;
             border-radius: 20px;
-            padding: 8px 32px;
-            margin: 36px 0 0 32px;
+            padding: 8px 24px;
+            margin: 40px 0 0 24px; 
             cursor: pointer;
-            font-size: 22px;
+        }
+        .aluno-card {
+            background: #fff;
+            border: 1px solidrgb(134, 28, 28);
+            border-radius: 8px;
+            padding: 16px 24px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(52,157,180,0.08);
+        }
+        .aluno-nome {
+            font-size: 17px;
+            font-weight: 500;
+            color: #333;
+        }
+        .aluno-acoes a {
+            margin-left: 10px;
+            padding: 6px 16px;
+            border-radius: 16px;
             text-decoration: none;
-            display: inline-block;
-            transition: background 0.2s, border 0.2s;
+            color: #fff;
+            font-size: 15px;
+        }
+        .btn-aceitar {
+            background: #2196f3;
+        }
+        .btn-rejeitar {
+            background: #e53935;
+        }
+        .branco {
+            color: #000;
+            font-size: 20px;
+            text-align: center;
+            margin-top: 20px;
+            background: #fff;
+            padding: 16px 24px;
+            border-radius: 8px;
+            border: 1px solid #d1d1d1;
+            display: block;
+            box-shadow: 0 2px 8px rgba(52,157,180,0.08);
+        }
+        @media (max-width: 900px) {
+            .painel-container {
+                padding: 12px 2vw;
+            }
+            .tabela-adm th, .tabela-adm td {
+                font-size: 13px;
+                padding: 7px 4px;
+            }
+        }
+        .section-box{
+            background: #f4f6f8;
+            border-radius: 12px;
+            padding: 18px 24px;
+            margin-bottom:28px;
+            border: none;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
     </style>
 </head>
 <body>
-        <div class="header">
+    <div class="header">
         <div class="menu-icon">
             <span></span>
             <span></span>
             <span></span>
         </div>
-
+           <div class="user-info">
+            <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
+            </svg>
+            {{ Usuario.Nome }}
+        </div>
+    </div>
     {% if messages %}
         <div class="messages">
             {% for message in messages %}
@@ -172,29 +286,42 @@
             {% endfor %}
         </div>
     {% endif %}
-   
-        <div class="user-info">
-            <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
-            </svg>
-            {{ Usuario.Nome }}
-        </div>
+   <div class="welcome-box">
+        Bem Vindo ao Administrativo ao painel de contas
     </div>
-    <div class="curso-box">
-    <a href="{% url 'criar_contas' %}"class="criar-curso-btn">Criar contas</a>
-    <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>
-    {% for conta in contas %}
 
+    <div class="main-content">
+    <a href="{% url 'criar_contas' %}"class="voltar-btn">Criar contas</a>
+    <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>
+    
+        <div class="alunos-container">
+            <table class="tabela-adm">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Tipo de conta</th>
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      {% for conta in contas %}
+                      <td>
             <p class="curso-item">Nome usuário: {{ conta.Username }}</p>
+                      </td>
+                      <td>
             <p class="curso-item">Email: {{ conta.E_mail }}</p>
+                      </td>
+                      <td>
             <p class="curso-item">Tipo de conta: {{ conta.Tipos_conta }}</p>
+                      </td>
 
             <form method="POST" action="{% url 'deletar_contas' conta.id %}"  onsubmit="return confirm('Você tem certeza que deseja deletar essa conta? Esse processo não poderá ser revertido')">
                 {% csrf_token %}
-                <button type="submit" class = "deletar-btn">Deletar</button>
+       <button type="submit" class = ".btn-rejeitar">Deletar</button>
             </form>
-            <a href="{% url 'editar_contas' conta.id %}" class = "sidebar">Alterar</a>
+            <a href="{% url 'editar_contas' conta.id %}" class = "sair-link">Alterar</a>
         </div>
     {% endfor %}
 </body>
