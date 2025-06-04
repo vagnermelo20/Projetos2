@@ -397,7 +397,7 @@ class GerenciamentoAcad(View):
         data_hoje=date.today()
         formatted_date = data_hoje.strftime("%d-%m-%Y")
 
-        data_1 = data_hoje + relativedelta(months=1)
+        data_1 = data_hoje +relativedelta(months=1)
         data_2 = data_hoje +relativedelta(months=2)
         data_3= data_hoje+ relativedelta(months=3)
         data_avaliacoes={data_1,data_2,data_3}
@@ -453,25 +453,39 @@ class AvaliacaoMetricas(View):
         aluno=get_object_or_404(Inscricao,nome_inscrito=nome_aluno)
         #fazer lógica de qual AV a avaliação mandada para o template se refere.
         #elaborar regua de proficiência com base nos resultados.
-        aluno.av1=int(comunicacao)+int(conhecimento)+int(participacao)
-        aluno.data_envio_avaliacao=date.today()
-        nome_do_curso=aluno.nome_curso
-        aluno.save()
-        
-        
-        #para redirecionar
-        query_nomes=Inscricao.objects.filter(nome_curso=nome_do_curso)
-        data_hoje=date.today()
-        formatted_date = data_hoje.strftime("%d-%m-%Y")
-
+        data_hoje=date.today()      
         data_1 = data_hoje + relativedelta(months=1)
         data_2 = data_hoje +relativedelta(months=2)
         data_3= data_hoje+ relativedelta(months=3)
         data_avaliacoes={data_1,data_2,data_3}
+        contador=0
+        nome_do_curso=aluno.nome_curso
+
+        for data in data_avaliacoes:
+            if date.today()==data and contador==0:
+                aluno.av1=int(comunicacao)+int(conhecimento)+int(participacao)
+                aluno.data_envio_avaliacao=date.today()
+                aluno.save()
+            if date.today()==data and contador==1:
+                aluno.av2=int(comunicacao)+int(conhecimento)+int(participacao)
+                aluno.data_envio_avaliacao=date.today()
+                aluno.save()
+            if date.today()==data and contador==2:
+                aluno.av3=int(comunicacao)+int(conhecimento)+int(participacao)
+                aluno.data_envio_avaliacao=date.today()
+                aluno.save()
+            contador+=1
+            
+
+        
+        
+        #para redirecionar
+        query_nomes=Inscricao.objects.filter(nome_curso=nome_do_curso)
+        formatted_date = data_hoje.strftime("%d-%m-%Y")
+
         
         ja_enviou_avaliacoes=Inscricao.objects.filter(data_envio_avaliacao=date.today(),nome_curso=nome_do_curso)#implementar para turma
         ja_enviou_hj=Inscricao.objects.filter(data_envio=date.today(),nome_curso=nome_do_curso)#implementar para turma
 
         contexto={'nomes':query_nomes,'curso':nome_do_curso, 'data':formatted_date,'data_hoje':data_hoje,'data_avaliacoes':data_avaliacoes,'ja_enviou_hj':ja_enviou_hj,'ja_enviou_avaliacoes':ja_enviou_avaliacoes}
         return render(request,"painel_adm/gerenciamento_acad.html",contexto)
-        
