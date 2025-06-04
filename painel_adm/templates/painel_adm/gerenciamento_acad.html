@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -252,7 +253,41 @@
             border: none;
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
+    .avaliacao-container {
+    background: #f0f4f3;
+    border: 1px solid #ccd;
+    padding: 20px;
+    margin: 24px 0;
+    border-radius: 8px;
+    text-align: center;
+}
 
+.avaliacao-container p {
+    font-size: 14px;
+    color: #333;
+    margin: 6px 0;
+}
+
+.avaliacao-container .voltar-link {
+    display: inline-block;
+    background-color: #4a6866;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.avaliacao-container .voltar-link:hover {
+    background-color: #3a5250;
+}
+
+.avaliacao-container .mensagem {
+    font-weight: bold;
+    color: #d35400;
+}
     </style>
 </head>
 <html lang="pt-br">
@@ -313,8 +348,6 @@
                         <th>Nome</th>
                         <th>Presente</th>
                         <th>Faltou</th>
-                        <th>Data da Avaliação</th>
-                        <th>Avaliação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -331,26 +364,32 @@
                         <td>
                             <input type="radio" name="presenca_{{ forloop.counter }}" value="faltou">
                         </td>
-
-                        <!-- Data da avaliação -->
-                        <td>
-                            <input type="date" name="data_avaliacao_{{ forloop.counter }}">
-                        </td>
-
-                        <!-- Nota da avaliação -->
-                        <td>
-                            <input type="text" name="avaliacao_{{ forloop.counter }}" placeholder="Nota ou comentário">
-                        </td>
                         <!-- Campo oculto com o nome do aluno -->
                         <input type="hidden" name="aluno_nome_{{ forloop.counter }}" value="{{ nome.nome_inscrito }}">
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+                    <div class="avaliacao-container">
+    <input type="hidden" name="aluno_id_{{ forloop.counter }}" value="{{ nome.id }}">
+    <p>Datas das avaliações:</p>
 
-            <div style="text-align:center;">
-                <input type="hidden" name="quantidade_alunos" value="{{ nomes|length }}">
-                <button type="submit" class="btn-verde">Enviar Presenças e Avaliações</button>
+    {% for data_avaliacao in data_avaliacoes %}
+        {% if data_hoje == data_avaliacao %}
+            {% if ja_enviou_avaliacoes %}
+                <p class="mensagem">A avaliação do dia de hoje já foi enviada</p>
+            {% else %}
+                <a href="{% url 'avaliacao_metricas' nome.nome_inscrito %}" class="voltar-link">Avaliação</a>
+            {% endif %}
+        {% endif %}
+        <p>{{ data_avaliacao }}</p>
+    {% endfor %}
+
+    <br>
+    <input type="hidden" name="quantidade_alunos" value="{{ nomes|length }}">
+</div>
+
+                <button type="submit" class="btn-verde">Enviar Presenças</button>
             </div>
         </form>
         {% endif %}
