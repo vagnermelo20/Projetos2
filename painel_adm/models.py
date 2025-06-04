@@ -48,6 +48,8 @@ class Inscricao(models.Model):
 
     criado_a = models.DateTimeField(auto_now_add=True)
     nome_curso=models.CharField(max_length=300)
+    turma_do_curso=models.CharField(max_length=10)#vai ser definido no após o whatsapp
+
     quantidade_faltas=models.IntegerField(default=0)
     data_envio=models.DateField(default='2025-01-01')
     data_envio_avaliacao=models.DateField(default='2025-01-01')
