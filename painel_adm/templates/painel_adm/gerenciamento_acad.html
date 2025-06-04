@@ -203,30 +203,38 @@
     </div>
    <form method="POST">
     {% csrf_token %}
-    {% for nome in nomes %}
-        <div class="form-group">
-            <p class="presente1">Nome do aluno: {{ nome.nome_inscrito }}</p>
-            <div class="radio-group">
-                <input type="radio" name="presenca_{{ forloop.counter }}" value="presente" id="presente_{{ forloop.counter }}">
-                <label for="presente_{{ forloop.counter }}" class="presente">Presente</label>
+    {% if ja_enviou_hj %}
+        <h2>A frequência do dia de hoje já foi enviada</h2>
+    {% else %}
+        {% for nome in nomes %}
+            <div class="form-group">
+                <p class="presente1">Nome do aluno: {{ nome.nome_inscrito }}</p>
+                <div class="radio-group">
+                    <input type="radio" name="presenca_{{ forloop.counter }}" value="presente" id="presente_{{ forloop.counter }}">
+                    <label for="presente_{{ forloop.counter }}" class="presente">Presente</label>
 
-                <input type="radio" name="presenca_{{ forloop.counter }}" value="faltou" id="faltou_{{ forloop.counter }}">
-                <label for="faltou_{{ forloop.counter }}" class="presente">Faltou</label>
+                    <input type="radio" name="presenca_{{ forloop.counter }}" value="faltou" id="faltou_{{ forloop.counter }}">
+                    <label for="faltou_{{ forloop.counter }}" class="presente">Faltou</label>
+                </div>
+
+                <input type="hidden" name="aluno_id_{{ forloop.counter }}" value="{{ nome.id }}">
+                <p>Datas das avaliações:</p>
+                {% for data_avaliacao in data_avaliacoes %}
+                    {% if data_hoje == data_avaliacao %}
+                        {% if ja_enviou_avaliacoes %}
+                            <p>A avaliação do dia de hoje já foi enviada</p>
+                        {% else %}
+                            <a href="{% url 'avaliacao_metricas' nome.nome_inscrito %}" class="voltar-link">Avaliação</a>
+                        {% endif %}
+                    {% endif %}
+                    <p>{{ data_avaliacao }}</p>
+                {% endfor %}
+                <br><br>
             </div>
-
-            <input type="hidden" name="aluno_id_{{ forloop.counter }}" value="{{ nome.id }}">
-            <p>Datas das avaliações:</p>
-            {% for data_avaliacao in data_avaliacoes %}
-                {% if data_hoje == data_avaliacao %}
-                    <a href="{% url 'avaliacao_metricas' nome.nome_inscrito %}" class="voltar-link">Avaliação</a>
-                {% endif %}
-                <p>{{ data_avaliacao }}</p>
-            {% endfor %}
-            <br><br>
-        </div>
-    {% endfor %}
-    <input type="hidden" name="total_alunos" value="{{ nomes|length }}">
-    <button type="submit">Enviar</button>
+        {% endfor %}
+        <input type="hidden" name="total_alunos" value="{{ nomes|length }}">
+        <button type="submit">Enviar</button>
+    {% endif %}
 </form>
 </div>
 </div>
