@@ -1,8 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from painel_adm.models import Curso,Selecao,Inscricao
+from painel_adm.models import Curso,Selecao,Inscricao,Lote
 
+from django.http import HttpResponse
+import subprocess
+import os
 from home.models import Usuario
 from datetime import date, timedelta
 from dateutil.relativedelta import relativedelta
@@ -326,8 +329,10 @@ class EditarProcesso(View):
 class VisualizarAlunos(View):
     def get(self,request,curso):
         alunos = Inscricao.objects.filter(nome_curso=curso)
+        query_lotes=Lote.objects.filter(curso_do_lote=curso)
         context = {
             'alunos': alunos,
+            'aluno_lote':query_lotes
         }
         return render(request,'painel_adm/visualizar_alunos_processo.html',context)
     
@@ -519,3 +524,36 @@ class AvaliacaoMetricas(View):
 
         contexto={'nomes':query_nomes,'curso':nome_do_curso, 'data':formatted_date,'data_hoje':data_hoje,'data_avaliacoes':data_avaliacoes,'ja_enviou_hj':ja_enviou_hj,'ja_enviou_avaliacoes':ja_enviou_avaliacoes}
         return render(request,"painel_adm/gerenciamento_acad.html",contexto)
+
+class AdicionarLote(View):
+
+    def get(self,request,nome):
+        aluno=get_object_or_404(Inscricao,nome_inscrito=nome)
+        processo=get_object_or_404(Selecao,curso_para_processo=aluno.nome_curso)
+        aluno.aceito_em_lote="Sim"
+        aluno.save()
+
+        Lote.objects.create(
+            nome_participante=nome,
+            curso_do_lote=aluno.nome_curso,
+        )
+        alunos = Inscricao.objects.filter(nome_curso=aluno.nome_curso)
+        query_lotes=Lote.objects.filter(curso_do_lote=aluno.nome_curso)
+        return render(request,"painel_adm/visualizar_alunos_processo.html",{'alunos':alunos,'aluno_lote':query_lotes})
+
+
+class RodarWpp(View):
+    def get(self,request):
+       
+        cwd = 'C:/Users/Twobr/OneDrive/Área de Trabalho/solidare/Projetos2'
+
+        proc = subprocess.Popen(
+            ['py', 'painel_adm/whatsapp.py'],
+            cwd=cwd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+
+        out, err = proc.communicate(timeout=60)
+        print("Output:", out.decode())
+        print("Errors:", err.decode())
