@@ -166,6 +166,7 @@
     </style>
 </head>
 <body>
+    <h1>Gerenciamento do dia: {{ data }}</h1>
     <div class="header">
         <div class="menu-icon">
             <span></span>
@@ -200,7 +201,6 @@
      <div class="welcome-box">
        <p class ="presente1"> Bem Vindo Professor ao gerenciamento academico  </p>
     </div>
-
    <form method="POST">
     {% csrf_token %}
     {% for nome in nomes %}
@@ -215,7 +215,13 @@
             </div>
 
             <input type="hidden" name="aluno_id_{{ forloop.counter }}" value="{{ nome.id }}">
-            <a href="{% url 'avaliacao_metricas' nome.nome_inscrito %}" class="voltar-link">Avaliação</a>
+            <p>Datas das avaliações:</p>
+            {% for data_avaliacao in data_avaliacoes %}
+                {% if data_hoje == data_avaliacao %}
+                    <a href="{% url 'avaliacao_metricas' nome.nome_inscrito %}" class="voltar-link">Avaliação</a>
+                {% endif %}
+                <p>{{ data_avaliacao }}</p>
+            {% endfor %}
             <br><br>
         </div>
     {% endfor %}

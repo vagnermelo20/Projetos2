@@ -178,6 +178,7 @@
                 <p><strong>Nome do curso:</strong> {{ processo.curso_para_processo }}</p>
                 <p><strong>Data do início:</strong> {{ processo.data_inicio }}</p>
                 <p><strong>Data do fim:</strong> {{ processo.data_fim }}</p>
+                <p><strong>Data do ínicio:</strong> {{ processo.Data_inicio_aulas }}</p>
                 <div class="processo-actions">
                     <a href="{% url 'editar_processo' processo.id %}">Editar</a>
                     <form method="POST" action="{% url 'deletar_processo' processo.id %}" 
