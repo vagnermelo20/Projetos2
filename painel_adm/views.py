@@ -106,7 +106,7 @@ class EditarCurso(View):
 
        
         if not nome_curso or not descricao_curso or not numero_alunos:
-            messages.error(request, 'É necessário preencher todas as informações    .')
+            messages.error(request, 'É necessário preencher todas as informações.')
             return render(request, 'painel_adm/editar_curso.html', {'curso': curso})
 
         
