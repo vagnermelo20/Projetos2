@@ -3,8 +3,10 @@ Django==5.2
 djangorestframework==3.16.0
 sqlparse==0.5.3
 tzdata==2025.2
+selenium
 python-dotenv
 psycopg2-binary
 gunicorn
 whitenoise
 python-dateutil
+webdriver-manager
