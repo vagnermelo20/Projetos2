@@ -33,7 +33,7 @@ class CriarCurso(View):
             return render(request, 'painel_adm/criar_curso.html')
 
         
-        if Curso.objects.filter(Nome=nome_curso, id=usuario_id).exists():
+        if Curso.objects.filter(Nome=nome_curso).exists():
             messages.error(request, 'Você já tem um curso com este nome.')
             return render(request, 'painel_adm/criar_curso.html', {
                 'nome_curso': nome_curso,
