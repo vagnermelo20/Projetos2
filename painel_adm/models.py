@@ -49,6 +49,8 @@ class Inscricao(models.Model):
     criado_a = models.DateTimeField(auto_now_add=True)
     nome_curso=models.CharField(max_length=300)
     quantidade_faltas=models.IntegerField(default=0)
+    data_envio=models.DateField(default='2025-01-01')
+    data_envio_avaliacao=models.DateField(default='2025-01-01')
     av1=models.IntegerField(default=0)
     av2=models.IntegerField(default=0)
     av3=models.IntegerField(default=0)
