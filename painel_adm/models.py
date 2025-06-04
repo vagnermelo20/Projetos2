@@ -5,7 +5,7 @@ class Curso(models.Model):
     Nome = models.CharField(max_length=1000)
     Descrição = models.TextField()
     Numero_alunos=models.IntegerField()
-    Numero_Professores=models.IntegerField()
+    Data_inicio_curso=models.DateField(default='2025-01-01')
     def __str__(self):
         return self.Nome
 
@@ -14,6 +14,7 @@ class Selecao(models.Model):
     data_fim = models.DateField()
     max_participantes = models.IntegerField()
     curso_para_processo=models.CharField(max_length=1000)
+    Data_inicio_aulas=models.DateField(default='2025-01-01')
 
 class Inscricao(models.Model):
     nome_inscrito=models.CharField(max_length=1000)
@@ -51,7 +52,6 @@ class Inscricao(models.Model):
     av1=models.IntegerField(default=0)
     av2=models.IntegerField(default=0)
     av3=models.IntegerField(default=0)
-    av4=models.IntegerField(default=0)
 
     def approve(self):
         self.status = 'aprovado'
