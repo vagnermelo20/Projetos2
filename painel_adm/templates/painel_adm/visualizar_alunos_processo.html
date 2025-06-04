@@ -308,43 +308,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        {% if alunos %}
+                    {% if alunos %}
                         {% for aluno in alunos %}
-                            <td>
-                                <p>{{ aluno.nome_inscrito }}<p>
-                            </td>
-                            <td>
-                                <p>{{ aluno.Idade }}</p>
-                            </td>
-                            <td>
-                                <p>{{ aluno.Telefone }}</p>
-                            </td>
-                            <td>
-                                <p>{{ aluno.Educacao }}</p>
-                            </td>
-                            <td>
-                                <p>{{ aluno.Periodo_estudo }}</p>
-                            </td>
-                            <td>
-                                <p>{{ aluno.Bairro}}</p>
-                            </td>
-                            <td>
-                                <div class="aluno-acoes">
-                                    <a href="" class="btn-aceitar">Aceitar</a>
-                                    <a href="" class="btn-rejeitar">Rejeitar</a>
-                                </div>
-                            </td>
-                            
-                        
+                            <tr>
+                                <td><p>{{ aluno.nome_inscrito }}</p></td>
+                                <td><p>{{ aluno.Idade }}</p></td>
+                                <td><p>{{ aluno.Telefone }}</p></td>
+                                <td><p>{{ aluno.Educacao }}</p></td>
+                                <td><p>{{ aluno.Periodo_estudo }}</p></td>
+                                <td><p>{{ aluno.Bairro }}</p></td>
+                                <td>
+                                    <div class="aluno-acoes">
+                                        <a href="{% url 'adicionar_lote' aluno.nome_inscrito %}" class="btn-aceitar">Aceitar</a>
+                                    </div>
+                                </td>
+                            </tr>
                         {% endfor %}
-                        {% else %}
-                            <span class="branco">Não há inscritos nesse curso</span>
-                        {% endif %}
-                    </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="branco">Não há inscritos nesse curso</td>
+                        </tr>
+                    {% endif %}
                 </tbody>
-                
             </table>
+            <h3>Grupo de mensagens atual:</h3>
+            {% if aluno_lote %}
+                {% for aluno in aluno_lote%}
+                    <p>{{ aluno.nome_participante }}</p>
+                {% endfor %}
+                <a href="{% url 'rodar_wpp' %}">Enviar</a>
+            {% else %}
+                <p>Clique em "aceitar" para adicionar alunos ao grupo</p>
+            {% endif %}
             
         </div>
 </body>
