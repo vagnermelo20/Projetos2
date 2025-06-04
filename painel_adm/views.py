@@ -397,6 +397,7 @@ class CriarContas(View):
             elif not Curso.objects.filter(Nome=curso_conta).exists():
                 messages.error(request,"Esse curso não existe")
                 return render(request,"painel_adm/criar_contas.html")
+            
             else:
                 Usuario.objects.create(
                     Username=nome_conta,
@@ -427,7 +428,7 @@ class CriarContas(View):
                 Tipos_conta=tipo_conta,
             )
             messages.success(request,"Conta criada com sucesso")
-            return render(request,"painel_adm/criar_contas.html")
+            return redirect('painel_contas')
 
 class GerenciamentoAcad(View):
 
