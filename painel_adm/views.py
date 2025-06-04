@@ -110,7 +110,7 @@ class EditarCurso(View):
             return render(request, 'painel_adm/editar_curso.html', {'curso': curso})
 
         
-        if Curso.objects.filter(Nome=nome_curso, id=usuario_id).exclude(id=curso_id).exists():
+        if Curso.objects.filter(Nome=nome_curso).exclude(id=curso_id).exists():
             messages.error(request, 'Você já tem um curso com este nome.')
             return render(request, 'painel_adm/editar_curso.html', {
                 'curso': curso,
