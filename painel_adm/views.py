@@ -5,6 +5,7 @@ from painel_adm.models import Curso,Selecao,Inscricao
 
 from home.models import Usuario
 from datetime import date, timedelta
+from dateutil.relativedelta import relativedelta
 
 
 
@@ -25,10 +26,9 @@ class CriarCurso(View):
         nome_curso = request.POST.get('nome_curso')
         descricao_curso = request.POST.get('descricao')
         numero_alunos= request.POST.get('n_alunos')  
-        numero_professores=request.POST.get('n_professores')
 
        
-        if not nome_curso or not descricao_curso or not numero_alunos or not numero_professores:
+        if not nome_curso or not descricao_curso or not numero_alunos:
             messages.error(request, 'É necessário preencher todas as informações.')
             return render(request, 'painel_adm/criar_curso.html')
 
@@ -39,7 +39,6 @@ class CriarCurso(View):
                 'nome_curso': nome_curso,
                 'descricao_curso': descricao_curso,
                 'n_alunos':numero_alunos,
-                'n_professores':numero_professores
             })
 
 
@@ -48,7 +47,6 @@ class CriarCurso(View):
             Nome=nome_curso,
             Descrição=descricao_curso,
             Numero_alunos=numero_alunos,
-            Numero_Professores=numero_professores
         )
 
         return redirect('visualizar_curso')
@@ -103,11 +101,11 @@ class EditarCurso(View):
         nome_curso = request.POST.get('nome_curso')
         descricao_curso = request.POST.get('descricao_curso')
         numero_alunos= request.POST.get('n_alunos')  
-        numero_professores=request.POST.get('n_professores')
+ 
         
 
        
-        if not nome_curso or not descricao_curso or not numero_alunos or not numero_professores:
+        if not nome_curso or not descricao_curso or not numero_alunos:
             messages.error(request, 'É necessário preencher todas as informações    .')
             return render(request, 'painel_adm/editar_curso.html', {'curso': curso})
 
@@ -119,13 +117,11 @@ class EditarCurso(View):
                 'nome_curso': nome_curso,
                 'descricao_curso': descricao_curso,
                 'n_alunos':numero_alunos,
-                'n_professores':numero_professores
             })
 
         curso.Nome = nome_curso
         curso.Descrição = descricao_curso
         curso.Numero_alunos = numero_alunos
-        curso.Numero_Professores=numero_professores
         curso.save()
 
         return redirect('visualizar_curso')
@@ -141,6 +137,7 @@ class CriarProcessoSeletivo(View):
         data_fim = request.POST.get('data_fim')
         max_participantes= request.POST.get('max_participantes')
         curso_para_processo= request.POST.get('curso_para_processo')
+        data_inicio_aulas= request.POST.get('data_inicio_aulas')
 
         if date.fromisoformat(data_inicio) < date.today():
             messages.error(request, 'O processo seletivo não pode iniciar antes do dia de hoje.')
@@ -148,8 +145,21 @@ class CriarProcessoSeletivo(View):
                 'data_inicio': data_inicio,
                 'data_fim': data_fim,
                 'max_participantes': max_participantes,
-                'curso_para_processo': curso_para_processo
+                'curso_para_processo': curso_para_processo,
+                'data_inicio_aulas': data_inicio_aulas,
             })
+        
+        if date.fromisoformat(data_inicio_aulas) < date.today() or date.fromisoformat(data_inicio_aulas) <date.fromisoformat(data_fim):
+            messages.error(request, 'As aulas não podem começar hoje e devem iniciar após a data do fim informada.')
+            return render(request, 'painel_adm/criar_processo.html', {
+                'data_inicio': data_inicio,
+                'data_fim': data_fim,
+                'max_participantes': max_participantes,
+                'curso_para_processo': curso_para_processo,
+                'data_inicio_aulas':data_inicio_aulas,
+            })
+        
+        
 
         um_ano_apos = date.today() + timedelta(days=366)
         if date.fromisoformat(data_inicio) > um_ano_apos:
@@ -158,7 +168,8 @@ class CriarProcessoSeletivo(View):
                 'data_inicio': data_inicio,
                 'data_fim': data_fim,
                 'max_participantes': max_participantes,
-                'curso_para_processo': curso_para_processo
+                'curso_para_processo': curso_para_processo,
+                'data_inicio_aulas':data_inicio_aulas,
             })
         
         if (date.fromisoformat(data_fim) - date.fromisoformat(data_inicio)).days > 365:
@@ -167,7 +178,8 @@ class CriarProcessoSeletivo(View):
                 'data_inicio': data_inicio,
                 'data_fim': data_fim,
                 'max_participantes': max_participantes,
-                'curso_para_processo': curso_para_processo
+                'curso_para_processo': curso_para_processo,
+                'data_inicio_aulas':data_inicio_aulas,
             })
 
 
@@ -177,7 +189,8 @@ class CriarProcessoSeletivo(View):
                 'data_inicio': data_inicio,
                 'data_fim': data_fim,
                 'max_participantes': max_participantes,
-                'curso_para_processo': curso_para_processo
+                'curso_para_processo': curso_para_processo,
+                'data_inicio_aulas':data_inicio_aulas,
             })
         
         if not Curso.objects.filter(Nome=curso_para_processo).exists():
@@ -186,7 +199,8 @@ class CriarProcessoSeletivo(View):
             'data_inicio': data_inicio,
             'data_fim': data_fim,
             'max_participantes':max_participantes,
-            'curso_para_processo':curso_para_processo
+            'curso_para_processo':curso_para_processo,
+            'data_inicio_aulas':data_inicio_aulas,
         })
         
 
@@ -202,7 +216,8 @@ class CriarProcessoSeletivo(View):
                 'data_inicio': data_inicio,
                 'data_fim': data_fim,
                 'max_participantes':max_participantes,
-                'curso_para_processo':curso_para_processo
+                'curso_para_processo':curso_para_processo,
+                'data_inicio_aulas':data_inicio_aulas,
             })
 
 
@@ -211,7 +226,8 @@ class CriarProcessoSeletivo(View):
             data_inicio=data_inicio,
             data_fim=data_fim,
             max_participantes=max_participantes,
-            curso_para_processo=curso_para_processo
+            curso_para_processo=curso_para_processo,
+            Data_inicio_aulas=data_inicio_aulas,
         )
 
         return redirect('visualizar_processo')
@@ -259,11 +275,11 @@ class EditarProcesso(View):
         data_inicio= request.POST.get('data_inicio')
         data_fim = request.POST.get('data_fim')
         max_participantes= request.POST.get('max_participantes')  
-    
+        data_inicio_aulas=request.POST.get('data_inicio_aulas')
         
 
        
-        if not data_inicio or not data_fim or not max_participantes:
+        if not data_inicio or not data_fim or not max_participantes or data_inicio_aulas:
             messages.error(request, 'É necessário preencher todas as informações.')
             return render(request, 'painel_adm/editar_processo.html', {'processo': processo})
 
@@ -272,6 +288,7 @@ class EditarProcesso(View):
         processo.data_inicio = data_inicio
         processo.data_fim = data_fim
         processo.max_participantes = max_participantes
+        processo.Data_inicio_aulas= data_inicio_aulas
         processo.save()
 
         return redirect('visualizar_processo')
@@ -377,7 +394,15 @@ class GerenciamentoAcad(View):
 
     def get(self,request,curso):
         query_nomes=Inscricao.objects.filter(nome_curso=curso)
-        contexto={'nomes':query_nomes,'curso':curso}
+        data_hoje=date.today()
+        formatted_date = data_hoje.strftime("%d-%m-%Y")
+
+        data_1 = data_hoje + relativedelta(months=1)
+        data_2 = data_hoje +relativedelta(months=2)
+        data_3= data_hoje+relativedelta(months=3)
+        data_avaliacoes={data_1,data_2,data_3}
+
+        contexto={'nomes':query_nomes,'curso':curso, 'data':formatted_date,'data_hoje':data_hoje,'data_avaliacoes':data_avaliacoes}
         return render(request,"painel_adm/gerenciamento_acad.html",contexto)
     
     def post(self,request,curso):
