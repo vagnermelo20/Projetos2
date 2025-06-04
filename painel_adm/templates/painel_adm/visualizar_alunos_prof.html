@@ -153,6 +153,9 @@
     {% for nome in nomes %}
         <p class= "curso-item">Nome: {{ nome.nome_inscrito }}</p>
         <p class = "curso-item">Quantidade de faltas: {{ nome.quantidade_faltas }}</p>
+        <p class="curso-item">Idade: {{ nome.Idade }}</p>
+        <p class="curso-item">Avaliações: AV1:{{ nome.av1 }} AV2:{{ nome.av2 }} AV3:{{ nome.av3 }}</p>
+
     {% endfor %}
     </div>
 </div>
