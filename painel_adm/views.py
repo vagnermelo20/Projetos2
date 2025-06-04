@@ -408,6 +408,15 @@ class CriarContas(View):
                 messages.success(request,"Conta criada com sucesso")
                 return redirect('painel_contas')
             
+        if Usuario.objects.filter(E_mail=email).exists():
+            messages.error(request, 'Já existe uma conta com esse e-mail.')
+            return render(request, 'painel_adm/criar_contas.html', {
+                'nome_conta': nome_conta,
+                'email': email,
+                'tipo_conta': tipo_conta,
+                'curso_conta': curso_conta,
+            })
+            
         
         
         if tipo_conta=="Administrador":
