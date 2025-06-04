@@ -13,7 +13,7 @@ time.sleep(30)
 
 mensagem = "Teste"
 
-lista_contatos = ["+55 88 9822-4668","+55 81 8980-8485","+55 87 9934-9066",]
+lista_contatos = ["+55 88 9822-4668","+55 81 8980-8485"]
 
 novo_contato = ["+55 87 9934-9066"]
 
@@ -45,7 +45,7 @@ for x in lista_contatos:
     print(x)
 
 nav.find_element('xpath', '//*[@id="side"]/div[1]/div/div[2]/div/div/div[1]/p').click()
-nav.find_element('xpath', '//*[@id="side"]/div[1]/div/div[2]/div/div/div[1]/p').send_keys("+55 88 9822-4668")
+nav.find_element('xpath', '//*[@id="side"]/div[1]/div/div[2]/div/div/div[1]/p').send_keys("+55 87 9934-9066")
 nav.find_element('xpath', '//*[@id="side"]/div[1]/div/div[2]/div/div/div[1]/p').send_keys(Keys.ENTER)
 time.sleep(2)
 
