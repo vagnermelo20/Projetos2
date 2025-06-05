@@ -295,6 +295,7 @@
          <table class="tabela-adm">
                 <thead>
                     <tr>
+                        
                         <th>Nome</th>
                         <th>Quantidade de faltas</th>
                         <th>Idade</th>
@@ -304,29 +305,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                 <tr>
-                    {% for nome in nomes %}
-                    <td>
-                      <p>Nome: {{ nome.nome_inscrito }}</p>
-                    </td>
-                    <td>
-                   <p>Quantidade de faltas: {{ nome.quantidade_faltas }}</p>
-                    </td>
-                    <td>
-                     <p>Idade: {{ nome.Idade }}</p>
-                    </td>
-                    <td>
-                        <p>AV1:{{ nome.av1 }}</p>
-                    </td>
-                      <td>
-                        <p> AV2:{{ nome.av2 }}</p>
-                      </td>
-                      <td>
-                        <p> AV3:{{ nome.av3 }}</p>
-                      </td>
-                      {% endfor %}
-                   </tr>
-                </tbody>
+               {% for nome in nomes %}
+     <tr>
+        <td>{{ nome.nome_inscrito }}</td>
+        <td>{{ nome.quantidade_faltas }}</td>
+        <td>{{ nome.Idade }}</td>
+        <td>{{ nome.av1 }}</td>
+        <td>{{ nome.av2 }}</td>
+        <td>{{ nome.av3 }}</td>
+     </tr>
+    {% endfor %}
+</tbody>
+
+                
             </table>
     </div>
 </body>
