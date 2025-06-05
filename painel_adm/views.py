@@ -435,41 +435,117 @@ class CriarContas(View):
             return redirect('painel_contas')
 
 class GerenciamentoAcad(View):
-
-    def get(self,request,curso):
-        query_nomes=Inscricao.objects.filter(nome_curso=curso)
-        data_hoje=date.today()
+    def get(self, request, curso):
+        data_hoje = date.today()
         formatted_date = data_hoje.strftime("%d-%m-%Y")
-
-        data_1 = data_hoje +relativedelta(months=1)
-        data_2 = data_hoje +relativedelta(months=2)
-        data_3= data_hoje+ relativedelta(months=3)
-        data_avaliacoes={data_1,data_2,data_3}
         
-        ja_enviou_avaliacoes=Inscricao.objects.filter(data_envio_avaliacao=date.today(),nome_curso=curso)#implementar para turma
-        ja_enviou_hj=Inscricao.objects.filter(data_envio=date.today(),nome_curso=curso)#implementar para turma
+        # QuerySet original de alunos para o curso
+        query_nomes_qs = Inscricao.objects.filter(nome_curso=curso)
 
-        contexto={'nomes':query_nomes,'curso':curso, 'data':formatted_date,'data_hoje':data_hoje,'data_avaliacoes':data_avaliacoes,'ja_enviou_hj':ja_enviou_hj,'ja_enviou_avaliacoes':ja_enviou_avaliacoes}
-        return render(request,"painel_adm/gerenciamento_acad.html",contexto)
-    
+        data_avaliacoes_map = {}
+        alunos_para_template = [] # Lista para os alunos com o atributo extra
 
-    def post(self,request,curso):
-        total = int(request.POST.get("total_alunos", 0))
-        for i in range(1, total + 1):
+        for aluno_obj in query_nomes_qs:
+            # Calcula as datas de avaliação individuais para cada aluno
+            datas_individuais = {
+                'av1': aluno_obj.data_matricula,
+                'av2': aluno_obj.data_matricula + relativedelta(months=1),
+                'av3': aluno_obj.data_matricula + relativedelta(months=2),
+            }
+            data_avaliacoes_map[aluno_obj.id] = datas_individuais 
+
+            # Adiciona as datas individuais de avaliação diretamente ao objeto aluno
+            aluno_obj.data_av1 = datas_individuais['av1']
+            aluno_obj.data_av2 = datas_individuais['av2']
+            aluno_obj.data_av3 = datas_individuais['av3']
+
+            # Adiciona o indicador se hoje é dia de avaliação (como já fizemos)
+            aluno_obj.is_evaluation_day_today = (data_hoje == datas_individuais['av1'] or
+                                                data_hoje == datas_individuais['av2'] or
+                                                data_hoje == datas_individuais['av3'])
+            alunos_para_template.append(aluno_obj)
+
+        ja_enviou_hj_qs = Inscricao.objects.filter(
+            data_envio=data_hoje, nome_curso=curso
+        ).exists() 
+
+        contexto = {
+            'nomes': alunos_para_template, # Lista de alunos com 'is_evaluation_day_today'
+            'curso': curso,
+            'data': formatted_date,  
+            'data_hoje': data_hoje,        # Objeto date para comparações no template 
+            'data_avaliacoes': data_avaliacoes_map, 
+            'ja_enviou_hj': ja_enviou_hj_qs, 
+        }
+        return render(request, "painel_adm/gerenciamento_acad.html", contexto)
+
+    def post(self, request, curso):
+        total_alunos_no_formulario = int(request.POST.get("quantidade_alunos", 0))
+        data_hoje = date.today()
+
+        if Inscricao.objects.filter(data_envio=data_hoje, nome_curso=curso).exists():
+            messages.warning(request, f"Os dados de frequência para o curso {curso} já foram enviados hoje.")
+            return redirect('inicio_professor', curso=curso) # Ou para 'gerenciamento_acad' com mensagem
+
+        for i in range(1, total_alunos_no_formulario + 1):
             aluno_id = request.POST.get(f"aluno_id_{i}")
             presenca = request.POST.get(f"presenca_{i}")
+
+            if not aluno_id: # Checagem extra, caso o ID do aluno não venha 
+                messages.error(request, "Ocorreu um erro ao processar os dados de um aluno (ID não encontrado).")
+             
+                return redirect('gerenciamento_acad', curso=curso)
+
+
             if not presenca:
-                messages.error(request,"É nescessários inserir a frequência de todos os estudantes.")
-                return render(request,"painel_adm/gerenciamento_acad.html")
+                # Erro: frequência não marcada para um aluno.
+                # Recria o contexto como no método GET para re-renderizar o formulário.
+                messages.error(request, "É necessário inserir a frequência (presente/faltou) de todos os estudantes.")
 
-            aluno=get_object_or_404(Inscricao,id=aluno_id)
-            if presenca=='faltou':
-                aluno.quantidade_faltas+=1
-                aluno.save()
-            aluno.data_envio=date.today()
-            aluno.save()
+                query_nomes_qs_erro = Inscricao.objects.filter(nome_curso=curso)
+                data_avaliacoes_reconstruido_erro = {}
+                alunos_para_template_erro = []
 
-        return render(request,"painel_adm/inicio_professor.html",{'curso':curso})
+                for aluno_obj_erro in query_nomes_qs_erro:
+                    datas_individuais_erro = {
+                        'av1': aluno_obj_erro.data_matricula,
+                        'av2': aluno_obj_erro.data_matricula + relativedelta(months=1),
+                        'av3': aluno_obj_erro.data_matricula + relativedelta(months=2),
+                    }
+                    data_avaliacoes_reconstruido_erro[aluno_obj_erro.id] = datas_individuais_erro
+                    
+                    aluno_obj_erro.is_evaluation_day_today = (data_hoje == datas_individuais_erro['av1'] or
+                                                              data_hoje == datas_individuais_erro['av2'] or
+                                                              data_hoje == datas_individuais_erro['av3'])
+                    alunos_para_template_erro.append(aluno_obj_erro)
+                
+
+                ja_enviou_hj_qs_erro = Inscricao.objects.filter(
+                    data_envio=data_hoje, nome_curso=curso
+                ).exists()
+
+                contexto_erro = {
+                    'nomes': alunos_para_template_erro,
+                    'curso': curso,
+                    'data': data_hoje.strftime("%d-%m-%Y"),
+                    'data_hoje': data_hoje,
+                    'data_avaliacoes': data_avaliacoes_reconstruido_erro,
+                    'ja_enviou_hj': ja_enviou_hj_qs_erro, 
+                }
+                return render(request, "painel_adm/gerenciamento_acad.html", contexto_erro)
+
+            # Processa a presença do aluno
+            aluno_instancia = get_object_or_404(Inscricao, id=aluno_id)
+            if presenca == 'faltou':
+                aluno_instancia.quantidade_faltas += 1
+            
+            aluno_instancia.data_envio = data_hoje # Marca que a presença deste aluno foi processada hoje
+            aluno_instancia.save()
+
+        # Se o loop completar sem erros para nenhum aluno
+        messages.success(request, f"Frequência dos alunos do curso {curso} registrada com sucesso para {data_hoje.strftime('%d/%m/%Y')}!")
+        return redirect('inicio_professor', curso=curso) 
+
 
 class VisualizarAlunosProf(View):
 
@@ -479,60 +555,44 @@ class VisualizarAlunosProf(View):
         return render(request,"painel_adm/visualizar_alunos_prof.html",contexto)
 
 class AvaliacaoMetricas(View):
+    def get(self, request, nome_aluno, curso):
+        return render(request, 'painel_adm/avaliacao_metricas.html', {'curso': curso})
 
-    def get(self,request,nome_aluno):
-        return render (request,'painel_adm/avaliacao_metricas.html')
-    
-    def post(self,request,nome_aluno):
-        #criar model e terminar view
-
-        comunicacao=request.POST.get('comunicacao')
-        conhecimento=request.POST.get('conhecimento')
-        participacao=request.POST.get('participacao')
+    def post(self, request, nome_aluno, curso):
+        comunicacao = request.POST.get('comunicacao')
+        conhecimento = request.POST.get('conhecimento')
+        participacao = request.POST.get('participacao')
 
         if not comunicacao or not conhecimento or not participacao:
-            messages.error("É nescessário inserir todas as informações")
-            return render("painel_adm/avaliacao_metricas.html")
-        
-        aluno=get_object_or_404(Inscricao,nome_inscrito=nome_aluno)
-        #fazer lógica de qual AV a avaliação mandada para o template se refere.
-        #elaborar regua de proficiência com base nos resultados.
-        data_hoje=date.today()      
-        data_1 = data_hoje + relativedelta(months=1)
-        data_2 = data_hoje +relativedelta(months=2)
-        data_3= data_hoje+ relativedelta(months=3)
-        data_avaliacoes={data_1,data_2,data_3}
-        contador=0
-        nome_do_curso=aluno.nome_curso
+            messages.error(request, "É necessário inserir todas as informações.")
+            # Passar nome_aluno para o contexto ao renderizar novamente
+            return render(request, "painel_adm/avaliacao_metricas.html", {'curso': curso, 'nome_aluno': nome_aluno})
 
-        for data in data_avaliacoes:
-            if date.today()==data and contador==0:
-                aluno.av1=int(comunicacao)+int(conhecimento)+int(participacao)
-                aluno.data_envio_avaliacao=date.today()
-                aluno.save()
-            if date.today()==data and contador==1:
-                aluno.av2=int(comunicacao)+int(conhecimento)+int(participacao)
-                aluno.data_envio_avaliacao=date.today()
-                aluno.save()
-            if date.today()==data and contador==2:
-                aluno.av3=int(comunicacao)+int(conhecimento)+int(participacao)
-                aluno.data_envio_avaliacao=date.today()
-                aluno.save()
-            contador+=1
-            
+        aluno = get_object_or_404(Inscricao, nome_inscrito=nome_aluno, nome_curso=curso)
+        nota_total = int(comunicacao) + int(conhecimento) + int(participacao)
+        data_hoje = date.today()
 
-        
-        
-        #para redirecionar
-        query_nomes=Inscricao.objects.filter(nome_curso=nome_do_curso)
-        formatted_date = data_hoje.strftime("%d-%m-%Y")
+        # Determinar as datas de avaliação específicas do aluno
+        aluno_av1_date = aluno.data_matricula
+        aluno_av2_date = aluno.data_matricula + relativedelta(months=1)
+        aluno_av3_date = aluno.data_matricula + relativedelta(months=2)
 
-        
-        ja_enviou_avaliacoes=Inscricao.objects.filter(data_envio_avaliacao=date.today(),nome_curso=nome_do_curso)#implementar para turma
-        ja_enviou_hj=Inscricao.objects.filter(data_envio=date.today(),nome_curso=nome_do_curso)#implementar para turma
+        if data_hoje == aluno_av1_date:
+            aluno.av1 = nota_total
+        elif data_hoje == aluno_av2_date:
+            aluno.av2 = nota_total
+        elif data_hoje == aluno_av3_date:
+            aluno.av3 = nota_total
+        else:
 
-        contexto={'nomes':query_nomes,'curso':nome_do_curso, 'data':formatted_date,'data_hoje':data_hoje,'data_avaliacoes':data_avaliacoes,'ja_enviou_hj':ja_enviou_hj,'ja_enviou_avaliacoes':ja_enviou_avaliacoes}
-        return render(request,"painel_adm/gerenciamento_acad.html",contexto)
+            messages.error(request, f"Hoje ({data_hoje.strftime('%d/%m/%Y')}) não é uma data de avaliação válida para este aluno ou para a avaliação esperada.")
+            return redirect('gerenciamento_acad', curso=curso)
+
+        aluno.data_envio_avaliacao = data_hoje
+        aluno.save()
+
+        messages.success(request, "Avaliação registrada com sucesso!")
+        return redirect('gerenciamento_acad', curso=curso)
 
 class AdicionarLote(View):
 

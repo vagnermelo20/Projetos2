@@ -899,6 +899,9 @@ class Test7_Entrar_Processo_Seletivo(LiveServerTestCase):
         time.sleep(2)
 
         # Agora vamos ver o aluno dentro do processo seletivo
+        WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.LINK_TEXT, "Voltar"))
+        ).click()
 
         driver.find_element(By.LINK_TEXT, "Login").click()
 

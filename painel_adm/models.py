@@ -51,6 +51,9 @@ class Inscricao(models.Model):
     turma_do_curso=models.CharField(max_length=10,default='0')#vai ser definido no após o whatsapp
     matriculado=models.CharField(max_length=10,default="Não") 
     aceito_em_lote=models.CharField(max_length=10,default="Não")
+    
+    data_matricula = models.DateField(auto_now_add=True)
+
 
     quantidade_faltas=models.IntegerField(default=0)
     data_envio=models.DateField(default='2025-01-01')
