@@ -64,7 +64,15 @@ class Registrar_aluno(View):
 
         if not nome or not telefone or not idade or not bairro or not educacao or not periodo_estudo:
             messages.error(request, 'Todos os campos são obrigatórios.')
-            return render(request, 'home/registro_aluno.html')
+            return render(request, 'home/registro_aluno.html', {
+            'nome': nome,
+            'telefone': telefone,
+            'idade':idade,
+            'bairro':bairro,
+            'educacao':educacao,
+            'periodo_estudo':periodo_estudo,
+            'nome_processo': nome_do_processo,
+        })
 
         if Inscricao.objects.filter(nome_inscrito=nome).exists():
             messages.error(request, 'Candidato já registado.')
@@ -75,6 +83,7 @@ class Registrar_aluno(View):
             'bairro':bairro,
             'educacao':educacao,
             'periodo_estudo':periodo_estudo,
+            'nome_processo': nome_do_processo,
         })
         elif Inscricao.objects.filter(Telefone=telefone).exists():
             messages.error(request, 'Número já cadastrado. Insira outro número e tente novamente.')
@@ -85,6 +94,7 @@ class Registrar_aluno(View):
             'bairro':bairro,
             'educacao':educacao,
             'periodo_estudo':periodo_estudo,
+            'nome_processo': nome_do_processo,
         })
         Inscricao.objects.create(
             nome_inscrito=nome,
