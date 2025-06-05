@@ -33,7 +33,7 @@ class Inscricao(models.Model):
     Educacao = models.CharField(max_length=23, choices=EDUCACAO_ESCOLHA, null=True, blank=True)
     
     PERIODO_ESCOLHA = [
-        ('Manhã','Manhã'),('Tarde','Tarde'),('Noite','Noite'),('Integral','Integral')
+        ('Manhã','Manhã'),('Tarde','Tarde'),('Noite','Noite'),('Integral','Integral'), ('Não Estudo', 'Não Estudo'),
     ]
     Periodo_estudo = models.CharField(max_length=20, choices=PERIODO_ESCOLHA, null=True, blank=True)
     
