@@ -48,7 +48,6 @@ class Inscricao(models.Model):
 
     criado_a = models.DateTimeField(auto_now_add=True)
     nome_curso=models.CharField(max_length=300)
-    turma_do_curso=models.CharField(max_length=10,default='1')#vai ser definido no após o whatsapp
     aceito_em_lote=models.CharField(max_length=10,default="Não")
     em_entrevista=models.CharField(max_length=10,default="Não")
     matriculado=models.CharField(max_length=10,default="Não") 
@@ -75,10 +74,6 @@ class Lote(models.Model):
 
     nome_participante=models.CharField(max_length=100)
     curso_do_lote=models.CharField(max_length=100)
-
-class Turma(models.Model):
-    turma=models.CharField(max_length=1000)
-    nome_aluno=models.CharField(max_length=1000)
 
 
     
