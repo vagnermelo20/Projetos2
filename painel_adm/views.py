@@ -626,10 +626,10 @@ class RodarWpp(View):
             contacts.append(alunos.Telefone)
         message = "Deu certo!"
 
-        send_whatsapp_messages(
-            contacts=contacts,
-            message=message,
-        )
+        # send_whatsapp_messages(
+        #     contacts=contacts,
+        #     message=message,
+        # )
         for i in contacts:
             aluno=get_object_or_404(Inscricao,Telefone=i)
             aluno.em_entrevista="Sim"
@@ -662,5 +662,5 @@ class VisualizarAlunosAdmin(View):
     def get(self,request,curso_id):
 
         curso=get_object_or_404(Curso,id=curso_id)
-        alunos_query=Inscricao.objects.filter(nome_curso=curso.n, matriculado="Sim")
+        alunos_query=Inscricao.objects.filter(nome_curso=curso.Nome, matriculado="Sim")
         return render(request,"painel_adm/visualizar_alunos_adm.html",{'alunos':alunos_query})
