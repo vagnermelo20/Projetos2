@@ -36,7 +36,7 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
         .tabela-adm th {
-            background: #4a6866;
+            background:rgb(52, 157, 180);
             color: #fff;
             font-weight: bold;
             padding: 12px 8px;
@@ -298,8 +298,9 @@
                         <th>Nome</th>
                         <th>Quantidade de faltas</th>
                         <th>Idade</th>
-                        <th>Avaliações</th>
-                    
+                        <th>Av1</th>
+                        <th>Av2</th>
+                        <th>AV3</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -314,12 +315,15 @@
                     <td>
                      <p>Idade: {{ nome.Idade }}</p>
                     </td>
-                    <p>AV1:{{ nome.av1 }}</p>
-                    </td>
                     <td>
-                        <p>AV1:{{ nome.av1 }}</p><p> AV2:{{ nome.av2 }}</p><p>AV3:{{ nome.av3 }}</p>
+                        <p>AV1:{{ nome.av1 }}</p>
                     </td>
-
+                      <td>
+                        <p> AV2:{{ nome.av2 }}</p>
+                      </td>
+                      <td>
+                        <p> AV3:{{ nome.av3 }}</p>
+                      </td>
                       {% endfor %}
                    </tr>
                 </tbody>

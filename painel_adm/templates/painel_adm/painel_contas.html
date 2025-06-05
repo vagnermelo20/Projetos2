@@ -139,16 +139,6 @@
             margin-bottom: 24px;
             margin-top: 0;
         }
-        .sair-link {
-            float: right;
-            color:rgb(255, 255, 255);
-            font-size: 18px;
-            margin-top: 12px;
-            border-radius: 20px;
-            padding: 8px 24px; 
-            cursor: pointer;
-            background: rgb(52, 157, 180);
-        }
         .welcome-box {
             background: rgb(52, 157, 180);
             color: #fff;
@@ -224,16 +214,6 @@
         .btn-aceitar {
             background: #2196f3;
         }
-        .btn-rejeitar {
-            background: #e53935;
-            float: right;
-            color:rgb(255, 255, 255);
-            font-size: 17px;
-            margin-top: 24px;
-            border-radius: 20px;
-            padding: 8px 18px; 
-            
-        }
         .branco {
             color: #000;
             font-size: 20px;
@@ -263,6 +243,27 @@
             border: none;
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
+        .btn-rejeitar {
+    background: #e53935;
+    color: white;
+    font-size: 1.0625rem;
+    margin-right: 10px; /* espaço entre os botões */
+    border-radius: 20px;
+    padding: 0.5rem 1.125rem;
+    cursor: pointer;
+    border: none;
+}
+
+.sair-link {
+    background: rgb(52, 157, 180);
+    color: white;
+    font-size: 18px;
+    border-radius: 20px;
+    padding: 8px 24px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
     </style>
 </head>
 <body>
@@ -323,13 +324,13 @@
                     <td>
                         <p class="curso-item">Tipo de conta: {{ conta.Tipos_conta }}</p>
                     </td>
-                    <td>
-                        <form method="POST" action="{% url 'deletar_contas' conta.id %}" onsubmit="return confirm('Você tem certeza que deseja deletar essa conta? Esse processo não poderá ser revertido')">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-rejeitar">Deletar</button>
-                        </form>
-                        <a href="{% url 'editar_contas' conta.id %}" class="sair-link">Alterar</a>
-                    </td>
+                   <td>
+                    <form method="POST" action="{% url 'deletar_contas' conta.id %}" style="display: inline;" onsubmit="return confirm('Você tem certeza que deseja deletar essa conta? Esse processo não poderá ser revertido')">
+                   {% csrf_token %}
+                   <button type="submit" class="btn-rejeitar">Deletar</button>
+                   </form>
+                    <a href="{% url 'editar_contas' conta.id %}" class="sair-link" style="margin-left: 10px;">Alterar</a>
+                      </td>
                 </tr>
                 {% endfor %}
             </tbody>

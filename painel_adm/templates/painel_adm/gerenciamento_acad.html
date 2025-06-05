@@ -35,9 +35,10 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+             background: #5eb0c6;
         }
         .tabela-adm th {
-            background: #4a6866;
+            background: #5eb0c6;
             color: #fff;
             font-weight: bold;
             padding: 12px 8px;
@@ -323,7 +324,7 @@
 </div>
 
 <div class="container">
-    <a href="{% url 'inicio_professor' curso %}" class="voltar-link">Voltar</a>
+    <a href="{% url 'inicio_professor' curso %}" class="voltar-btn">Voltar</a>
 </div>
 
 <h1 style="text-align:center;">Gerenciamento do dia: {{ data }}</h1>
