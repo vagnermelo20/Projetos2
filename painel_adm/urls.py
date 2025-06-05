@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from painel_adm.views import InicioView,CriarCurso,EditarCurso,DeletarCurso,VisualizarCurso,VisualizarProcesso,EditarProcesso,DeletarProcesso,CriarProcessoSeletivo,VisualizarAlunos,PainelContas,EditarContas,DeletarContas,InicioProfessor,CriarContas,GerenciamentoAcad,VisualizarAlunosProf,AvaliacaoMetricas,AdicionarLote,RodarWpp
+from painel_adm.views import InicioView,CriarCurso,EditarCurso,DeletarCurso,VisualizarCurso,VisualizarProcesso,EditarProcesso,DeletarProcesso,CriarProcessoSeletivo,VisualizarAlunos,PainelContas,EditarContas,DeletarContas,InicioProfessor,CriarContas,GerenciamentoAcad,VisualizarAlunosProf,AvaliacaoMetricas,AdicionarLote,RodarWpp,AceitarMatricula,VisualizarAlunosAdmin
 
 urlpatterns = [
     path('',InicioView.as_view(),name="inicio_painel"), 
@@ -22,5 +22,8 @@ urlpatterns = [
     path('visualizar_alunos_prof/<str:curso>/',VisualizarAlunosProf.as_view(), name='visualizar_alunos_prof'),
     path('avaliacao_metricas/<str:nome_aluno>/<str:curso>/',AvaliacaoMetricas.as_view(),name='avaliacao_metricas'),
     path('adicionar_lotes/<str:nome>/',AdicionarLote.as_view(),name='adicionar_lote'),
-    path('rodar_wpp/<str:curso>',RodarWpp.as_view(),name="rodar_wpp")
+    path('rodar_wpp/<str:curso>/',RodarWpp.as_view(),name="rodar_wpp"),
+    path('aceitar_matricula/<str:curso>/',AceitarMatricula.as_view(),name="aceitar_matricula"),
+    path('visualizar_alunos_curso/<str:curso>/',VisualizarAlunosAdmin.as_view(),name="visualizar_alunos_adm"),
+    
 ]
