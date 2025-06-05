@@ -86,22 +86,18 @@ class Registrar_aluno(View):
             'educacao':educacao,
             'periodo_estudo':periodo_estudo,
         })
-        try:
-            Inscricao.objects.create(
-                nome_inscrito=nome,
-                Telefone=telefone,
-                Idade=idade,
-                Bairro=bairro,
-                Educacao=educacao,
-                Periodo_estudo=periodo_estudo,
-                nome_curso=nome_do_processo,   
-            )
-            messages.success(request, 'O candidato foi registrado com sucesso!')
-            return redirect('inicio')
-        except:
-            messages.success(request, 'Erro no registro do candidato!')
-            return render(request,'home/registro_aluno.html')
-               
+        Inscricao.objects.create(
+            nome_inscrito=nome,
+            Telefone=telefone,
+            Idade=idade,
+            Bairro=bairro,
+            Educacao=educacao,
+            Periodo_estudo=periodo_estudo,
+            nome_curso=nome_do_processo,   
+        )
+        messages.success(request, 'O candidato foi registrado com sucesso!')
+        return redirect('inicio')
+
 class ProcessoView(View):
     def get(self, request):
         lista_processos=Selecao.objects.all()
