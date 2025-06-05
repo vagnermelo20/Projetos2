@@ -347,7 +347,7 @@
                 <tr>
                     <td>{{ nome_aluno_presenca.nome_inscrito }}</td>
                     <td><input type="radio" name="presenca_{{ forloop.counter }}" value="presente" required></td>
-                    <td><input type="radio" name="presenca_{{ forloop.counter }}" value="faltou"></td>
+                    <td><input type="radio" name="presenca_{{ forloop.counter }}" value="faltou" id = "teste"></td>
                     <input type="hidden" name="aluno_id_{{ forloop.counter }}" value="{{ nome_aluno_presenca.id }}">
                 </tr>
                 {% endfor %}

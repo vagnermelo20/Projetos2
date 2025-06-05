@@ -766,7 +766,186 @@ from django.contrib.auth.hashers import make_password
 
 
 
-class Test7_Entrar_Processo_Seletivo(LiveServerTestCase):
+# class Test7_Entrar_Processo_Seletivo(LiveServerTestCase):
+
+#     def setUp(self):
+#         # Cria um usuário no seu modelo customizado
+#         self.usuario = Usuario.objects.create(
+#             Username='testeuser',
+#             E_mail='teste@email.com',
+#             Senha='123',  # ou só: 'minhasenha123' e deixar o save() cuidar
+#             Tipos_conta='Admin'
+#         )
+
+#         self.driver = webdriver.Chrome()
+
+
+#     def tearDown(self):
+#         self.driver.quit()
+
+#     def test7_Entrar_Processo_Seletivo(self):
+#         driver = self.driver
+#         driver.get(self.live_server_url)
+
+#         driver.find_element(By.LINK_TEXT, "Login").click()
+
+#         WebDriverWait(driver, 10).until(
+#             EC.presence_of_element_located((By.ID, "campo_email"))
+#         )
+
+#         driver.find_element(By.ID, "campo_email").send_keys("teste@email.com")
+#         driver.find_element(By.ID, "campo_senha").send_keys("123")
+
+#         driver.find_element(By.TAG_NAME, "button").click()
+
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Visualizar Cursos"))
+#         ).click()
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Criar curso"))
+#         ).click()
+
+#         driver.find_element(By.ID, "campo_nome").send_keys("Curso de Python")
+#         driver.find_element(By.ID, "campo_descricao").send_keys("Curso introdutório de programação em Python")
+#         driver.find_element(By.ID, "campo_n_alunos").send_keys("30")
+#         driver.find_element(By.TAG_NAME, "button").click()
+#         time.sleep(2)
+
+#         driver.find_element(By.LINK_TEXT, "Voltar").click()
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Visualizar Processos"))
+#         ).click()
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Criar processo seletivo"))
+#         ).click()
+
+#         driver.find_element(By.ID, "campo_data_inicio").send_keys("09-06-2025")
+#         time.sleep(2)
+#         driver.find_element(By.ID, "campo_data_fim").send_keys("12-06-2025")
+#         time.sleep(1)
+#         driver.find_element(By.ID, "campo_max_participantes").send_keys("100")
+#         driver.find_element(By.ID, "campo_curso_para_processo").send_keys("Curso de Python")
+#         driver.find_element(By.ID, "campo_data_inicio_curso").send_keys("16-06-2025")
+#         time.sleep(2)
+#         driver.find_element(By.TAG_NAME, "button").click()
+#         time.sleep(2)
+
+        
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Voltar"))
+#         ).click()
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Voltar"))
+#         ).click()
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Voltar"))
+#         ).click()
+#         time.sleep(2)
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Processo seletivo"))
+#         ).click()
+
+#         time.sleep(2)
+#         link = WebDriverWait(driver, 10).until(
+#             EC.element_to_be_clickable((By.LINK_TEXT, "Curso de Python"))
+#         )
+#         link.click()
+#         time.sleep(2)
+#         # 1 Entrar sem nome
+#         driver.find_element(By.ID, "campo_telefone").send_keys("888888888") 
+#         driver.find_element(By.ID, "campo_idade").send_keys("25")
+#         driver.find_element(By.ID, "campo_bairro").send_keys("Centro")
+#         Select(driver.find_element(By.ID, "campo_educacao")).select_by_visible_text("Médio Completo")
+#         Select(driver.find_element(By.ID, "campo_periodo_estudo")).select_by_visible_text("Noite")
+#         driver.find_element(By.TAG_NAME, "button").click()
+#         WebDriverWait(driver, 10).until(
+#             EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "Todos os campos são obrigatórios.")
+#         )
+#         time.sleep(2)
+#         # 2 Criar inscrição correta
+#         driver.find_element(By.ID, "campo_nome").send_keys("nome1")
+#         driver.find_element(By.ID, "campo_telefone").send_keys("888888888") 
+#         driver.find_element(By.ID, "campo_idade").send_keys("30")
+#         driver.find_element(By.ID, "campo_bairro").send_keys("Bairro Novo")
+#         Select(driver.find_element(By.ID, "campo_educacao")).select_by_visible_text("Superior Completo")
+#         Select(driver.find_element(By.ID, "campo_periodo_estudo")).select_by_visible_text("Manhã")
+#         driver.find_element(By.TAG_NAME, "button").click()
+#         time.sleep(2)
+#         # 3 Criar inscrição com telefone repetido
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Processo seletivo"))
+#         ).click()
+
+#         time.sleep(2)
+#         link = WebDriverWait(driver, 10).until(
+#             EC.element_to_be_clickable((By.LINK_TEXT, "Curso de Python"))
+#         )
+#         link.click()
+#         driver.find_element(By.ID, "campo_nome").send_keys("nome2")
+#         driver.find_element(By.ID, "campo_telefone").send_keys("888888888") 
+#         driver.find_element(By.ID, "campo_idade").send_keys("27")
+#         driver.find_element(By.ID, "campo_bairro").send_keys("Bairro velho")
+#         Select(driver.find_element(By.ID, "campo_educacao")).select_by_visible_text("Superior Completo")
+#         Select(driver.find_element(By.ID, "campo_periodo_estudo")).select_by_visible_text("Manhã")
+#         driver.find_element(By.TAG_NAME, "button").click()
+#         time.sleep(2)
+#         WebDriverWait(driver, 10).until(
+#             EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "Número já cadastrado. Insira outro número e tente novamente.")
+#         )
+#         time.sleep(2)
+
+#         # Agora vamos ver o aluno dentro do processo seletivo
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Voltar"))
+#         ).click()
+
+#         driver.find_element(By.LINK_TEXT, "Login").click()
+
+#         WebDriverWait(driver, 10).until(
+#             EC.presence_of_element_located((By.ID, "campo_email"))
+#         )
+
+#         driver.find_element(By.ID, "campo_email").send_keys("teste@email.com")
+#         driver.find_element(By.ID, "campo_senha").send_keys("123")
+
+#         driver.find_element(By.TAG_NAME, "button").click()
+
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Visualizar Processos"))
+#         ).click()
+
+#         WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.LINK_TEXT, "Visualizar Alunos"))
+#         ).click()
+#         time.sleep(2)
+# # Falta o teste de aceitar aluno em processo seletivo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Test8_dar_notas_alunos_Professor(LiveServerTestCase):
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -783,7 +962,7 @@ class Test7_Entrar_Processo_Seletivo(LiveServerTestCase):
     def tearDown(self):
         self.driver.quit()
 
-    def test7_Entrar_Processo_Seletivo(self):
+    def test8_Gerenciar_alunos_Professor(self):
         driver = self.driver
         driver.get(self.live_server_url)
 
@@ -838,35 +1017,48 @@ class Test7_Entrar_Processo_Seletivo(LiveServerTestCase):
         WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.LINK_TEXT, "Voltar"))
         ).click()
-        WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.LINK_TEXT, "Voltar"))
-        ).click()
-        WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.LINK_TEXT, "Voltar"))
-        ).click()
+
         time.sleep(2)
+
+
+
+        WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.LINK_TEXT, "Gerir contas"))
+        ).click()
+
+        WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.LINK_TEXT, "Criar contas"))
+        ).click()
+
+        driver.find_element(By.ID, "campo_nome").send_keys("professor")
+        driver.find_element(By.ID, "campo_email").send_keys("professor@exemplo.com")
+        driver.find_element(By.ID, "campo_senha").send_keys("prof123")
+        driver.find_element(By.ID, "campo_tipo_conta").send_keys("Professor")
+        driver.find_element(By.ID, "campo_curso_conta").send_keys("Curso de Python")
+        driver.find_element(By.TAG_NAME, "button").click()
+        time.sleep(2)
+
+        WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.LINK_TEXT, "Voltar"))
+        ).click()
+
+        WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.LINK_TEXT, "Voltar"))
+        ).click()
+
+        WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.LINK_TEXT, "Voltar"))
+        ).click()
+
         WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.LINK_TEXT, "Processo seletivo"))
         ).click()
 
-        time.sleep(2)
-        link = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.LINK_TEXT, "Curso de Python"))
-        )
-        link.click()
-        time.sleep(2)
-        # 1 Entrar sem nome
-        driver.find_element(By.ID, "campo_telefone").send_keys("888888888") 
-        driver.find_element(By.ID, "campo_idade").send_keys("25")
-        driver.find_element(By.ID, "campo_bairro").send_keys("Centro")
-        Select(driver.find_element(By.ID, "campo_educacao")).select_by_visible_text("Médio Completo")
-        Select(driver.find_element(By.ID, "campo_periodo_estudo")).select_by_visible_text("Noite")
-        driver.find_element(By.TAG_NAME, "button").click()
         WebDriverWait(driver, 10).until(
-            EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "Todos os campos são obrigatórios.")
-        )
-        time.sleep(2)
-        # 2 Criar inscrição correta
+        EC.element_to_be_clickable((By.LINK_TEXT, "Curso de Python"))
+        ).click()
+
+
         driver.find_element(By.ID, "campo_nome").send_keys("nome1")
         driver.find_element(By.ID, "campo_telefone").send_keys("888888888") 
         driver.find_element(By.ID, "campo_idade").send_keys("30")
@@ -875,33 +1067,6 @@ class Test7_Entrar_Processo_Seletivo(LiveServerTestCase):
         Select(driver.find_element(By.ID, "campo_periodo_estudo")).select_by_visible_text("Manhã")
         driver.find_element(By.TAG_NAME, "button").click()
         time.sleep(2)
-        # 3 Criar inscrição com telefone repetido
-        WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.LINK_TEXT, "Processo seletivo"))
-        ).click()
-
-        time.sleep(2)
-        link = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.LINK_TEXT, "Curso de Python"))
-        )
-        link.click()
-        driver.find_element(By.ID, "campo_nome").send_keys("nome2")
-        driver.find_element(By.ID, "campo_telefone").send_keys("888888888") 
-        driver.find_element(By.ID, "campo_idade").send_keys("27")
-        driver.find_element(By.ID, "campo_bairro").send_keys("Bairro velho")
-        Select(driver.find_element(By.ID, "campo_educacao")).select_by_visible_text("Superior Completo")
-        Select(driver.find_element(By.ID, "campo_periodo_estudo")).select_by_visible_text("Manhã")
-        driver.find_element(By.TAG_NAME, "button").click()
-        time.sleep(2)
-        WebDriverWait(driver, 10).until(
-            EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "Número já cadastrado. Insira outro número e tente novamente.")
-        )
-        time.sleep(2)
-
-        # Agora vamos ver o aluno dentro do processo seletivo
-        WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.LINK_TEXT, "Voltar"))
-        ).click()
 
         driver.find_element(By.LINK_TEXT, "Login").click()
 
@@ -909,18 +1074,26 @@ class Test7_Entrar_Processo_Seletivo(LiveServerTestCase):
             EC.presence_of_element_located((By.ID, "campo_email"))
         )
 
-        driver.find_element(By.ID, "campo_email").send_keys("teste@email.com")
-        driver.find_element(By.ID, "campo_senha").send_keys("123")
+        driver.find_element(By.ID, "campo_email").send_keys("professor@exemplo.com")
+        driver.find_element(By.ID, "campo_senha").send_keys("prof123")
 
         driver.find_element(By.TAG_NAME, "button").click()
 
-
-        WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.LINK_TEXT, "Visualizar Processos"))
-        ).click()
-
-        WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.LINK_TEXT, "Visualizar Alunos"))
-        ).click()
+        link = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.LINK_TEXT, "Gerenciamento acadêmico"))
+        )
+        link.click()
         time.sleep(2)
-# Falta o teste de aceitar aluno em processo seletivo
+
+# Cenário 1: Enviar presença sem marcar tudo
+
+        driver.find_element(By.TAG_NAME, "button").click()
+        time.sleep(4)
+
+# Cenário 2: Enviar presença marcando tudo
+        driver.find_element(By.ID, "teste").click()
+        driver.find_element(By.TAG_NAME, "button").click()
+        time.sleep(4)
+# cENÁRIO 3: Ver as notas dos alunos 
+        driver.find_element(By.LINK_TEXT, "Visualizar alunos").click()
+        time.sleep(4)
