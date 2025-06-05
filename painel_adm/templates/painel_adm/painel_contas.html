@@ -290,41 +290,44 @@
         Bem Vindo ao Administrativo ao painel de contas
     </div>
 
-    <div class="main-content">
-    <a href="{% url 'criar_contas' %}"class="voltar-btn">Criar contas</a>
+<div class="main-content">
+    <a href="{% url 'criar_contas' %}" class="voltar-btn">Criar contas</a>
     <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>
     
-        <div class="alunos-container">
-            <table class="tabela-adm">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Tipo de conta</th>
-                    
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                      {% for conta in contas %}
-                      <td>
-                            <p class="curso-item">Nome usuário: {{ conta.Username }}</p>
-                      </td>
-                      <td>
-                            <p class="curso-item">Email: {{ conta.E_mail }}</p>
-                      </td>
-                      <td>
-                            <p class="curso-item">Tipo de conta: {{ conta.Tipos_conta }}</p>
-                      </td>
-
-            <form method="POST" action="{% url 'deletar_contas' conta.id %}"  onsubmit="return confirm('Você tem certeza que deseja deletar essa conta? Esse processo não poderá ser revertido')">
-                {% csrf_token %}
-       <button type="submit" class = ".btn-rejeitar">Deletar</button>
-            </form>
-            <a href="{% url 'editar_contas' conta.id %}" class = "sair-link">Alterar</a>
-        </div>
-    {% endfor %}
-</tbody>
-</table>
+    <div class="alunos-container">
+        <table class="tabela-adm">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Tipo de conta</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for conta in contas %}
+                <tr>
+                    <td>
+                        <p class="curso-item">Nome usuário: {{ conta.Username }}</p>
+                    </td>
+                    <td>
+                        <p class="curso-item">Email: {{ conta.E_mail }}</p>
+                    </td>
+                    <td>
+                        <p class="curso-item">Tipo de conta: {{ conta.Tipos_conta }}</p>
+                    </td>
+                    <td>
+                        <form method="POST" action="{% url 'deletar_contas' conta.id %}" onsubmit="return confirm('Você tem certeza que deseja deletar essa conta? Esse processo não poderá ser revertido')">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-rejeitar">Deletar</button>
+                        </form>
+                        <a href="{% url 'editar_contas' conta.id %}" class="sair-link">Alterar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

@@ -33,7 +33,7 @@ class Inscricao(models.Model):
     Educacao = models.CharField(max_length=23, choices=EDUCACAO_ESCOLHA, null=True, blank=True)
     
     PERIODO_ESCOLHA = [
-        ('Manhã','Manhã'),('Tarde','Tarde'),('Noite','Noite'),('Integral','Integral')
+        ('Manhã','Manhã'),('Tarde','Tarde'),('Noite','Noite'),('Integral','Integral'), ('Não Estudo', 'Não Estudo'),
     ]
     Periodo_estudo = models.CharField(max_length=20, choices=PERIODO_ESCOLHA, null=True, blank=True)
     
@@ -51,6 +51,9 @@ class Inscricao(models.Model):
     turma_do_curso=models.CharField(max_length=10,default='0')#vai ser definido no após o whatsapp
     matriculado=models.CharField(max_length=10,default="Não") 
     aceito_em_lote=models.CharField(max_length=10,default="Não")
+    
+    data_matricula = models.DateField(auto_now_add=True)
+
 
     quantidade_faltas=models.IntegerField(default=0)
     data_envio=models.DateField(default='2025-01-01')

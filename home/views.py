@@ -42,7 +42,7 @@ class InicioView(View):
     def get(self, request):
         processo_query=Selecao.objects.all()
         processo=processo_query
-        contexto={'processo':processo,}
+        contexto={'processos':processo,}
         return render(request, 'home/home.html',contexto)
 
 

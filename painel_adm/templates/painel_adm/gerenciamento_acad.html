@@ -290,14 +290,6 @@
 }
     </style>
 </head>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Gerenciamento do Dia</title>
-    <style>
-        /* Seu CSS permanece igual (não copiado aqui para brevidade) */
-    </style>
-</head>
 <body>
     <div class="header">
         <div class="menu-icon">
@@ -326,73 +318,80 @@
         </div>
     {% endif %}
 
-    <div class="welcome-box">
-        <p>Bem-vindo Professor ao gerenciamento acadêmico</p>
-    </div>
-
-    <div class="container">
-        <a href="{% url 'inicio_professor' curso %}" class="voltar-link">Voltar</a>
-    </div>
-
-    <h1 style="text-align:center;">Gerenciamento do dia: {{ data }}</h1>
-
-    <div class="painel-container">
-        {% if ja_enviou_hj %}
-            <p style="color:red; text-align:center;">Você já enviou os dados hoje.</p>
-        {% else %}
-        <form method="POST">
-            {% csrf_token %}
-            <table class="tabela-adm">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Presente</th>
-                        <th>Faltou</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for nome in nomes %}
-                    <tr>
-                        <td>{{ nome.nome_inscrito }}</td>
-
-                        <!-- Presente -->
-                        <td>
-                            <input type="radio" name="presenca_{{ forloop.counter }}" value="presente" required>
-                        </td>
-
-                        <!-- Faltou -->
-                        <td>
-                            <input type="radio" name="presenca_{{ forloop.counter }}" value="faltou">
-                        </td>
-                        <!-- Campo oculto com o nome do aluno -->
-                        <input type="hidden" name="aluno_nome_{{ forloop.counter }}" value="{{ nome.nome_inscrito }}">
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-                    <div class="avaliacao-container">
-    <input type="hidden" name="aluno_id_{{ forloop.counter }}" value="{{ nome.id }}">
-    <p>Datas das avaliações:</p>
-
-    {% for data_avaliacao in data_avaliacoes %}
-        {% if data_hoje == data_avaliacao %}
-            {% if ja_enviou_avaliacoes %}
-                <p class="mensagem">A avaliação do dia de hoje já foi enviada</p>
-            {% else %}
-                <a href="{% url 'avaliacao_metricas' nome.nome_inscrito %}" class="voltar-link">Avaliação</a>
-            {% endif %}
-        {% endif %}
-        <p>{{ data_avaliacao }}</p>
-    {% endfor %}
-
-    <br>
-    <input type="hidden" name="quantidade_alunos" value="{{ nomes|length }}">
+<div class="welcome-box">
+    <p>Bem-vindo Professor ao gerenciamento acadêmico</p>
 </div>
 
-                <button type="submit" class="btn-verde">Enviar Presenças</button>
-            </div>
-        </form>
-        {% endif %}
-    </div>
-</body>
+<div class="container">
+    <a href="{% url 'inicio_professor' curso %}" class="voltar-link">Voltar</a>
+</div>
+
+<h1 style="text-align:center;">Gerenciamento do dia: {{ data }}</h1>
+
+<div class="painel-container">
+    {% if ja_enviou_hj %}
+        <p style="color:red; text-align:center;">Você já enviou os dados hoje.</p>
+    {% else %}
+    <form method="POST">
+        {% csrf_token %}
+        <table class="tabela-adm">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Presente</th>
+                    <th>Faltou</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nome_aluno_presenca in nomes %} {# Alterado para nome_aluno_presenca para evitar conflito com o loop 'nome' abaixo, se estiverem no mesmo escopo de forma inesperada, mas 'nomes' é o padrão aqui #}
+                <tr>
+                    <td>{{ nome_aluno_presenca.nome_inscrito }}</td>
+                    <td><input type="radio" name="presenca_{{ forloop.counter }}" value="presente" required></td>
+                    <td><input type="radio" name="presenca_{{ forloop.counter }}" value="faltou"></td>
+                    <input type="hidden" name="aluno_id_{{ forloop.counter }}" value="{{ nome_aluno_presenca.id }}">
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn-verde">Enviar Presenças</button>
+        <input type="hidden" name="quantidade_alunos" value="{{ nomes|length }}">
+
+    </form>
+    {% endif %}
+
+    <div class="avaliacao-container">
+        <h2>Avaliação Acadêmica</h2>
+     
+        
+        {% for nome in nomes %}
+        <div class="avaliacao-aluno">
+            <strong>{{ nome.nome_inscrito }}</strong><br>
+            <p>AV1: {{ nome.av1|default:"-" }} 
+                {% if nome.data_av1 %}(Data: {{ nome.data_av1|date:"d/m/Y" }}){% else %}(Data: N/A){% endif %}
+            </p>
+            <p>AV2: {{ nome.av2|default:"-" }} 
+                {% if nome.data_av2 %}(Data: {{ nome.data_av2|date:"d/m/Y" }}){% else %}(Data: N/A){% endif %}
+            </p>
+            <p>AV3: {{ nome.av3|default:"-" }} 
+                {% if nome.data_av3 %}(Data: {{ nome.data_av3|date:"d/m/Y" }}){% else %}(Data: N/A){% endif %}
+            </p>
+
+        
+            {% if nome.is_evaluation_day_today %}
+ 
+                {% if nome.data_envio_avaliacao == data_hoje %}
+                    <p style="color: red;">Avaliação do dia já enviada</p>
+                {% else %}
+                    <a href="{% url 'avaliacao_metricas' nome.nome_inscrito curso %}" class="voltar-link">
+                        Avaliar hoje ({{ data_hoje|date:"d/m/Y" }})
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+        <hr>
+        {% endfor %}
+            </div> 
+        </div>
+    </body>
 </html>
