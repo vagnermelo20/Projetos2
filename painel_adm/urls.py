@@ -22,5 +22,5 @@ urlpatterns = [
     path('visualizar_alunos_prof/<str:curso>/',VisualizarAlunosProf.as_view(), name='visualizar_alunos_prof'),
     path('avaliacao_metricas/<str:nome_aluno>/<str:curso>/',AvaliacaoMetricas.as_view(),name='avaliacao_metricas'),
     path('adicionar_lotes/<str:nome>/',AdicionarLote.as_view(),name='adicionar_lote'),
-    path('rodar_wpp/',RodarWpp.as_view(),name="rodar_wpp")
+    path('rodar_wpp/<str:curso>',RodarWpp.as_view(),name="rodar_wpp")
 ]

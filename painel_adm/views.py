@@ -322,11 +322,13 @@ class EditarProcesso(View):
     
 class VisualizarAlunos(View):
     def get(self,request,curso):
-        alunos = Inscricao.objects.filter(nome_curso=curso)
-        query_lotes=Lote.objects.filter(curso_do_lote=curso)
+        alunos = Inscricao.objects.filter(nome_curso=curso,aceito_em_lote="Não")
+        query_lotes=Inscricao.objects.filter(nome_curso=curso,aceito_em_lote="Sim")
+        query_entrevista=Inscricao.objects.filter(nome_curso=curso,em_entrevista="Sim")
         context = {
             'alunos': alunos,
-            'aluno_lote':query_lotes
+            'aluno_lote':query_lotes,
+            'query_entrevista':query_entrevista,
         }
         return render(request,'painel_adm/visualizar_alunos_processo.html',context)
     
@@ -609,23 +611,33 @@ class AdicionarLote(View):
             nome_participante=nome,
             curso_do_lote=aluno.nome_curso,
         )
-        alunos = Inscricao.objects.filter(nome_curso=aluno.nome_curso)
-        query_lotes=Lote.objects.filter(curso_do_lote=aluno.nome_curso)
-        return render(request,"painel_adm/visualizar_alunos_processo.html",{'alunos':alunos,'aluno_lote':query_lotes})
+        query_entrevista=Inscricao.objects.filter(nome_curso=aluno.nome_curso,em_entrevista="Sim")
+        alunos = Inscricao.objects.filter(nome_curso=aluno.nome_curso,aceito_em_lote="Não")
+        query_lotes=Inscricao.objects.filter(nome_curso=aluno.nome_curso,aceito_em_lote="Sim")
+        return render(request,"painel_adm/visualizar_alunos_processo.html",{'alunos':alunos,'aluno_lote':query_lotes,'aluno_entrevista':query_entrevista})
 
 
 class RodarWpp(View):
-    def get(self,request):
+    def get(self,request,curso):
+        contacts=[]
         # Example values (in a real app, get these from request.GET or request.POST)
-        contact = ["81 8980-8485","88 99822-4668"]
+        aceitos_em_lote=Inscricao.objects.filter(nome_curso=curso, aceito_em_lote="Sim")
+        for alunos in aceitos_em_lote:
+            contacts.append(alunos.Telefone)
         message = "Deu certo!"
 
-        send_whatsapp_messages(
-            contacts=contact,
-            message=message,
-        )
-        for i in contact:
+        # send_whatsapp_messages(
+        #     contacts=contacts,
+        #     message=message,
+        # )
+        for i in contacts:
             aluno=get_object_or_404(Inscricao,Telefone=i)
             aluno.em_entrevista="Sim"
+            aluno.aceito_em_lote="N mais"
+            aluno.save()
 
-        return JsonResponse({"status": "Messages sent successfully!"})
+        query_entrevista=Inscricao.objects.filter(nome_curso=aluno.nome_curso,em_entrevista="Sim")
+        alunos = Inscricao.objects.filter(nome_curso=aluno.nome_curso,aceito_em_lote="Não")
+        query_lotes=Inscricao.objects.filter(nome_curso=aluno.nome_curso,aceito_em_lote="Sim")
+        return render(request,"painel_adm/visualizar_alunos_processo.html",{'alunos':alunos,'aluno_lote':query_lotes,'aluno_entrevista':query_entrevista})
+        

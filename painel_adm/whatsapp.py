@@ -14,6 +14,7 @@ import time
 
 
 def send_whatsapp_messages(contacts, message, new_contact=None, new_contact_name=None):
+
     """Send WhatsApp messages to multiple contacts."""
     try:
         # Set up WebDriver

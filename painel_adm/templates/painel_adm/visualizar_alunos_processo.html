@@ -333,12 +333,23 @@
             </table>
             <h3>Grupo de mensagens atual:</h3>
             {% if aluno_lote %}
-                {% for aluno in aluno_lote%}
-                    <p>{{ aluno.nome_participante }}</p>
+                {% for aluno in aluno_lote %}
+                    <p>{{ aluno.nome_inscrito }}</p> 
+                    {% if forloop.counter == 1 %}   
+                        <a href="{% url 'rodar_wpp' aluno.nome_curso %}">Enviar</a>
+                    {% endif %}
                 {% endfor %}
-                <a href="{% url 'rodar_wpp' %}">Enviar</a>
             {% else %}
                 <p>Clique em "aceitar" para adicionar alunos ao grupo</p>
+            {% endif %}
+            <h3>Grupo de alunos em entrevista:</h3>
+            {% if aluno_entrevista %}
+                {% for aluno_ent in aluno_entrevista %}
+                    <p>{{ aluno_ent.nome_inscrito }}</p>
+                {% endfor %}
+                <a href="">Aceitar Matrícula</a>
+            {% else %}
+                <p>Nenhum aluno foi chamado para entrevista. Clique em "Enviar" para aceitar os alunos na entrevista</p>
             {% endif %}
             
         </div>
