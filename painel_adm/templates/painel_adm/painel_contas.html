@@ -308,13 +308,13 @@
                     <tr>
                       {% for conta in contas %}
                       <td>
-            <p class="curso-item">Nome usuário: {{ conta.Username }}</p>
+                            <p class="curso-item">Nome usuário: {{ conta.Username }}</p>
                       </td>
                       <td>
-            <p class="curso-item">Email: {{ conta.E_mail }}</p>
+                            <p class="curso-item">Email: {{ conta.E_mail }}</p>
                       </td>
                       <td>
-            <p class="curso-item">Tipo de conta: {{ conta.Tipos_conta }}</p>
+                            <p class="curso-item">Tipo de conta: {{ conta.Tipos_conta }}</p>
                       </td>
 
             <form method="POST" action="{% url 'deletar_contas' conta.id %}"  onsubmit="return confirm('Você tem certeza que deseja deletar essa conta? Esse processo não poderá ser revertido')">
@@ -324,5 +324,7 @@
             <a href="{% url 'editar_contas' conta.id %}" class = "sair-link">Alterar</a>
         </div>
     {% endfor %}
+</tbody>
+</table>
 </body>
 </html>
