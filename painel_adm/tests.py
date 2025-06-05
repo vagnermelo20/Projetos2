@@ -898,3 +898,26 @@ class Test7_Entrar_Processo_Seletivo(LiveServerTestCase):
         )
         time.sleep(2)
 
+        # Agora vamos ver o aluno dentro do processo seletivo
+
+        driver.find_element(By.LINK_TEXT, "Login").click()
+
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "campo_email"))
+        )
+
+        driver.find_element(By.ID, "campo_email").send_keys("teste@email.com")
+        driver.find_element(By.ID, "campo_senha").send_keys("123")
+
+        driver.find_element(By.TAG_NAME, "button").click()
+
+
+        WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.LINK_TEXT, "Visualizar Processos"))
+        ).click()
+
+        WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.LINK_TEXT, "Visualizar Alunos"))
+        ).click()
+        time.sleep(2)
+# Falta o teste de aceitar aluno em processo seletivo
