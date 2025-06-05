@@ -212,16 +212,7 @@ class CriarProcessoSeletivo(View):
             messages.error(request, 'É necessário preencher todas as informações.')
             return render(request, 'painel_adm/criar_curso.html')
 
-       
-        if Selecao.objects.filter(curso_para_processo=curso_para_processo).exists():
-            messages.error(request, 'Você já tem um processo para esse curso.')
-            return render(request, 'painel_adm/criar_processo.html', {
-                'data_inicio': data_inicio,
-                'data_fim': data_fim,
-                'max_participantes':max_participantes,
-                'curso_para_processo':curso_para_processo,
-                'data_inicio_aulas':data_inicio_aulas,
-            })
+    
 
 
         
@@ -563,7 +554,7 @@ class AdicionarLote(View):
 class RodarWpp(View):
     def get(self,request):
        
-        cwd = 'C:/Users/Twobr/OneDrive/Área de Trabalho/solidare/Projetos2'
+        cwd = 'c:/Users/vagne/OneDrive/Documentos/Projetos2'
 
         proc = subprocess.Popen(
             ['py', 'painel_adm/whatsapp.py'],
@@ -572,6 +563,6 @@ class RodarWpp(View):
             stderr=subprocess.PIPE,
         )
 
-        out, err = proc.communicate(timeout=60)
+        out, err = proc.communicate(timeout=360)
         print("Output:", out.decode())
         print("Errors:", err.decode())
