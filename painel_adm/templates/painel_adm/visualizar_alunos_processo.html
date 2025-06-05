@@ -332,27 +332,32 @@
             </table>
             <h3>Grupo de mensagens atual:</h3>
             {% if aluno_lote %}
-                {% for aluno in aluno_lote %}
-                    <p>{{ aluno.nome_inscrito }}</p> 
-                    {% if forloop.counter == 1 %}   
-                        <a href="{% url 'rodar_wpp' aluno.nome_curso %}" class ="voltar-btn">Enviar</a>
-                    {% endif %}
-                {% endfor %}
+                {% with curso=aluno_lote.0.nome_curso %}
+                    {% for aluno in aluno_lote %}
+                        <p>{{ aluno.nome_inscrito }}</p>
+                    {% endfor %}
+
+                    <form method="POST" action="{% url 'rodar_wpp' curso %}">
+                        {% csrf_token %}
+                        <label for="campo_mensagem">Mensagem a ser enviada</label><br>
+                        <textarea name="menssagem" id="campo_mensagem" rows="5" cols="40" required></textarea><br><br>
+                        <button type="submit" class="voltar-btn">Enviar Mensagem</button>
+                    </form>
+                {% endwith %}
             {% else %}
-                <p class ="welcome2">Clique em "aceitar" para adicionar alunos ao grupo</p>
+                <p class="welcome2">Clique em "aceitar" para adicionar alunos ao grupo</p>
             {% endif %}
             <h3>Grupo de alunos em entrevista:</h3>
             {% if aluno_entrevista %}
-                {% for aluno_ent in aluno_entrevista %}
-                    <p>{{ aluno_ent.nome_inscrito }}</p>
-                    {% if forloop.counter == 1 %}
-                        <a href="{% url 'aceitar_matricula' aluno_ent.nome_curso %}" class ="voltar-btn">Aceitar Matrícula</a>
-                    {% endif %}
-                {% endfor %}
+                {% with curso=aluno_entrevista.0.nome_curso %}
+                    {% for aluno_ent in aluno_entrevista %}
+                        <p>{{ aluno_ent.nome_inscrito }}</p>
+                    {% endfor %}
+                    <a href="{% url 'aceitar_matricula' curso %}" class="voltar-btn">Enviar</a>
+                {% endwith %}
             {% else %}
                 <p>Nenhum aluno foi chamado para entrevista. Clique em "Enviar" para aceitar os alunos na entrevista</p>
             {% endif %}
-            
         </div>
 </body>
 </html>
