@@ -1,7 +1,10 @@
+import urllib.parse
+from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from painel_adm.models import Curso,Selecao,Inscricao,Lote
+from .whatsapp import send_whatsapp_messages
 
 from django.http import HttpResponse
 import subprocess
@@ -562,16 +565,16 @@ class AdicionarLote(View):
 
 class RodarWpp(View):
     def get(self,request):
-       
-        cwd = 'C:/Users/Twobr/OneDrive/Área de Trabalho/solidare/Projetos2'
+        # Example values (in a real app, get these from request.GET or request.POST)
+        contact = ["81 8980-8485","88 99822-4668"]
+        message = "Deu certo!"
+        new_contact_name="Luis"
+        new_contact="81 9605-3660"
 
-        proc = subprocess.Popen(
-            ['py', 'painel_adm/whatsapp.py'],
-            cwd=cwd,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+        send_whatsapp_messages(
+            contacts=contact,
+            message=message,
+            new_contact=new_contact,
+            new_contact_name=new_contact_name
         )
-
-        out, err = proc.communicate(timeout=60)
-        print("Output:", out.decode())
-        print("Errors:", err.decode())
+        return JsonResponse({"status": "Messages sent successfully!"})
