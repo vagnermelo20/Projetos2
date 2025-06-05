@@ -345,8 +345,11 @@
             {% if aluno_entrevista %}
                 {% for aluno_ent in aluno_entrevista %}
                     <p>{{ aluno_ent.nome_inscrito }}</p>
+                    {% if forloop.counter == 1 %}
+                        <a href="{% url 'aceitar_matricula' aluno_ent.nome_curso %}">Aceitar Matrícula</a>
+                    {% endif %}
                 {% endfor %}
-                <a href="" class ="voltar-btn">Aceitar Matrícula</a>
+                <a href="">Aceitar Matrícula</a>
             {% else %}
                 <p>Nenhum aluno foi chamado para entrevista. Clique em "Enviar" para aceitar os alunos na entrevista</p>
             {% endif %}
