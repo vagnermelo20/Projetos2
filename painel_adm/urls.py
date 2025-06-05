@@ -24,6 +24,5 @@ urlpatterns = [
     path('adicionar_lotes/<str:nome>/',AdicionarLote.as_view(),name='adicionar_lote'),
     path('rodar_wpp/<str:curso>/',RodarWpp.as_view(),name="rodar_wpp"),
     path('aceitar_matricula/<str:curso>/',AceitarMatricula.as_view(),name="aceitar_matricula"),
-    path('visualizar_alunos_curso/<str:curso>/',VisualizarAlunosAdmin.as_view(),name="visualizar_alunos_adm"),
-    
+    path('visualizar_alunos_curso/<int:curso_id>/',VisualizarAlunosAdmin.as_view(),name="visualizar_alunos_adm"),  
 ]
