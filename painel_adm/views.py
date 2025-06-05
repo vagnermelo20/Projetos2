@@ -626,10 +626,10 @@ class RodarWpp(View):
             contacts.append(alunos.Telefone)
         message = "Deu certo!"
 
-        # send_whatsapp_messages(
-        #     contacts=contacts,
-        #     message=message,
-        # )
+        send_whatsapp_messages(
+            contacts=contacts,
+            message=message,
+        )
         for i in contacts:
             aluno=get_object_or_404(Inscricao,Telefone=i)
             aluno.em_entrevista="Sim"
