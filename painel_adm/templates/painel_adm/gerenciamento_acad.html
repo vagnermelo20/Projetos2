@@ -383,7 +383,7 @@
                 {% if nome.data_envio_avaliacao == data_hoje %}
                     <p style="color: red;">Avaliação do dia já enviada</p>
                 {% else %}
-                    <a href="{% url 'avaliacao_metricas' nome.nome_inscrito curso %}" class="voltar-link">
+                    <a href="{% url 'avaliacao_metricas' nome.nome_inscrito curso %}" class="voltar-link" id = "teste2">
                         Avaliar hoje ({{ data_hoje|date:"d/m/Y" }})
                     </a>
                 {% endif %}
