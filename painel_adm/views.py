@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from painel_adm.models import Curso,Selecao,Inscricao,Lote,Turma
+from painel_adm.models import Curso,Selecao,Inscricao,Lote
 from .whatsapp import send_whatsapp_messages
 
 from django.http import HttpResponse
@@ -644,27 +644,13 @@ class RodarWpp(View):
 class AceitarMatricula(View):
 
     def get(self,request,curso):
-        n_turma=0
-        query_em_entrevista=Inscricao.objects.filter(nome_curso=curso,em_entrevista="Sim")
 
+        query_em_entrevista=Inscricao.objects.filter(nome_curso=curso,em_entrevista="Sim")
         for aluno in query_em_entrevista:
             aluno.matriculado="Sim"
             aluno.em_entrevista="Não"
+            aluno.save()
 
-            quantidade_alunos=Turma.objects.count()
-            if quantidade_alunos<40:
-                n_turma=1
-            elif quantidade_alunos>40:
-                n_turma=2
-            elif quantidade_alunos>80:
-                n_turma=3
-            elif quantidade_alunos>120:
-                n_turma=4
-
-            Turma.objects.create(
-                nome_aluno=aluno.nome_inscrito,
-                turma=n_turma,
-            )
         alunos=Inscricao.objects.filter(nome_curso=curso,aceito_em_lote="Não")
         query_lotes=Inscricao.objects.filter(nome_curso=curso,aceito_em_lote="Sim")
         query_entrevista=Inscricao.objects.filter(nome_curso=curso,em_entrevista="Sim")
@@ -673,5 +659,8 @@ class AceitarMatricula(View):
 
 class VisualizarAlunosAdmin(View):
 
-    def get(self,request,curso):
-        return
+    def get(self,request,curso_id):
+
+        curso=get_object_or_404(Curso,id=curso_id)
+        alunos_query=Inscricao.objects.filter(nome_curso=curso.n, matriculado="Sim")
+        return render(request,"painel_adm/visualizar_alunos_adm.html",{'alunos':alunos_query})
