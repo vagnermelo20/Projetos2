@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Painel Administrativo</title>
     <style>
-       body {
+        body {
             font-family: Arial, sans-serif;
             background: #f6f8f7;
             margin: 0;
@@ -36,14 +36,12 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
         .tabela-adm th {
-            background: rgb(52, 157, 180);;
+            background: rgb(52, 157, 180);
             color: #fff;
             font-weight: bold;
             padding: 12px 8px;
             text-align: left;
             font-size: 15px;
-            border-top-left-radius: 1px;
-            border-top-right-radius: 1px;
         }
         .tabela-adm th:last-child {
             border-top-right-radius: 12px;
@@ -61,31 +59,24 @@
         .tabela-adm tr:last-child td {
             border-bottom: none;
         }
-        .btn-azul {
-            background: #5eb0c6;
+        .btn-azul, .btn-vermelho {
             color: #fff;
             border: none;
             border-radius: 16px;
             padding: 6px 18px;
             font-size: 15px;
             cursor: pointer;
-            margin-right: 4px;
             transition: background 0.2s;
-            box-shadow: 0 1px 4px rgba(33,150,243,0.10);
+        }
+        .btn-azul {
+            background: #5eb0c6;
+            margin-right: 4px;
         }
         .btn-azul:hover {
             background: #3a8ca1;
         }
         .btn-vermelho {
             background: #e57373;
-            color: #fff;
-            border: none;
-            border-radius: 16px;
-            padding: 6px 18px;
-            font-size: 15px;
-            cursor: pointer;
-            transition: background 0.2s;
-            box-shadow: 0 1px 4px rgba(229,57,53,0.10);
         }
         .btn-vermelho:hover {
             background: #c62828;
@@ -98,25 +89,22 @@
             padding: 8px 28px;
             font-size: 17px;
             cursor: pointer;
-            margin-bottom: 8px;
-            margin-top: 8px;
-            transition: background 0.2s;
+            margin: 8px 0;
             display: inline-block;
-            box-shadow: 0 2px 8px rgba(67,160,71,0.10);
             font-weight: bold;
         }
         .btn-verde:hover {
             background: #2e7031;
         }
         .section-box {
-            background:rgb(124, 181, 238);
-            border-radius: 8px;
+            background: #f4f6f8;
+            border-radius: 12px;
             padding: 18px 24px;
             margin-bottom: 28px;
-            border: 1px solidrgb(194, 31, 31);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
         input[type="text"], textarea, select {
-            border: 1px solidrgb(122, 122, 122);
+            border: 1px solid #7a7a7a;
             border-radius: 16px;
             padding: 8px 12px;
             font-size: 15px;
@@ -127,11 +115,10 @@
         }
         label {
             font-weight: bold;
-            color:rgb(25, 30, 31);
+            color: #191e1f;
             margin-bottom: 4px;
             display: block;
         }
-
         .titulo-painel {
             font-size: 28px;
             font-weight: bold;
@@ -141,11 +128,11 @@
         }
         .sair-link {
             float: right;
-            color:rgb(255, 255, 255);
+            color: #fff;
             font-size: 18px;
             margin-top: 12px;
             border-radius: 20px;
-            padding: 8px 24px; 
+            padding: 8px 24px;
             cursor: pointer;
             background: rgb(52, 157, 180);
         }
@@ -153,12 +140,12 @@
             background: rgb(52, 157, 180);
             color: #fff;
             border-radius: 2px;
-            margin: 16px 24px px;
+            margin: 16px 24px;
             padding: 16px 0;
             text-align: center;
             font-size: 16px;
         }
-         .user-info {
+        .user-info {
             display: flex;
             align-items: center;
             color: #fff;
@@ -180,87 +167,15 @@
             padding: 40px 0 0 0;
             min-height: 80vh;
         }
-        .menu-icon span {
-            display: block;
-            width: 24px;
-            height: 4px;
-            background: #fff;
-            margin: 4px 0;
-            border-radius: 2px;
-        }
         .voltar-btn {
             background: rgb(52, 157, 180);
             color: #fff;
             border: none;
             border-radius: 20px;
             padding: 8px 24px;
-            margin: 40px 0 0 24px; 
+            margin: 40px 0 0 24px;
             cursor: pointer;
-        }
-        .aluno-card {
-            background: #fff;
-            border: 1px solidrgb(134, 28, 28);
-            border-radius: 8px;
-            padding: 16px 24px;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(52,157,180,0.08);
-        }
-        .aluno-nome {
-            font-size: 17px;
-            font-weight: 500;
-            color: #333;
-        }
-        .aluno-acoes a {
-            margin-left: 10px;
-            padding: 6px 16px;
-            border-radius: 16px;
             text-decoration: none;
-            color: #fff;
-            font-size: 15px;
-        }
-        .btn-aceitar {
-            background: #2196f3;
-        }
-          .btn-rejeitar {
- background: #e53935;
- float: right;
- color:rgb(255, 255, 255);
- font-size: 1.0625rem; /* 17px / 16px (default root font-size) */
-margin-top: 1.5rem; /* 24px / 16px */
- border-radius: 20px;
-  padding: 0.5rem 1.125rem; /* 8px / 16px and 18px / 16px */
- }
-        .branco {
-            color: #000;
-            font-size: 20px;
-            text-align: center;
-            margin-top: 20px;
-            background: #fff;
-            padding: 16px 24px;
-            border-radius: 8px;
-            border: 1px solid #d1d1d1;
-            display: block;
-            box-shadow: 0 2px 8px rgba(52,157,180,0.08);
-        }
-        @media (max-width: 900px) {
-            .painel-container {
-                padding: 12px 2vw;
-            }
-            .tabela-adm th, .tabela-adm td {
-                font-size: 13px;
-                padding: 7px 4px;
-            }
-        }
-        .section-box{
-            background: #f4f6f8;
-            border-radius: 12px;
-            padding: 18px 24px;
-            margin-bottom:28px;
-            border: none;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
     </style>
 </head>
@@ -271,7 +186,7 @@ margin-top: 1.5rem; /* 24px / 16px */
             <span></span>
             <span></span>
         </div>
-           <div class="user-info">
+        <div class="user-info">
             <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
@@ -279,61 +194,58 @@ margin-top: 1.5rem; /* 24px / 16px */
             {{ Usuario.Nome }}
         </div>
     </div>
-     <div class="welcome-box">
-        Bem Vindo ao Administrativo ao painel de contas
+
+    <div class="welcome-box">
+        Bem-vindo ao painel administrativo de contas
     </div>
+
     {% if messages %}
         <div class="messages">
             {% for message in messages %}
-                {% if message.tags == "success" %}
-                    <div style="color: green;">{{ message }}</div>
-                {% elif message.tags == "error" %}
-                    <div style="color: red;">{{ message }}</div>
-                {% else %}
-                    <div>{{ message }}</div>
-                {% endif %}
+                <div style="color: {% if message.tags == 'success' %}green{% elif message.tags == 'error' %}red{% else %}black{% endif %};">
+                    {{ message }}
+                </div>
             {% endfor %}
         </div>
     {% endif %}
-      
-<div class="main-content">
-    <a href="{% url 'criar_contas' %}" class="voltar-btn">Criar contas</a>
-    <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>
-    
-    <div class="alunos-container">
-        <table class="tabela-adm">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Tipo de conta</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for conta in contas %}
-                <tr>
-                    <td>
-                        <p class="curso-item">Nome usuário: {{ conta.Username }}</p>
-                    </td>
-                    <td>
-                        <p class="curso-item">Email: {{ conta.E_mail }}</p>
-                    </td>
-                    <td>
-                        <p class="curso-item">Tipo de conta: {{ conta.Tipos_conta }}</p>
-                    </td>
-                    <td>
-                        <form method="POST" action="{% url 'deletar_contas' conta.id %}" onsubmit="return confirm('Você tem certeza que deseja deletar essa conta? Esse processo não poderá ser revertido')">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-rejeitar">Deletar</button>
-                        </form>
-                        <a href="{% url 'editar_contas' conta.id %}" class="sair-link">Alterar</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+
+    <div class="main-content">
+        <a href="{% url 'criar_contas' %}" class="voltar-btn">Criar contas</a>
+        <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>
+
+        <div class="painel-container">
+            <h2 class="titulo-painel">Lista de Contas</h2>
+            <table class="tabela-adm">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Data de Criação</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for conta in contas %}
+                    <tr>
+                        <td>{{ conta.nome }}</td>
+                        <td>{{ conta.email }}</td>
+                        <td>{{ conta.data_criacao|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            <form action="{% url 'excluir_conta' conta.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button class="btn-vermelho" onclick="return confirm('Tem certeza que deseja excluir esta conta?');">Excluir</button>
+                            </form>
+                            <a href="{% url 'editar_conta' conta.id %}" class="btn-azul">Editar</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">Nenhuma conta cadastrada.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 </body>
 </html>
