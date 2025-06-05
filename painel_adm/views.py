@@ -619,13 +619,13 @@ class RodarWpp(View):
         # Example values (in a real app, get these from request.GET or request.POST)
         contact = ["81 8980-8485","88 99822-4668"]
         message = "Deu certo!"
-        new_contact_name="Luis"
-        new_contact="81 9605-3660"
 
         send_whatsapp_messages(
             contacts=contact,
             message=message,
-            new_contact=new_contact,
-            new_contact_name=new_contact_name
         )
+        for i in contact:
+            aluno=get_object_or_404(Inscricao,Telefone=i)
+            aluno.em_entrevista="Sim"
+
         return JsonResponse({"status": "Messages sent successfully!"})
