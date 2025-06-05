@@ -27,13 +27,6 @@ def send_whatsapp_messages(contacts, message, new_contact=None, new_contact_name
         print("Please scan the QR code (30 seconds)...")
         time.sleep(30)  # Wait for user to scan QR
 
-        # Register new contact if needed
-        if new_contact:
-            if new_contact not in contacts:
-                success = register_contact(driver, wait, new_contact, new_contact_name)
-                if success:
-                    contacts.append(new_contact)
-
         # Send messages
         for contact in contacts:
             send_message(driver, wait, contact, message)
@@ -42,13 +35,6 @@ def send_whatsapp_messages(contacts, message, new_contact=None, new_contact_name
         print(f"Unexpected error: {e}")
     finally:
         driver.quit()
-
-
-def register_contact(driver, wait, phone, name):
-    """Optional: Register a new contact. Currently a placeholder."""
-    print(f"Registering new contact (not implemented): {name} - {phone}")
-    # Placeholder for contact registration functionality
-    return True
 
 
 def send_message(driver, wait, contact, message, max_retries=3):

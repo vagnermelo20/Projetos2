@@ -328,7 +328,7 @@ class VisualizarAlunos(View):
         context = {
             'alunos': alunos,
             'aluno_lote':query_lotes,
-            'query_entrevista':query_entrevista,
+            'aluno_entrevista':query_entrevista,
         }
         return render(request,'painel_adm/visualizar_alunos_processo.html',context)
     
@@ -618,18 +618,18 @@ class AdicionarLote(View):
 
 
 class RodarWpp(View):
-    def get(self,request,curso):
+    def post(self,request,curso):
         contacts=[]
         # Example values (in a real app, get these from request.GET or request.POST)
         aceitos_em_lote=Inscricao.objects.filter(nome_curso=curso, aceito_em_lote="Sim")
         for alunos in aceitos_em_lote:
             contacts.append(alunos.Telefone)
-        message = "Deu certo!"
+        message = request.POST.get('menssagem')
 
-        # send_whatsapp_messages(
-        #     contacts=contacts,
-        #     message=message,
-        # )
+        send_whatsapp_messages(
+            contacts=contacts,
+            message=message,
+        )
         for i in contacts:
             aluno=get_object_or_404(Inscricao,Telefone=i)
             aluno.em_entrevista="Sim"
