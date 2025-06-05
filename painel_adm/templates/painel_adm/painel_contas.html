@@ -183,9 +183,10 @@
             color: #fff;
             border: none;
             border-radius: 20px;
-            padding: 8px 24px;
-            margin: 40px 24px; 
+            padding: 8px 40px;
+            margin: 40px 2px 34px; 
             cursor: pointer;
+    
         }
         .aluno-card {
             background: #fff;
@@ -269,17 +270,9 @@
 <body>
     <div class="header">
         <div class="menu-icon">
-            <span></span>
-            <span></span>
-            <span></span>
+           
         </div>
-           <div class="user-info">
-            <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
-            </svg>
-            {{ Usuario.Nome }}
-        </div>
+        
     </div>
      <div class="welcome-box">
         Bem Vindo ao Administrativo ao painel de contas
@@ -299,8 +292,7 @@
     {% endif %}
       
 <div class="main-content">
-    <a href="{% url 'criar_contas' %}" class="voltar-btn">Criar contas</a>
-    <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>
+    
     
     <div class="alunos-container">
         <table class="tabela-adm">
@@ -335,6 +327,8 @@
                 {% endfor %}
             </tbody>
         </table>
+            <a href="{% url 'criar_contas' %}" class="voltar-btn">Criar contas</a>
+    <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>
     </div>
 </div>
 </body>
