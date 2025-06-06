@@ -62,7 +62,7 @@ Link dos testes 1: [Testes automatizados 1](https://youtu.be/yAUPjXO3BU8?si=9awq
 
 Link dos testes 2: [Testes automatizados 2](https://www.youtube.com/watch?v=BzUfP9sCBG4)
 
-Link do v[ideo do WhatsApp: [Link do Whatsapp](https://www.youtube.com/watch?v=yy3Pdj21dL0)
+Link do video do WhatsApp: [Link do Whatsapp](https://www.youtube.com/watch?v=yy3Pdj21dL0)
 
 Link do figma com os sketches: [Sketches](https://www.figma.com/design/2qqjd2by9hBYF834AlShsX/Projeto-2?node-id=0-1&p=f&t=qYLgLRKc5izgqwWv-0)
 
