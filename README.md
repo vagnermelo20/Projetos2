@@ -57,4 +57,34 @@ O professor tem duas funções principais: Visualizar os estudantes matriculados
 ## Screencasts
 
 Link do pipeline: [Pipeline](https://www.youtube.com/watch?v=-TLvipicGus)
+
 Link dos testes 1: [Testes automatizados 1](https://youtu.be/yAUPjXO3BU8?si=9awqctJGRTzTsYdG)
+
+Link dos testes 2: [Testes automatizados 2](https://www.youtube.com/watch?v=BzUfP9sCBG4)
+
+Link do figma com os sketches: [Sketches](https://www.figma.com/design/2qqjd2by9hBYF834AlShsX/Projeto-2?node-id=0-1&p=f&t=qYLgLRKc5izgqwWv-0)
+
+Link do figma com os sketches do SR1 atualizado: [Sketches atualizados](https://www.figma.com/design/2qqjd2by9hBYF834AlShsX/Projeto-2?node-id=0-1&p=f)
+
+Link do figma dos sketches de design: [Sketches design](https://www.figma.com/design/o8JoryGQCDg6FoO0Ke4bl5/Projetos-G7?node-id=0-1&p=f&t=mvgkboA6PgpvNL3l-0)
+
+Histórias prototipadas no SR2:
+
+
+1 - Como administrador da instituição, quero conseguir selecionar os estudantes que considero apto para participar do curso.
+
+2 - Como administrador da instituição, quero que, após a seleção dos candidatos aptos, seja enviada para eles uma mensagem no WhatsApp, feita por mim e enviada de forma automatizada, contendo informações para a realização da matrícula.
+
+3 - Como administrador da instituição, quero visualizar os estudantes matriculados no meu projeto e suas principais informações.
+
+4 - Como professor do curso, quero inserir os dados de frequência dos alunos nas aulas de uma matéria que leciono.
+
+5 - Como professor do curso, quero acessar uma aba que me permita realizar uma avaliação, baseada em métricas de engajamento, para que depois eu possa acompanhar, com dados, a evolução de cada um deles.
+
+6 - Como  professor do curso, quero visualizar o progresso de cada estudante de um curso, visualizando métricas de engajamento e presença de cada um, para que eu possa acompanhar, com dados, as suas evolução.
+
+7 - Como administrador da instituição quero gerar contas para outros administradores ou professores, para que todos os envolvidos com a administração e educação da instituição tenham acesso às suas ferramentas.
+
+8 - Como administrador da instituição quero visualizar, editar ou deletar contas para outros administradores ou professores, para que as contas reflitam fielmente os envolvidos com a administração e educação da instituição.
+
+
