@@ -378,7 +378,11 @@ class EditarContas(View):
 class DeletarContas(View):
     def post(self,request,conta_id):
         conta_deletar=get_object_or_404(Usuario,id=conta_id)
-        conta_deletar.delete()
+        if conta_deletar.E_mail == 'admin@gmail.com':
+
+            messages.error(request, 'Não é permitido deletar a conta do email admin@gmail.com')
+        else:
+            conta_deletar.delete()
         return redirect('painel_contas')
 
 class InicioProfessor(View):
