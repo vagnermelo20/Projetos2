@@ -179,13 +179,18 @@
             border-radius: 2px;
         }
         .voltar-btn {
-            background: rgb(52, 157, 180);
-            color: #fff;
-            border: none;
+            background: #fff;
+            color: #286978;
+            border: 2px solid #286978;
             border-radius: 20px;
-            padding: 8px 40px;
-            margin: 40px 2px 34px; 
-            cursor: pointer;
+            padding: 12px 38px;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin: 32px 0 24px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            transition: background 0.2s, color 0.2s, border 0.2s;
     
         }
         .aluno-card {
@@ -293,7 +298,8 @@
       
 <div class="main-content">
     
-    
+      <a href="{% url 'criar_contas' %}" class="voltar-btn">Criar contas</a>
+    <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>
     <div class="alunos-container">
         <table class="tabela-adm">
             <thead>
@@ -327,9 +333,7 @@
                 {% endfor %}
             </tbody>
         </table>
-            <a href="{% url 'criar_contas' %}" class="voltar-btn">Criar contas</a>
-    <a href="{% url 'inicio_painel' %}" class="voltar-btn">Voltar</a>
-    </div>
+          
 </div>
 </body>
 </html>
