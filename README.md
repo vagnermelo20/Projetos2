@@ -70,7 +70,7 @@ Link do figma com os sketches do SR1 atualizado: [Sketches atualizados](https://
 
 Link do figma dos sketches de design: [Sketches design](https://www.figma.com/design/o8JoryGQCDg6FoO0Ke4bl5/Projetos-G7?node-id=0-1&p=f&t=mvgkboA6PgpvNL3l-0)
 
-Histórias prototipadas no SR2:
+## Histórias prototipadas no SR2:
 
 
 1 - Como administrador da instituição, quero conseguir selecionar os estudantes que considero apto para participar do curso.
