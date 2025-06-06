@@ -342,6 +342,9 @@ class PainelContas(View):
 class EditarContas(View): 
     def get(self, request, conta_id):
         conta_edit = get_object_or_404(Usuario, id=conta_id)
+        if conta_edit.E_mail == 'admin@gmail.com':
+            messages.error(request, 'Não é permitido editar a conta do administrador admin@gmail.com.')
+            return redirect('painel_contas')
         contexto = {'conta': conta_edit, 'senha_visivel': '',}
         return render(request, 'painel_adm/editar_contas.html', contexto)
 
