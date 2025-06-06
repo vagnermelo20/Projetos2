@@ -2,13 +2,32 @@ from django.contrib.auth.models import User
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 import time
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from home.models import Usuario
 from django.contrib.auth.hashers import make_password
-
+import os
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 class Test1_Criar_Curso(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        options = Options()
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+        cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
+
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -19,11 +38,6 @@ class Test1_Criar_Curso(LiveServerTestCase):
             Tipos_conta='Admin'
         )
 
-        self.driver = webdriver.Chrome()
-
-
-    def tearDown(self):
-        self.driver.quit()
 
     def test1_Criar_curso(self):
         driver = self.driver  # ✅ Aqui está o que você queria
@@ -94,6 +108,22 @@ class Test1_Criar_Curso(LiveServerTestCase):
 
 
 class Test2_Gerenciar_Curso(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        options = Options()
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+        cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
+
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -104,11 +134,6 @@ class Test2_Gerenciar_Curso(LiveServerTestCase):
             Tipos_conta='Admin'
         )
 
-        self.driver = webdriver.Chrome()
-
-
-    def tearDown(self):
-        self.driver.quit()
 
     def test2_Gerenciar_curso(self):
         driver = self.driver
@@ -222,6 +247,22 @@ class Test2_Gerenciar_Curso(LiveServerTestCase):
 
 
 class Test3_Criar_Processo_Seletivo(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        options = Options()
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+        cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
+
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -232,11 +273,6 @@ class Test3_Criar_Processo_Seletivo(LiveServerTestCase):
             Tipos_conta='Admin'
         )
 
-        self.driver = webdriver.Chrome()
-
-
-    def tearDown(self):
-        self.driver.quit()
 
     def test3_Criar_Processo_Seletivo(self):
         driver = self.driver
@@ -347,6 +383,22 @@ class Test3_Criar_Processo_Seletivo(LiveServerTestCase):
 
 
 class Test4_Gerenciar_Processo_Seletivo(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        options = Options()
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+        cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
+
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -357,11 +409,7 @@ class Test4_Gerenciar_Processo_Seletivo(LiveServerTestCase):
             Tipos_conta='Admin'
         )
 
-        self.driver = webdriver.Chrome()
 
-
-    def tearDown(self):
-        self.driver.quit()
 
     def test4_Gerenciar_Processo_Seletivo(self):
         driver = self.driver
@@ -525,6 +573,22 @@ class Test4_Gerenciar_Processo_Seletivo(LiveServerTestCase):
 
 
 class Test5_Criar_Contas(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        options = Options()
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+        cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
+
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -535,11 +599,6 @@ class Test5_Criar_Contas(LiveServerTestCase):
             Tipos_conta='Admin'
         )
 
-        self.driver = webdriver.Chrome()
-
-
-    def tearDown(self):
-        self.driver.quit()
 
     def test5_Criar_Conta(self):
         driver = self.driver
@@ -653,6 +712,22 @@ class Test5_Criar_Contas(LiveServerTestCase):
 
 
 class Test6_Gerenciar_Contas(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        options = Options()
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+        cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
+
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -663,11 +738,6 @@ class Test6_Gerenciar_Contas(LiveServerTestCase):
             Tipos_conta='Admin'
         )
 
-        self.driver = webdriver.Chrome()
-
-
-    def tearDown(self):
-        self.driver.quit()
 
     def test6_Gerenciar_Conta(self):
         driver = self.driver
@@ -763,6 +833,22 @@ class Test6_Gerenciar_Contas(LiveServerTestCase):
 
 
 class Test7_Entrar_Processo_Seletivo(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        options = Options()
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+        cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
+
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -773,11 +859,6 @@ class Test7_Entrar_Processo_Seletivo(LiveServerTestCase):
             Tipos_conta='Admin'
         )
 
-        self.driver = webdriver.Chrome()
-
-
-    def tearDown(self):
-        self.driver.quit()
 
     def test7_Entrar_Processo_Seletivo(self):
         driver = self.driver
@@ -947,6 +1028,22 @@ class Test7_Entrar_Processo_Seletivo(LiveServerTestCase):
 
 
 class Test8_dar_notas_alunos_Professor(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        options = Options()
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+        cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
+
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -957,11 +1054,7 @@ class Test8_dar_notas_alunos_Professor(LiveServerTestCase):
             Tipos_conta='Admin'
         )
 
-        self.driver = webdriver.Chrome()
 
-
-    def tearDown(self):
-        self.driver.quit()
 
     def test8_dar_notas_alunos_Professor(self):
         driver = self.driver
@@ -1124,6 +1217,21 @@ class Test8_dar_notas_alunos_Professor(LiveServerTestCase):
 
 
 class Test9_dar_avaliacao_Professor(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        options = Options()
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+        cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -1133,12 +1241,6 @@ class Test9_dar_avaliacao_Professor(LiveServerTestCase):
             Senha='123',  # ou só: 'minhasenha123' e deixar o save() cuidar
             Tipos_conta='Admin'
         )
-
-        self.driver = webdriver.Chrome()
-
-
-    def tearDown(self):
-        self.driver.quit()
 
     def test9_dar_avaliacao_alunos_Professor(self):
         driver = self.driver
@@ -1307,6 +1409,21 @@ class Test9_dar_avaliacao_Professor(LiveServerTestCase):
 
 
 class Test10_visualizar_aluno(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        options = Options()
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+        cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
 
     def setUp(self):
         # Cria um usuário no seu modelo customizado
@@ -1316,12 +1433,6 @@ class Test10_visualizar_aluno(LiveServerTestCase):
             Senha='123',  # ou só: 'minhasenha123' e deixar o save() cuidar
             Tipos_conta='Admin'
         )
-
-        self.driver = webdriver.Chrome()
-
-
-    def tearDown(self):
-        self.driver.quit()
 
     def test10_visualizar_alunos(self):
         driver = self.driver
