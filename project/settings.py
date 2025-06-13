@@ -2,7 +2,6 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,9 +21,10 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL")
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Application definition
