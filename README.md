@@ -1,7 +1,7 @@
 # SR1 ARCUS
 Projeto da disciplina de projetos 2 2025.1 da CESAR School. O projeto se propõe a oferecer ao cliente uma plataforma de gestão social que tem como objetivo automatizar e tornar eficientes o ciclo de tarefas e/ou de processos de seu cliente . 
 
-Link do site: [Arcus](https://automathos-dehjaffebzancmb7.brazilsouth-01.azurewebsites.net/)
+Link do site: [Arcus](https://projetos2.onrender.com)
 
 Link do google drive: [Drive](https://drive.google.com/drive/folders/1UmkyzH6SN_DuHxJZpTyta93osI9lJc4U?usp=sharing)
 
