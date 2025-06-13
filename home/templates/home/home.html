@@ -59,7 +59,34 @@
             background: url('https://institutosolidare.org.br/wp-content/uploads/2023/03/Banner_desktop.webp') center center no-repeat;
             background-size: cover;
         }
+        
+        /* --- INÍCIO DO NOVO CSS PARA MENSAGENS --- */
+        .messages-container {
+            padding: 0 20px; /* Adiciona um espaço nas laterais */
+            width: 100%;
+            box-sizing: border-box;
+            /* Posiciona os alertas logo abaixo do header */
+            order: 1; /* Garante que venha depois do header se estiver usando flexbox no body */
+        }
 
+        .message {
+            padding: 15px;
+            margin: 15px auto; /* Centraliza a caixa de mensagem */
+            border-radius: 4px;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            max-width: 960px; /* Limita a largura em telas grandes */
+        }
+
+        .message.success {
+            background-color: #28a745; /* Verde para sucesso */
+        }
+
+        .message.error {
+            background-color: #dc3545; /* Vermelho para erro */
+        }
+        /* --- FIM DO NOVO CSS PARA MENSAGENS --- */
 
         /* Para Telas Médias (Tablets) - até 960px */
         @media (max-width: 960px) {
@@ -76,7 +103,6 @@
             }
 
             .banner {
-
                 flex-grow: 0;
                 height: 50vh; 
             }
@@ -112,22 +138,16 @@
         </nav>
     </div>
 
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <div class="banner">
     </div>
-
-    {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                {% if message.tags == "success" %}
-                    <div style="color: green;">{{ message }}</div>
-                {% elif message.tags == "error" %}
-                    <div style="color: red;">{{ message }}</div>
-                {% else %}
-                    <div>{{ message }}</div>
-                {% endif %}
-            {% endfor %}
-        </div>
-    {% endif %}
 
 </body>
 </html>
