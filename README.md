@@ -3,7 +3,7 @@ Projeto da disciplina de projetos 2 2025.1 da CESAR School. O projeto se propõe
 
 Link do site: [Arcus](https://projetos2.onrender.com)
 
-Demora de 30 segundos até um minuto para entrar no site pela primeira vez, porque o deploy está em uma plataforma gratuita e eles desativam as aplicações que passam 15 minutos sem ninguém mexer nelas. Depois de entrar pela primeira vez, ela funcionará normalmente
+Demora de 30 segundos até alguns minutos para entrar no site pela primeira vez, porque o deploy está em uma plataforma gratuita e eles desativam as aplicações que passam 15 minutos sem ninguém mexer nelas. Depois de entrar pela primeira vez, ela funcionará normalmente
 
 Utilizem o email "admin@gmail.com" e a senha "a"
 
